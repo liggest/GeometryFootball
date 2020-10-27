@@ -21,7 +21,7 @@ namespace BallScripts.GameLogics
         [Tooltip("开启后场景中的物体，载入时id会忽略默认值，从1自增")]
         public bool idSelfIncrease = false;
 
-        private void Start()
+        protected void Start()
         {
             if (idSelfIncrease)
             {

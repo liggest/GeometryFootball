@@ -24,7 +24,24 @@ namespace BallScripts.Clients
             using (Packet packet = new Packet((int)ClientPackets.SceneLoaded))
             {
                 packet.Write(sceneName);
+                packet.Write("DemoPlayer"); //这个回头要删掉
                 SendTCPData(packet);
+            }
+        }
+
+        public static void SendInput(List<InputHolder> buffer)
+        {
+            using (Packet packet = new Packet((int)ClientPackets.SendInput))
+            {
+                foreach (InputHolder holder in buffer)
+                {
+                    packet.Write((int)holder.key);
+                    if (holder.value != 0)
+                    {
+                        packet.Write(holder.value);
+                    }
+                }
+                SendUDPData(packet);
             }
         }
 

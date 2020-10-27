@@ -32,7 +32,10 @@ namespace BallScripts.Servers
                     GameLogics.GameManager.instance.BeginLoadScene("DemoStage",(string name)=> 
                     {
                         Debug.Log($"DemoStage加载完成！");
-                        ThreadManager.ExecuteOnMainThread(ServerLogic.InitDemo);
+                        ThreadManager.ExecuteOnMainThread(()=> {
+                            ServerLogic.AttachRigidbody(GameLogics.StageObjectCategory.Ball);
+                            ServerLogic.AttachRigidbody(GameLogics.StageObjectCategory.Player);
+                        });
                         ThreadManager.ExecuteOnMainThread(ServerLogic.AttachInfoSenders);
                     });
                     //暂且先载入DemoStage

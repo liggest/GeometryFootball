@@ -28,6 +28,11 @@ namespace BallScripts.Servers
 
         }
 
+        public static void SendInput(int clientID,Packet packet)
+        {
+            //
+        }
+
         /*
         public static void PlayerMovement(int clientID, Packet packet)
         {

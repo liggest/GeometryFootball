@@ -30,10 +30,23 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void AttachPlayerController()
+        {
+
+        }
+
+        public static void AttachRigidbody(StageObjectCategory category)
+        {
+            foreach (BaseStageObject obj in StageManager.instance.stageObjects[category].Values)
+            {
+                Rigidbody rig = obj.gameObject.AddComponent<Rigidbody>();
+                rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            }
+        }
+
         public static void InitDemo()
         {
-            Rigidbody rig = StageManager.instance.GetStageObject(StageObjectCategory.Ball, 1).gameObject.AddComponent<Rigidbody>();
-            rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            
         }
     }
 }

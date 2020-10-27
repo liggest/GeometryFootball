@@ -14,6 +14,7 @@ namespace BallScripts.Utils
         StageObjectPosition,
         StageObjectRotation,
         StageObjectRespawned,
+
         SpawnPlayer,
         PlayerPosition,
         PlayerRotation,
@@ -37,6 +38,8 @@ namespace BallScripts.Utils
     {
         WelcomeReceived = 1,
         SceneLoaded,
+        SendInput,
+
         PlayerMovement,
         PlayerShoot,
         PlayerUseItem
