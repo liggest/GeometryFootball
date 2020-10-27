@@ -36,7 +36,7 @@ namespace BallScripts.Clients
                 StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
                 int id= packet.ReadInt();
                 Vector3 position = packet.ReadVector3();
-                StageManager.instance.GetStageObject(category, id).SetPosition(position);
+                StageManager.instance.GetStageObject(category, id)?.SetPosition(position);
             }
         }
 
@@ -47,8 +47,16 @@ namespace BallScripts.Clients
                 StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
                 int id = packet.ReadInt();
                 Quaternion rotation = packet.ReadQuaternion();
-                StageManager.instance.GetStageObject(category, id).SetRotation(rotation);
+                StageManager.instance.GetStageObject(category, id)?.SetRotation(rotation);
             }
+        }
+
+        public static void PlayerSpawned(Packet packet)
+        {
+            Debug.Log("收了");
+            int id = packet.ReadInt();
+            string prefabName = packet.ReadString();
+            ClientLogic.InitPlayer(id, prefabName);
         }
 
         /*

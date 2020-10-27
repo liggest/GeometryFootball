@@ -58,6 +58,16 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void PlayerSpawned(int clientID, string prefabName)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.PlayerSpawned))
+            {
+                packet.Write(clientID);
+                packet.Write(prefabName);
+                SendTCPDataToAll(packet);
+            }
+        }
+
         /*
         public static void SpawnPlayer(int clientID, Player player)
         {

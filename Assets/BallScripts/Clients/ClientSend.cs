@@ -29,14 +29,14 @@ namespace BallScripts.Clients
             }
         }
 
-        public static void SendInput(List<InputHolder> buffer)
+        public static void InputPacket(List<InputHolder> buffer)
         {
-            using (Packet packet = new Packet((int)ClientPackets.SendInput))
+            using (Packet packet = new Packet((int)ClientPackets.InputPacket))
             {
                 foreach (InputHolder holder in buffer)
                 {
                     packet.Write((int)holder.key);
-                    if (holder.value != 0)
+                    if (holder.key != InputType.barRotate && holder.key != InputType.ultimate)
                     {
                         packet.Write(holder.value);
                     }

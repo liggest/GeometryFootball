@@ -9,6 +9,12 @@ namespace BallScripts.GameLogics
 {
     public class GameManager : Singleton<GameManager>
     {
+        private void Start()
+        {
+            ResourcesManager.LoadPlayers();
+            ResourcesManager.LoadBalls();
+        }
+
         public string CurrentStageName { get => SceneManager.GetActiveScene().name; }
 
         public void BeginLoadScene(string sceneName, Action<string> SceneLoadedAction = null)
@@ -25,7 +31,7 @@ namespace BallScripts.GameLogics
                 yield return new WaitForEndOfFrame();
             }
             SceneLoadedAction?.Invoke(sceneName);
-            Debug.Log("加载完了");
+            Debug.Log($"{sceneName}加载完了");
         }
 
         public void BeServer(int port)

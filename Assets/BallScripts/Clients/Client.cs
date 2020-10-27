@@ -149,9 +149,9 @@ namespace BallScripts.Clients {
             private void ConnectCallback(IAsyncResult result)
             {
                 Debug.Log("结束握手");
-
+                
                 socket.EndConnect(result);
-                Debug.Log("结束握手!!!");
+                //Debug.Log("结束握手!!!");
                 instance.isConnecting = false;
                 if (!socket.Connected)
                 {

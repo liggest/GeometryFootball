@@ -25,6 +25,7 @@ namespace BallScripts.GameLogics
         private void Start()
         {
             InitUI();
+            GameManager.instance.ToString();
         }
 
         public void InitUI()

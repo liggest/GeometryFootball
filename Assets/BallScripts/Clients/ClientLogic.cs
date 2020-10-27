@@ -18,6 +18,18 @@ namespace BallScripts.Clients {
             });
         }
 
+        public static void InitPlayer(int clientID, string prefabName)
+        {
+            PlayerBuilder pb = new PlayerBuilder();
+            Player pl = pb.Build(prefabName, BuildType.Client);
+            pl.Init(StageObjectCategory.Player, clientID);
+            if (clientID == Client.instance.myID)
+            {
+                pl.gameObject.AddComponent<InputSender>();
+            }
+            Debug.Log($"客户端{clientID} 初始化Player - {prefabName}");
+        }
+
     }
 
 }

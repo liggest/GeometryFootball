@@ -38,7 +38,11 @@ namespace BallScripts.GameLogics {
 
         public BaseStageObject GetStageObject(StageObjectCategory category, int id)
         {
-            return stageObjects[category][id];
+            if(stageObjects[category].TryGetValue(id,out BaseStageObject obj))
+            {
+                return obj;
+            }
+            return null;
         }
 
         public int GetMaxID(StageObjectCategory category)

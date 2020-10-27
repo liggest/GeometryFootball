@@ -15,7 +15,7 @@ namespace BallScripts.Servers
             Object.DontDestroyOnLoad(infoBufferObject);
         }
 
-        public static void AttachInfoSenders()
+        public static void AttachInfoSendersToAll()
         {
             foreach(StageObjectCategory category in StageManager.instance.stageObjects.Keys)
             {
@@ -30,12 +30,15 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void AttachPlayerController()
+        public static void InitClientPlayer(int clientID,string prefabName)
         {
-
+            PlayerBuilder pb = new PlayerBuilder();
+            Player pl = pb.Build(prefabName, BuildType.Server);
+            pl.Init(StageObjectCategory.Player, clientID);
+            Debug.Log("服务端初始化Player");
         }
 
-        public static void AttachRigidbody(StageObjectCategory category)
+        public static void AttachRigidbodyToAll(StageObjectCategory category)
         {
             foreach (BaseStageObject obj in StageManager.instance.stageObjects[category].Values)
             {

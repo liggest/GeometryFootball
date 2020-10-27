@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using BallScripts.Utils;
+using BallScripts.Clients;
 
 namespace BallScripts.Servers
 {
@@ -24,13 +25,25 @@ namespace BallScripts.Servers
         public static void SceneLoaded(int clientID, Packet packet)
         {
             string sceneName = packet.ReadString();
+            string prefabName = packet.ReadString(); //到时候删
             Debug.Log($"客户端{clientID}加载好了场地{sceneName}");
 
+            ServerLogic.InitClientPlayer(clientID, prefabName);
+            ServerSend.PlayerSpawned(clientID, prefabName);
         }
 
-        public static void SendInput(int clientID,Packet packet)
+        public static void InputPacket(int clientID,Packet packet)
         {
-            //
+            while (packet.UnreadLength() > 0)
+            {
+                InputType key = (InputType)packet.ReadInt();
+                float value = 0;
+                if (key != InputType.barRotate && key != InputType.ultimate)
+                {
+                    value = packet.ReadFloat();
+                }
+                PlayerController.SetClientBuffer(clientID, key, value);
+            }
         }
 
         /*

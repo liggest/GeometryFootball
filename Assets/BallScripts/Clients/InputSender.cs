@@ -22,19 +22,24 @@ namespace BallScripts.Clients
 
     public class InputSender : Singleton<InputSender>
     {
+        float lastMoveValue = 0;
+        float lastRotateValue = 0;
+
         List<InputHolder> inputBuffer = new List<InputHolder>();
         private void FixedUpdate()
         {
             inputBuffer.Clear();
             float moveValue = Input.GetAxis("Vertical");
-            if (moveValue != 0)
+            if (moveValue != lastMoveValue)
             {
                 inputBuffer.Add(new InputHolder { key = InputType.move, value = moveValue });
+                lastMoveValue = moveValue;
             }
             float rotateValue = Input.GetAxis("Horizontal");
-            if (rotateValue != 0)
+            if (rotateValue != lastRotateValue)
             {
                 inputBuffer.Add(new InputHolder { key = InputType.rotate, value = rotateValue });
+                lastRotateValue = rotateValue;
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
@@ -54,7 +59,7 @@ namespace BallScripts.Clients
             }
             if (inputBuffer.Count > 0)
             {
-
+                ClientSend.InputPacket(inputBuffer);
             }
         }
     }

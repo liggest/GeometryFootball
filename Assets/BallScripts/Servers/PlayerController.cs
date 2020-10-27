@@ -15,7 +15,7 @@ namespace BallScripts.Servers
         Rigidbody rd;
         Type iptType = typeof(InputType);
 
-        public float force = 50f;
+        public float force = 250f;
         float maxSpeed = 12f;
         public float rotateSpeed = 160;
 
@@ -25,7 +25,10 @@ namespace BallScripts.Servers
             player.controler = this;
             rd = GetComponent<Rigidbody>();
 
-            RefreshBuffer();
+            foreach (InputType key in Enum.GetValues(iptType))
+            {
+                buffer[key] = 0;
+            }
         }
 
         public void SetBuffer(InputType key,float value)
@@ -35,10 +38,8 @@ namespace BallScripts.Servers
 
         public void RefreshBuffer()
         {
-            foreach (InputType key in Enum.GetValues(iptType))
-            {
-                buffer[key] = 0;
-            }
+            buffer[InputType.barRotate] = 0;
+            buffer[InputType.ultimate] = 0;
         }
 
         private void FixedUpdate()
@@ -54,7 +55,21 @@ namespace BallScripts.Servers
 
             transform.Rotate(0, h * rotateSpeed * Time.deltaTime, 0, Space.Self);
 
-            RefreshBuffer();
+            buffer[InputType.barRotate] = 0;
+            buffer[InputType.ultimate] = 0;
+        }
+
+        static int lastID = -1;
+        static Player lastPlayer;
+
+        public static void SetClientBuffer(int clientID, InputType key, float value)
+        {
+            if (clientID != lastID)
+            {
+                lastID = clientID;
+                lastPlayer = StageManager.instance.GetStageObject(StageObjectCategory.Player, clientID) as Player;
+            }
+            lastPlayer.controler.SetBuffer(key, value);
         }
 
 
