@@ -24,6 +24,8 @@ namespace BallScripts.Servers
         private static TcpListener tcpListener;
         private static UdpClient udpListener;
 
+        public static ServerState state = ServerState.Offline;
+
         public static void Start(int maxplayers, int port)
         {
             MaxPlayers = maxplayers;
@@ -39,6 +41,8 @@ namespace BallScripts.Servers
             udpListener = new UdpClient(Port);
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
+            state = ServerState.Started;
+            ThreadManager.ExecuteOnMainThread(() => Actions.ServerStartedAction?.Invoke());
             Debug.Log($"服务端在{Port}上开始运行~");
 
         }
@@ -172,13 +176,21 @@ namespace BallScripts.Servers
             tcpListener.Stop();
             udpListener.Close();
             udpListener = null;
+            state = ServerState.Offline;
         }
 
         public static void UpdatePlayerCount(int value)
         {
             PlayerCount += value;
-            Actions.PlayerCountUpatedAction?.Invoke();
+            ThreadManager.ExecuteOnMainThread(() => Actions.PlayerCountUpatedAction?.Invoke(value));
         }
+    }
+
+    public enum ServerState
+    {
+        Offline,
+        Started,
+        InStage
     }
 
 }

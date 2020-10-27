@@ -18,6 +18,16 @@ namespace BallScripts.Clients
                 SendTCPData(packet);
             }
         }
+
+        public static void SceneLoaded(string sceneName)
+        {
+            using (Packet packet = new Packet((int)ClientPackets.SceneLoaded))
+            {
+                packet.Write(sceneName);
+                SendTCPData(packet);
+            }
+        }
+
         /*
         public static void PlayerMovement(bool[] inputs)
         {

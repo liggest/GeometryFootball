@@ -21,6 +21,13 @@ namespace BallScripts.Servers
             //Server.clients[clientID].SendIntoGame(username);
         }
 
+        public static void SceneLoaded(int clientID, Packet packet)
+        {
+            string sceneName = packet.ReadString();
+            Debug.Log($"客户端{clientID}加载好了场地{sceneName}");
+
+        }
+
         /*
         public static void PlayerMovement(int clientID, Packet packet)
         {

@@ -8,8 +8,6 @@ namespace BallScripts.GameLogics
 {
     public class UIManager : Singleton<UIManager>
     {
-        //public static UIManager instance;
-
         public GameObject serverClient;
         public GameObject clientMenu;
         public GameObject serverMenu;
@@ -23,21 +21,6 @@ namespace BallScripts.GameLogics
 
         public Text ipPortInfo;
         public Text clientCount;
-
-        /*
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else if (instance != this)
-            {
-                Debug.Log("单例已经存在，当前对象会被销毁");
-                Destroy(this);
-            }
-        }
-        */
 
         private void Start()
         {
@@ -77,7 +60,7 @@ namespace BallScripts.GameLogics
                 serverMenu.SetActive(false);
                 serverPortField.interactable = false;
                 Servers.Actions.PlayerCountUpatedAction += SetClientCount;
-                Servers.NetworkManager.instance.StartServer(port);
+                GameManager.instance.BeServer(port);
                 ipPortInfo.text = $"{IPAddress.Any}:{port}";
                 serverInfo.SetActive(true);
             }
@@ -91,6 +74,7 @@ namespace BallScripts.GameLogics
         {
             string ip = "127.0.0.1";
             int port = 6960;
+            string name = "Anonymous";
             if (clientPortField.text != "" && !IsIntBetween(clientPortField.text, 0, 65535, out port))
             {
                 Debug.Log("端口好像不太对，请填入0-65535的整数");
@@ -105,19 +89,16 @@ namespace BallScripts.GameLogics
                 Debug.Log("IP格式好像不太对，请检查");
                 return;
             }
-
+            if (usernameField.text != "")
+            {
+                name = usernameField.text;
+            }
             clientMenu.SetActive(false);
             clientPortField.interactable = false;
             ipField.interactable = false;
             usernameField.interactable = false;
-            Clients.Client.instance.ip = ip;
-            Clients.Client.instance.port = port;
-            if(usernameField.text != "")
-            {
-                Clients.Client.instance.myName = usernameField.text;
-            }
+            GameManager.instance.BeClient(ip, port, name);
             Clients.Actions.DisconnectedAction += OnClientDisconnect;
-            Clients.Client.instance.ConnectToServer();
         }
 
         public void OnClientDisconnect()
@@ -126,6 +107,7 @@ namespace BallScripts.GameLogics
             clientPortField.interactable = true;
             ipField.interactable = true;
             usernameField.interactable = true;
+            Clients.Actions.DisconnectedAction -= OnClientDisconnect;
         }
 
         /*
@@ -137,10 +119,9 @@ namespace BallScripts.GameLogics
         }
         */
 
-        public void SetClientCount()
+        public void SetClientCount(int value)
         {
             clientCount.text = $"{Servers.Server.PlayerCount}/{Servers.Server.MaxPlayers}";
-            Debug.Log("执行了！");
         }
 
         public static bool IsIntBetween(string text,int min,int max,out int value)

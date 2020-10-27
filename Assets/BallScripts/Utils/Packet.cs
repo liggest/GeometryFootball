@@ -9,6 +9,11 @@ namespace BallScripts.Utils
     public enum ServerPackets
     {
         Welcome = 1,
+        SceneLoadingStarted,
+        StageObjectSpawned,
+        StageObjectPosition,
+        StageObjectRotation,
+        StageObjectRespawned,
         SpawnPlayer,
         PlayerPosition,
         PlayerRotation,
@@ -31,6 +36,7 @@ namespace BallScripts.Utils
     public enum ClientPackets
     {
         WelcomeReceived = 1,
+        SceneLoaded,
         PlayerMovement,
         PlayerShoot,
         PlayerUseItem

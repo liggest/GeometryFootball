@@ -5,26 +5,11 @@ namespace BallScripts.Servers
 {
     public class NetworkManager : Singleton<NetworkManager>
     {
-        //public static NetworkManager instance;
 
         //public GameObject playerPrefab;
         //public GameObject projectilePrefab;
         //public GameObject enemyPrefab;
 
-        /*
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else if (instance != this)
-            {
-                Debug.Log("单例已经存在，当前对象会被销毁");
-                Destroy(this);
-            }
-        }
-        */
 
         private void Start()
         {
@@ -32,18 +17,42 @@ namespace BallScripts.Servers
             QualitySettings.vSyncCount = 0; //关掉vSync
             Application.targetFrameRate = 60;
             //因为服务端没有图形界面，能够运行的很快，不加限制的话一秒能跑很多帧，造成较高CPU占用
-
         }
 
         public void StartServer(int port = 6960)
         {
             Server.Start(50, port);
+
+            //下面是临时处理措施
+            void LoadDemo(int cid)
+            {
+                if (Server.state == ServerState.Started && Server.PlayerCount == 1 && cid > 0) 
+                {
+                    Debug.Log($"服务端尝试加载DemoStage...");
+                    GameLogics.GameManager.instance.BeginLoadScene("DemoStage",(string name)=> 
+                    {
+                        Debug.Log($"DemoStage加载完成！");
+                        ThreadManager.ExecuteOnMainThread(ServerLogic.InitDemo);
+                        ThreadManager.ExecuteOnMainThread(ServerLogic.AttachInfoSenders);
+                    });
+                    //暂且先载入DemoStage
+                    Server.state = ServerState.InStage;
+                    //Actions.ClientTCPConnectedAction -= LoadDemo;
+                }
+            }
+
+            Actions.ClientTCPConnectedAction += LoadDemo;
+            Actions.ClientUDPConnectedAction += (int cid) =>
+            {
+                ServerSend.SceneLoadingStarted(cid, "DemoStage");
+            };
         }
 
         private void OnApplicationQuit()
         {
             Server.Stop();
         }
+
 
         /*
         public Player InstantiatePlayer()

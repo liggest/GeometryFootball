@@ -12,6 +12,10 @@ namespace BallScripts.Utils {
         private static object m_Lock = new object();
         private static T m_Instance;
 
+        /// <summary>
+        /// 手动创建实例。最好不要用这个方法，直接.instance。
+        /// </summary>
+        /// <param name="noDestroyOnLoad">单例是否不因转换场景而摧毁</param>
         public static void InitInstance(bool noDestroyOnLoad = true)
         {
             if (m_Instance == null)

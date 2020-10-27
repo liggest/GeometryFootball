@@ -19,6 +19,45 @@ namespace BallScripts.Servers
                 SendTCPData(clientID, packet);
             }
         }
+
+        public static void SceneLoadingStarted(int clientID,string sceneName)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.SceneLoadingStarted))
+            {
+                packet.Write(sceneName);
+
+                SendTCPData(clientID, packet);
+            }
+        }
+
+        public static void StageObjectPosition(List<Vector3Holder> posList)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectPosition))
+            {
+                foreach (Vector3Holder holder in posList)
+                {
+                    packet.Write((int)holder.category);
+                    packet.Write(holder.id);
+                    packet.Write(holder.vect);
+                }
+                SendUDPDataToAll(packet);
+            }
+        }
+
+        public static void StageObjectRotation(List<QuaternionHolder> rotList)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectRotation))
+            {
+                foreach (QuaternionHolder holder in rotList)
+                {
+                    packet.Write((int)holder.category);
+                    packet.Write(holder.id);
+                    packet.Write(holder.quat);
+                }
+                SendUDPDataToAll(packet);
+            }
+        }
+
         /*
         public static void SpawnPlayer(int clientID, Player player)
         {

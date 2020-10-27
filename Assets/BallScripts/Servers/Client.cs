@@ -52,10 +52,8 @@ namespace BallScripts.Servers
                 stream.BeginRead(receiveBuffer, 0, BufferSize, ReceiveCallback, null);
 
                 ServerSend.Welcome(id, "来自服务器的欢迎~");
-
                 Server.UpdatePlayerCount(1);
-
-                Actions.ClientTCPConnectedAction?.Invoke(id);
+                ThreadManager.ExecuteOnMainThread(() => Actions.ClientTCPConnectedAction?.Invoke(id));
             }
 
             private void ReceiveCallback(IAsyncResult result)
@@ -169,7 +167,7 @@ namespace BallScripts.Servers
             {
                 endPoint = _endPoint;
                 //ServerSend.UDPTest(id);
-                Actions.ClientUDPConnectedAction?.Invoke(id);
+                ThreadManager.ExecuteOnMainThread(() => Actions.ClientUDPConnectedAction?.Invoke(id));
             }
 
             public void SendData(Packet packet)
@@ -247,7 +245,7 @@ namespace BallScripts.Servers
             udp.Disconnect();
             Server.UpdatePlayerCount(-1);
 
-            Actions.ClientDisconnectedAction?.Invoke(id);
+            ThreadManager.ExecuteOnMainThread(() => Actions.ClientDisconnectedAction?.Invoke(id));
 
             ServerSend.PlayerDisconnected(id);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using BallScripts.Utils;
+using BallScripts.GameLogics;
 
 namespace BallScripts.Clients
 {
@@ -20,6 +21,36 @@ namespace BallScripts.Clients
 
             Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
         }
+
+        public static void SceneLoadingStarted(Packet packet)
+        {
+            string sceneName = packet.ReadString();
+
+            ClientLogic.BeginSceneLoading(sceneName);
+        }
+
+        public static void StageObjectPosition(Packet packet)
+        {
+            while (packet.UnreadLength() >= 4)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id= packet.ReadInt();
+                Vector3 position = packet.ReadVector3();
+                StageManager.instance.GetStageObject(category, id).SetPosition(position);
+            }
+        }
+
+        public static void StageObjectRotation(Packet packet)
+        {
+            while (packet.UnreadLength() >= 4)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id = packet.ReadInt();
+                Quaternion rotation = packet.ReadQuaternion();
+                StageManager.instance.GetStageObject(category, id).SetRotation(rotation);
+            }
+        }
+
         /*
         public static void SpawnPlayer(Packet packet)
         {
