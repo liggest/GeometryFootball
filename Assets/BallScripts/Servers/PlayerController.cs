@@ -2,9 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BallScripts.Clients;
 using BallScripts.GameLogics;
-using BallScripts.Utils;
 
 namespace BallScripts.Servers
 {
@@ -22,7 +20,7 @@ namespace BallScripts.Servers
         private void Start()
         {
             player = GetComponent<Player>();
-            player.controler = this;
+            player.controller = this;
             rd = GetComponent<Rigidbody>();
 
             foreach (InputType key in Enum.GetValues(iptType))
@@ -55,8 +53,7 @@ namespace BallScripts.Servers
 
             transform.Rotate(0, h * rotateSpeed * Time.deltaTime, 0, Space.Self);
 
-            buffer[InputType.barRotate] = 0;
-            buffer[InputType.ultimate] = 0;
+            RefreshBuffer();
         }
 
         static int lastID = -1;
@@ -69,7 +66,7 @@ namespace BallScripts.Servers
                 lastID = clientID;
                 lastPlayer = StageManager.instance.GetStageObject(StageObjectCategory.Player, clientID) as Player;
             }
-            lastPlayer.controler.SetBuffer(key, value);
+            lastPlayer.controller.SetBuffer(key, value);
         }
 
 

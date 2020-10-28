@@ -15,17 +15,24 @@ namespace BallScripts.GameLogics
         public abstract T BuildInClient(T obj);
         public abstract T BuildInServer(T obj);
 
+        public Func<T, T> ExtraProcess;
         public T Build(string prefabName,BuildType type = BuildType.Client)
         {
             T obj = BuildObject(prefabName);
+            T result;
             if (type == BuildType.Server)
             {
-                return BuildInServer(obj);
+                result = BuildInServer(obj);
             }
             else
             {
-                return BuildInClient(obj);
+                result = BuildInClient(obj);
             }
+            if (ExtraProcess != null) 
+            {
+                result = ExtraProcess.Invoke(result);
+            }
+            return result;
         }
     }
 }

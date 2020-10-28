@@ -7,7 +7,7 @@ namespace BallScripts.GameLogics
 {
     public class Player : BaseStageObject
     {
-        public PlayerController controler;
+        public PlayerController controller;
 
         //public float barSpeed = 0.5f;
         //float step = 0;

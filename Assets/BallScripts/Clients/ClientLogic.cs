@@ -20,13 +20,19 @@ namespace BallScripts.Clients {
 
         public static void InitPlayer(int clientID, string prefabName)
         {
+            Player Extra(Player p){
+                p.Init(StageObjectCategory.Player, clientID);
+                if (clientID == Client.instance.myID)
+                {
+                    p.gameObject.AddComponent<InputSender>();
+                }
+                return p;
+            };
+
             PlayerBuilder pb = new PlayerBuilder();
+            pb.ExtraProcess += Extra;
             Player pl = pb.Build(prefabName, BuildType.Client);
-            pl.Init(StageObjectCategory.Player, clientID);
-            if (clientID == Client.instance.myID)
-            {
-                pl.gameObject.AddComponent<InputSender>();
-            }
+
             Debug.Log($"客户端{clientID} 初始化Player - {prefabName}");
         }
 

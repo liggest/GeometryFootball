@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using BallScripts.Utils;
-using BallScripts.Clients;
+using BallScripts.GameLogics;
 
 namespace BallScripts.Servers
 {
@@ -41,6 +41,10 @@ namespace BallScripts.Servers
                 if (key != InputType.barRotate && key != InputType.ultimate)
                 {
                     value = packet.ReadFloat();
+                }
+                else
+                {
+                    value = 1;
                 }
                 PlayerController.SetClientBuffer(clientID, key, value);
             }

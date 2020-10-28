@@ -32,9 +32,15 @@ namespace BallScripts.Servers
 
         public static void InitClientPlayer(int clientID,string prefabName)
         {
+            Player Extra(Player p)
+            {
+                p.Init(StageObjectCategory.Player, clientID);
+                return p;
+            };
+
             PlayerBuilder pb = new PlayerBuilder();
+            pb.ExtraProcess += Extra;
             Player pl = pb.Build(prefabName, BuildType.Server);
-            pl.Init(StageObjectCategory.Player, clientID);
             Debug.Log("服务端初始化Player");
         }
 
