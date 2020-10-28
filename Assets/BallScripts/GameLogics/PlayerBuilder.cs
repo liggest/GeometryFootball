@@ -17,12 +17,17 @@ namespace BallScripts.GameLogics
             InitPlayerRigidbody(obj.gameObject.AddComponent<Rigidbody>());
             obj.gameObject.AddComponent<InfoSender>();
             obj.gameObject.AddComponent<PlayerController>();
+            obj.barList.ForEach((Bar bar) =>
+            {
+                bar.gameObject.AddComponent<BarCollision>();
+            });
             return obj;
         }
 
         public override Player BuildObject(string prefabName)
         {
-            if (ResourcesManager.playerPrefabs.TryGetValue(prefabName, out GameObject playerPrefab))
+            //if (ResourcesManager.playerPrefabs.TryGetValue(prefabName, out GameObject playerPrefab))
+            if(ResourcesManager.prefabs["Players"].TryGetValue(prefabName, out GameObject playerPrefab))
             {
                 GameObject player = Object.Instantiate(playerPrefab);
                 Player pl = player.GetComponent<Player>();

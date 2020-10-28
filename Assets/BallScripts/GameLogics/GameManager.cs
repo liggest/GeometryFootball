@@ -11,8 +11,10 @@ namespace BallScripts.GameLogics
     {
         private void Start()
         {
-            ResourcesManager.LoadPlayers();
-            ResourcesManager.LoadBalls();
+            ResourcesManager.Init();
+            ResourcesManager.Load();
+            //ResourcesManager.LoadPlayers();
+            //ResourcesManager.LoadBalls();
         }
 
         public string CurrentStageName { get => SceneManager.GetActiveScene().name; }

@@ -38,7 +38,7 @@ namespace BallScripts.Servers
             {
                 InputType key = (InputType)packet.ReadInt();
                 float value = 0;
-                if (key != InputType.barRotate && key != InputType.ultimate)
+                if (key != InputType.ultimate)
                 {
                     value = packet.ReadFloat();
                 }

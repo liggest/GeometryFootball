@@ -11,8 +11,10 @@ namespace BallScripts.Utils
         Welcome = 1,
         SceneLoadingStarted,
         StageObjectSpawned,
-        StageObjectPosition,
-        StageObjectRotation,
+        StageObjectPositions,
+        StageObjectLocalPositions,
+        StageObjectRotations,
+        StageObjectLocalRotations,
         StageObjectRespawned,
         PlayerSpawned,
 

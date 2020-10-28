@@ -37,7 +37,7 @@ namespace BallScripts.Clients
                 foreach (InputHolder holder in buffer)
                 {
                     packet.Write((int)holder.key);
-                    if (holder.key != InputType.barRotate && holder.key != InputType.ultimate)
+                    if (holder.key != InputType.ultimate)
                     {
                         packet.Write(holder.value);
                     }

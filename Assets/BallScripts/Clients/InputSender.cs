@@ -35,7 +35,11 @@ namespace BallScripts.Clients
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
-                inputBuffer.Add(new InputHolder { key = InputType.barRotate, value = 0 }); //value不会提交，服务端那边value会设为1
+                inputBuffer.Add(new InputHolder { key = InputType.barRotate, value = 1 });
+            }
+            if (Input.GetKeyUp(KeyCode.J))
+            {
+                inputBuffer.Add(new InputHolder { key = InputType.barRotate, value = 0 });
             }
             if (Input.GetKeyDown(KeyCode.K))
             {

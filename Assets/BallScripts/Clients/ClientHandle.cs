@@ -29,7 +29,7 @@ namespace BallScripts.Clients
             ClientLogic.BeginSceneLoading(sceneName);
         }
 
-        public static void StageObjectPosition(Packet packet)
+        public static void StageObjectPositions(Packet packet)
         {
             while (packet.UnreadLength() >= 4)
             {
@@ -40,7 +40,18 @@ namespace BallScripts.Clients
             }
         }
 
-        public static void StageObjectRotation(Packet packet)
+        public static void StageObjectLocalPositions(Packet packet)
+        {
+            while (packet.UnreadLength() >= 4)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id = packet.ReadInt();
+                Vector3 localPosition = packet.ReadVector3();
+                StageManager.instance.GetStageObject(category, id)?.SetLocalPosition(localPosition);
+            }
+        }
+
+        public static void StageObjectRotations(Packet packet)
         {
             while (packet.UnreadLength() >= 4)
             {
@@ -51,9 +62,19 @@ namespace BallScripts.Clients
             }
         }
 
+        public static void StageObjectLocalRotations(Packet packet)
+        {
+            while (packet.UnreadLength() >= 4)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id = packet.ReadInt();
+                Quaternion localRotation = packet.ReadQuaternion();
+                StageManager.instance.GetStageObject(category, id)?.SetRotation(localRotation);
+            }
+        }
+
         public static void PlayerSpawned(Packet packet)
         {
-            Debug.Log("收了");
             int id = packet.ReadInt();
             string prefabName = packet.ReadString();
             ClientLogic.InitPlayer(id, prefabName);

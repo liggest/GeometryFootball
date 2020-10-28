@@ -30,9 +30,19 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void StageObjectPosition(List<Vector3Holder> posList)
+        public static void StageObjectPositions(List<Vector3Holder> posList)
         {
-            using (Packet packet = new Packet((int)ServerPackets.StageObjectPosition))
+            SendPositions(ServerPackets.StageObjectPositions, posList);
+        }
+
+        public static void StageObjectLocalPositions(List<Vector3Holder> localPosList)
+        {
+            SendPositions(ServerPackets.StageObjectLocalPositions, localPosList);
+        }
+
+        static void SendPositions(ServerPackets packetID, List<Vector3Holder> posList)
+        {
+            using (Packet packet = new Packet((int)packetID))
             {
                 foreach (Vector3Holder holder in posList)
                 {
@@ -44,9 +54,19 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void StageObjectRotation(List<QuaternionHolder> rotList)
+        public static void StageObjectRotations(List<QuaternionHolder> rotList)
         {
-            using (Packet packet = new Packet((int)ServerPackets.StageObjectRotation))
+            SendRotations(ServerPackets.StageObjectRotations, rotList);
+        }
+
+        public static void StageObjectLocalRotations(List<QuaternionHolder> localRotList)
+        {
+            SendRotations(ServerPackets.StageObjectLocalRotations, localRotList);
+        }
+
+        static void SendRotations(ServerPackets packetID, List<QuaternionHolder> rotList)
+        {
+            using (Packet packet = new Packet((int)packetID))
             {
                 foreach (QuaternionHolder holder in rotList)
                 {
