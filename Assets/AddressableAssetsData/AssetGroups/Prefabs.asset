@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 10ce282ece668fe48a73dfd45e116963
   m_SerializeEntries:
   - m_GUID: 3443f32dc353c324b93fac4443747c1f
-    m_Address: DemoBall.prefab
+    m_Address: DemoBall
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balls
@@ -27,7 +27,7 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 2096567222703290855, guid: 3443f32dc353c324b93fac4443747c1f,
       type: 3}
   - m_GUID: e13543ef6a73ebd4db857f35e4848e7f
-    m_Address: DemoPlayer.prefab
+    m_Address: DemoPlayer
     m_ReadOnly: 0
     m_SerializedLabels:
     - Players

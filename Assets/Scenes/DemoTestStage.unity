@@ -719,6 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 250
   rotateSpeed: 160
+  barSpeed: 0.5
 --- !u!54 &1613113997
 Rigidbody:
   m_ObjectHideFlags: 0

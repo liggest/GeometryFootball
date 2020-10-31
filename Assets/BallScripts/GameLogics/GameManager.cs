@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using BallScripts.Utils;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BallScripts.GameLogics
 {
@@ -11,8 +12,7 @@ namespace BallScripts.GameLogics
     {
         private void Start()
         {
-            ResourcesManager.Init();
-            ResourcesManager.Load();
+            ResourcesManager.LoadAll();
             //ResourcesManager.LoadPlayers();
             //ResourcesManager.LoadBalls();
         }
@@ -49,7 +49,14 @@ namespace BallScripts.GameLogics
             Clients.Client.instance.myName = name;
             Clients.Client.instance.ConnectToServer();
         }
-
+        
+        /*
+        public BaseStageObject SpawnStageObject()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.
+        }
+        */
     }
 
 }

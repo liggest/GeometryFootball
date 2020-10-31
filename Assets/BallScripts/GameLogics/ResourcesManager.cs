@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace BallScripts.GameLogics
 {
@@ -12,37 +14,68 @@ namespace BallScripts.GameLogics
         //public static Dictionary<string, GameObject> playerPrefabs = new Dictionary<string, GameObject>();
         //public static Dictionary<string, GameObject> ballPrefabs = new Dictionary<string, GameObject>();
 
-        public static Dictionary<string, Dictionary<string, GameObject>> prefabs = new Dictionary<string, Dictionary<string, GameObject>>();
+        //public static Dictionary<string, Dictionary<string, GameObject>> prefabs = new Dictionary<string, Dictionary<string, GameObject>>();
+
+        //public static Dictionary<string, Hashtable> resources = new Dictionary<string, Hashtable>();
+
+        public static Hashtable resources = new Hashtable();
 
         public static List<string> labels = new List<string> { "Players", "Balls" };
 
-        public static void Init()
+        public static void LoadAll()
         {
             for (int i = 0; i < labels.Count; i++)
             {
-                prefabs.Add(labels[i], new Dictionary<string, GameObject>());
+                LoadByLabel<GameObject>(labels[i]);
             }
         }
 
-        public static void Load()
+        public static async void LoadByLabel<T>(string label, Action<T> onLoad = null) where T : UnityEngine.Object
         {
-            for (int i = 0; i < labels.Count; i++)
+            IList<T> resultList = await Addressables.LoadAssetsAsync<T>(label, null).Task;
+
+            foreach (T obj in resultList)
             {
-                LoadByLabel(labels[i]);
+                resources[obj.name] = obj;
+                onLoad?.Invoke(obj);
             }
+            Debug.Log($"[ResourcesManager]加载了所有{label}");
         }
 
-        public static void LoadByLabel(string label)
+        public static async void Load<T>(string name, Action<T> onLoad = null)
         {
-            Addressables.LoadAssetsAsync<GameObject>(label, null).Completed +=
-                (AsyncOperationHandle<IList<GameObject>> objlist) =>
-                {
-                    foreach (GameObject obj in objlist.Result)
-                    {
-                        prefabs[label].Add(obj.name, obj);
-                    }
-                    Debug.Log($"[ResourcesManager]加载了{label}");
-                };
+            T result = await Addressables.LoadAssetAsync<T>(name).Task;
+            resources[name] = result;
+            onLoad?.Invoke(result);
+            Debug.Log($"[ResourcesManager]加载了{name}");
+        }
+
+        public static async void Load<T>(string name, string label, Action<T> onLoad = null)
+        {
+            IList<T> result = await Addressables.LoadAssetsAsync<T>(new List<object> { name, label }, null, Addressables.MergeMode.Intersection).Task;
+            T obj = result[0];
+            resources[name] = obj;
+            onLoad?.Invoke(obj);
+            Debug.Log($"[ResourcesManager]加载了{label}下的{name}");
+        }
+
+        public static T Get<T>(string name)
+        {
+            if (resources.ContainsKey(name))
+            {
+                return (T)resources[name];
+            }
+            return default;
+        }
+
+        public static void Release<T>(string name)
+        {
+            T obj = Get<T>(name);
+            if (obj != null)
+            {
+                Addressables.Release(obj);
+                resources.Remove(name);
+            }
         }
 
         /*

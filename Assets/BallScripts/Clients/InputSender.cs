@@ -37,7 +37,7 @@ namespace BallScripts.Clients
             {
                 inputBuffer.Add(new InputHolder { key = InputType.barRotate, value = 1 });
             }
-            if (Input.GetKeyUp(KeyCode.J))
+            else if (Input.GetKeyUp(KeyCode.J))
             {
                 inputBuffer.Add(new InputHolder { key = InputType.barRotate, value = 0 });
             }
@@ -45,7 +45,7 @@ namespace BallScripts.Clients
             {
                 inputBuffer.Add(new InputHolder { key = InputType.charge, value = 1 }); //得传状态，按下为1，抬起为-1
             }
-            if (Input.GetKeyUp(KeyCode.K))
+            else if (Input.GetKeyUp(KeyCode.K))
             {
                 inputBuffer.Add(new InputHolder { key = InputType.charge, value = -1 }); //得传状态，按下为1，抬起为-1
             }
