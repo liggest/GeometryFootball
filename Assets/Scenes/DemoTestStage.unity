@@ -375,7 +375,7 @@ PrefabInstance:
     - target: {fileID: 4674068913897570303, guid: fa9db43fe5181f14cb6d1eefaf5f950b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa9db43fe5181f14cb6d1eefaf5f950b, type: 3}
@@ -657,7 +657,7 @@ PrefabInstance:
     - target: {fileID: 4674068913897570303, guid: 941d81caf63132746ac57529681b2fc5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 941d81caf63132746ac57529681b2fc5, type: 3}
@@ -1203,7 +1203,7 @@ PrefabInstance:
     - target: {fileID: 4674068913897570303, guid: 7d888c9615267ac48894372f89dad7f7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d888c9615267ac48894372f89dad7f7, type: 3}
@@ -1273,6 +1273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HexagonPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674068913897570303, guid: a75358e5a7b7eb54ca165ccbcf9fd6f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a75358e5a7b7eb54ca165ccbcf9fd6f9, type: 3}
@@ -1453,6 +1458,7 @@ GameObject:
   - component: {fileID: 33594847573227450}
   - component: {fileID: 23472376244272446}
   - component: {fileID: 65419776998826502}
+  - component: {fileID: 1613540131011389}
   m_Layer: 0
   m_Name: GoalBlue
   m_TagString: Goal
@@ -1460,6 +1466,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!65 &1613540131011389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613540131011388}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 50, z: 850.0001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1698854999358602
 GameObject:
   m_ObjectHideFlags: 0
