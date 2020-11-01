@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BallScripts.Utils;
+using BallScripts.GameLogics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace BallScripts.Servers
 {
@@ -78,6 +81,36 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void StageObjectSpawned<T>(int clientID, T info) where T : BaseBuildInfo
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectSpawned))
+            {
+                Serialize(info, packet);
+                SendTCPData(clientID, packet);
+            }
+        }
+
+        public static void StageObjectSpawned<T>(T info) where T : BaseBuildInfo
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectSpawned))
+            {
+                Serialize(info, packet);
+                SendTCPDataToAll(packet);
+            }
+        }
+
+        static void Serialize<T>(T obj, Packet packet)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, obj);
+                stream.Flush();
+                packet.Write(stream.GetBuffer());
+            }
+        }
+
+        /*
         public static void PlayerSpawned(int clientID, string prefabName)
         {
             using (Packet packet = new Packet((int)ServerPackets.PlayerSpawned))
@@ -87,6 +120,7 @@ namespace BallScripts.Servers
                 SendTCPDataToAll(packet);
             }
         }
+        */
 
         /*
         public static void SpawnPlayer(int clientID, Player player)

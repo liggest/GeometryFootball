@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using BallScripts.Utils;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BallScripts.GameLogics
 {
@@ -13,8 +12,7 @@ namespace BallScripts.GameLogics
         private void Start()
         {
             ResourcesManager.LoadAll();
-            //ResourcesManager.LoadPlayers();
-            //ResourcesManager.LoadBalls();
+            InitBuilderChain();
         }
 
         public string CurrentStageName { get => SceneManager.GetActiveScene().name; }
@@ -33,7 +31,6 @@ namespace BallScripts.GameLogics
                 yield return new WaitForEndOfFrame();
             }
             SceneLoadedAction?.Invoke(sceneName);
-            Debug.Log($"{sceneName}加载完了");
         }
 
         public void BeServer(int port)
@@ -49,14 +46,30 @@ namespace BallScripts.GameLogics
             Clients.Client.instance.myName = name;
             Clients.Client.instance.ConnectToServer();
         }
-        
-        /*
-        public BaseStageObject SpawnStageObject()
+
+
+        GenericBuilder rootBuilder;
+
+        public void InitBuilderChain()
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.
+            rootBuilder = new GenericBuilder();
+            PlayerBuilder pb = new PlayerBuilder();
+            rootBuilder.Next = pb;
         }
-        */
+
+        public BaseStageObject SpawnStageObject(BaseBuildInfo info,BuildType type)
+        {
+            if (type == BuildType.Client)
+            {
+                Debug.Log($"客户端{Clients.Client.instance.myID} 生成了 {info.prefabName}");
+            }
+            else
+            {
+                Debug.Log($"服务器 生成了 {info.prefabName}");
+            }
+            return rootBuilder.GetCorrectBuilder(info).Build(info, type);
+        }
+
     }
 
 }

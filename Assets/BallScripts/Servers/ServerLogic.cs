@@ -29,7 +29,7 @@ namespace BallScripts.Servers
                 }
             }
         }
-
+        /*
         public static void InitClientPlayer(int clientID,string prefabName)
         {
             Player Extra(Player p)
@@ -43,6 +43,7 @@ namespace BallScripts.Servers
             Player pl = pb.Build(prefabName, BuildType.Server);
             Debug.Log("服务端初始化Player");
         }
+        */
 
         public static void AttachRigidbodyToAll(StageObjectCategory category)
         {

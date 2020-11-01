@@ -18,6 +18,7 @@ namespace BallScripts.Clients {
             });
         }
 
+        /*
         public static void InitPlayer(int clientID, string prefabName)
         {
             Player Extra(Player p){
@@ -35,7 +36,7 @@ namespace BallScripts.Clients {
 
             Debug.Log($"客户端{clientID} 初始化Player - {prefabName}");
         }
-
+        */
     }
 
 }

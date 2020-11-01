@@ -4,6 +4,8 @@ using System.Net;
 using UnityEngine;
 using BallScripts.Utils;
 using BallScripts.GameLogics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace BallScripts.Clients
 {
@@ -73,13 +75,37 @@ namespace BallScripts.Clients
             }
         }
 
+        public static void StageObjectSpawned(Packet packet)
+        {
+            BaseBuildInfo info = Deserialize<BaseBuildInfo>(packet);
+            //Debug.Log(info.GetType());
+            //Debug.Log(info is PlayerBuildInfo);
+            //Debug.Log(info.GetType() == typeof(BaseBuildInfo));
+            GameManager.instance.SpawnStageObject(info, BuildType.Client);
+        }
+
+        static T Deserialize<T>(Packet packet)
+        {
+            int length = packet.UnreadLength();
+            byte[] objBytes = packet.ReadBytes(length);
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Write(objBytes, 0, length);
+                stream.Flush();
+                stream.Seek(0, SeekOrigin.Begin);
+                T obj = (T)formatter.Deserialize(stream);
+                return obj;
+            }
+        }
+        /*
         public static void PlayerSpawned(Packet packet)
         {
             int id = packet.ReadInt();
             string prefabName = packet.ReadString();
             ClientLogic.InitPlayer(id, prefabName);
         }
-
+        */
         /*
         public static void SpawnPlayer(Packet packet)
         {
