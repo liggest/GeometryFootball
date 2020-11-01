@@ -82,7 +82,7 @@ namespace BallScripts.GameLogics
         {
             if (CheckInfo(info))
             {
-                UnityEngine.Debug.Log(GetType());
+                UnityEngine.Debug.Log($"由 {GetType().Name} 创建 {info.category} - {info.id}");
                 return this;
             }
             if (Next != null)

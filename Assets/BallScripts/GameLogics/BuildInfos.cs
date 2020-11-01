@@ -22,6 +22,7 @@ namespace BallScripts.GameLogics
         public new StageObjectCategory category = StageObjectCategory.Player;
         public new string infoType = "Player";
         public string playerType = "Demo";
+        public int firstBar = -1;
     }
 
 }

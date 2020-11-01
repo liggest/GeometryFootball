@@ -29,21 +29,21 @@ namespace BallScripts.Servers
                 }
             }
         }
-        /*
+
         public static void InitClientPlayer(int clientID,string prefabName)
         {
-            Player Extra(Player p)
+            PlayerBuildInfo info = new PlayerBuildInfo
             {
-                p.Init(StageObjectCategory.Player, clientID);
-                return p;
+                id = clientID,
+                prefabName = prefabName,
+                playerType = "Demo",
+                firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1,
             };
-
-            PlayerBuilder pb = new PlayerBuilder();
-            pb.ExtraProcess += Extra;
-            Player pl = pb.Build(prefabName, BuildType.Server);
-            Debug.Log("服务端初始化Player");
+            Debug.Log($"info.firstBar={info.firstBar}");
+            GameManager.instance.SpawnStageObject(info, BuildType.Server);
+            ServerSend.StageObjectSpawned(info);
         }
-        */
+
 
         public static void AttachRigidbodyToAll(StageObjectCategory category)
         {

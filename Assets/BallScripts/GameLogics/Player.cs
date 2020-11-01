@@ -14,12 +14,22 @@ namespace BallScripts.GameLogics
 
         public List<Bar> barList = new List<Bar>();
 
+        bool barInited = false;
+
         protected new void Start()
         {
             base.Start(); //BaseStageObject初始化（如果有的话）
 
+            if (!barInited)
+            {
+                InitBars();
+            }
+        }
+        
+        public void InitBars()
+        {
+            barList.Clear();
             Bar lastBar = null;
-
             foreach (Bar child in transform.GetComponentsInChildren<Bar>())
             {
                 barList.Add(child);
@@ -34,15 +44,6 @@ namespace BallScripts.GameLogics
             barList[0].Previous = lastBar;
         }
 
-        private void FixedUpdate()
-        {
-            
-        }
-
-        void Update()
-        {
-
-        }
 
     }
 }

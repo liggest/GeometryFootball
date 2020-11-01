@@ -4,6 +4,9 @@ namespace BallScripts.Servers
 {
     class Actions
     {
+#pragma warning disable 0649
+        //#pragma去除警告
+
         /// <summary>
         /// 服务器启动后调用
         /// </summary>
@@ -24,5 +27,7 @@ namespace BallScripts.Servers
         /// 服务器连接的客户端数变动后调用（先于各种连接、断开），int参数为连接客户端变动的数量
         /// </summary>
         public static Action<int> PlayerCountUpatedAction;
+
+#pragma warning restore 0649
     }
 }

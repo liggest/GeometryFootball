@@ -15,6 +15,13 @@ namespace BallScripts.GameLogics
             {
                 obj.gameObject.AddComponent<InputSender>();
             }
+            obj.InitBars();
+            int barOffset = 0;
+            obj.barList.ForEach((Bar bar) =>
+            {
+                bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
+                barOffset++;
+            });
             return obj;
         }
 
@@ -23,18 +30,22 @@ namespace BallScripts.GameLogics
             InitPlayerRigidbody(obj.gameObject.AddComponent<Rigidbody>());
             obj.gameObject.AddComponent<InfoSender>();
             obj.gameObject.AddComponent<PlayerController>();
-            /*
+            obj.InitBars();
+            int barOffset = 0;
             obj.barList.ForEach((Bar bar) =>
             {
                 bar.gameObject.AddComponent<BarCollision>();
-                Debug.Log(bar.name);
-            });*/
+                InfoSender sender = bar.gameObject.AddComponent<InfoSender>();
+                sender.sendLocal = true;
+                bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
+                barOffset++;
+            });
             return obj;
         }
 
         public override Player BuildObject(PlayerBuildInfo info)
         {
-            Debug.Log(info.playerType);
+            //Debug.Log(info.playerType);
             //if (ResourcesManager.playerPrefabs.TryGetValue(prefabName, out GameObject playerPrefab))
             GameObject playerPrefab = ResourcesManager.Get<GameObject>(info.prefabName);
             if (playerPrefab)
@@ -51,6 +62,10 @@ namespace BallScripts.GameLogics
             return null;
         }
 
+        public override bool CheckInfo(BaseBuildInfo info)
+        {
+            return info is PlayerBuildInfo;
+        }
         public static Rigidbody InitPlayerRigidbody(Rigidbody rig)
         {
             rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
@@ -60,10 +75,6 @@ namespace BallScripts.GameLogics
             return rig;
         }
 
-        public override bool CheckInfo(BaseBuildInfo info)
-        {
-            return info is PlayerBuildInfo;
-        }
     }
 }
 

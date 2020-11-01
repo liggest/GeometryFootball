@@ -36,6 +36,10 @@ namespace BallScripts.Test
             {
                 controller.SetBuffer(InputType.barRotate, 1);
             }
+            else if (Input.GetKeyUp(KeyCode.J))
+            {
+                controller.SetBuffer(InputType.barRotate, 0);
+            }
             if (Input.GetKeyDown(KeyCode.K))
             {
                 controller.SetBuffer(InputType.charge, 1);

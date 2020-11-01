@@ -28,15 +28,7 @@ namespace BallScripts.Servers
             string prefabName = packet.ReadString(); //到时候删
             Debug.Log($"客户端{clientID}加载好了场地{sceneName}");
 
-            PlayerBuildInfo info = new PlayerBuildInfo
-            {
-                id = clientID,
-                prefabName = prefabName,
-                playerType = "Demo"
-            };
-            GameManager.instance.SpawnStageObject(info, BuildType.Server);
-            ServerSend.StageObjectSpawned(info);
-            //ServerLogic.InitClientPlayer(clientID, prefabName);
+            ServerLogic.InitClientPlayer(clientID, prefabName);
             //ServerSend.PlayerSpawned(clientID, prefabName);
         }
 
