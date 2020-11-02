@@ -55,6 +55,8 @@ namespace BallScripts.GameLogics
             rootBuilder = new GenericBuilder();
             PlayerBuilder pb = new PlayerBuilder();
             rootBuilder.Next = pb;
+            RigidBuilder rb = new RigidBuilder();
+            pb.Next = rb;
         }
 
         public BaseStageObject SpawnStageObject(BaseBuildInfo info,BuildType type)

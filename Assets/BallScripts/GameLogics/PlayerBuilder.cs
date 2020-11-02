@@ -29,7 +29,11 @@ namespace BallScripts.GameLogics
         {
             InitPlayerRigidbody(obj.gameObject.AddComponent<Rigidbody>());
             obj.gameObject.AddComponent<InfoSender>();
-            obj.gameObject.AddComponent<PlayerController>();
+            PlayerController controller = obj.gameObject.AddComponent<PlayerController>();
+            if (info.playerType == "Demo")
+            {
+                controller.SetUltimate(new UltimateCube());
+            }
             obj.InitBars();
             int barOffset = 0;
             obj.barList.ForEach((Bar bar) =>

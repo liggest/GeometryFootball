@@ -23,6 +23,8 @@ namespace BallScripts.Servers
         bool isBarRotate = false;
         float step = 0;
 
+        public BaseUltimate ultimate;
+
         private void Start()
         {
             rotateSpeedFactor = rotateSpeed * Time.fixedDeltaTime;
@@ -49,6 +51,12 @@ namespace BallScripts.Servers
             buffer[InputType.ultimate] = 0;
         }
 
+        public void SetUltimate(BaseUltimate _ultimate)
+        {
+            ultimate = _ultimate;
+            ultimate.Init();
+        }
+
         private void FixedUpdate()
         {
             //移动
@@ -62,6 +70,7 @@ namespace BallScripts.Servers
 
             transform.Rotate(0, h * rotateSpeedFactor, 0, Space.Self);
 
+            //转bar
             if (!isBarRotate && buffer[InputType.barRotate] > 0)
             {
                 isBarRotate = true;
@@ -89,7 +98,29 @@ namespace BallScripts.Servers
                 }
             }
 
+            //大招
+            if (buffer[InputType.ultimate] > 0)
+            {
+                if (ultimate != null && !ultimate.IsOn)
+                {
+                    ultimate.Enter();
+                }
+            }
+
+            if (ultimate!=null && ultimate.IsOn)
+            {
+                ultimate.FixedUpdate();
+            }
+
             RefreshBuffer();
+        }
+
+        private void Update()
+        {
+            if (ultimate != null && ultimate.IsOn)
+            {
+                ultimate.Update();
+            }
         }
 
         static int lastID = -1;

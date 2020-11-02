@@ -17,6 +17,16 @@ namespace BallScripts.GameLogics
     }
 
     [Serializable]
+    public class RigidBuildInfo:BaseBuildInfo
+    {
+        public new StageObjectCategory category = StageObjectCategory.Dynamic;
+        public new string infoType = "Rigid";
+        public CollisionDetectionMode collisionMode = CollisionDetectionMode.Discrete;
+        public float mass = 1;
+        public float angularDrag = 0.05f;
+    }
+
+    [Serializable]
     public class PlayerBuildInfo : BaseBuildInfo
     {
         public new StageObjectCategory category = StageObjectCategory.Player;
@@ -24,6 +34,7 @@ namespace BallScripts.GameLogics
         public string playerType = "Demo";
         public int firstBar = -1;
     }
+
 
 }
 

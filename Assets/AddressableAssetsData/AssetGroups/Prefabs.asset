@@ -22,19 +22,25 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balls
-    m_MainAsset: {fileID: 2096567222703290855, guid: 3443f32dc353c324b93fac4443747c1f,
+    - Dynamic
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: bf750a0d24c1b4840917391c52d2871f
+    m_Address: RoadBlock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Dynamic
+    m_MainAsset: {fileID: 3831113088091821053, guid: bf750a0d24c1b4840917391c52d2871f,
       type: 3}
-    m_TargetAsset: {fileID: 2096567222703290855, guid: 3443f32dc353c324b93fac4443747c1f,
+    m_TargetAsset: {fileID: 3831113088091821053, guid: bf750a0d24c1b4840917391c52d2871f,
       type: 3}
   - m_GUID: e13543ef6a73ebd4db857f35e4848e7f
     m_Address: DemoPlayer
     m_ReadOnly: 0
     m_SerializedLabels:
     - Players
-    m_MainAsset: {fileID: 4674068913897570303, guid: e13543ef6a73ebd4db857f35e4848e7f,
-      type: 3}
-    m_TargetAsset: {fileID: 4674068913897570303, guid: e13543ef6a73ebd4db857f35e4848e7f,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1bbede4a7817fb941b66f74cdc2390aa, type: 2}
   m_SchemaSet:
