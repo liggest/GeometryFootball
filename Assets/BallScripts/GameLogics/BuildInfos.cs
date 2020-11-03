@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace BallScripts.GameLogics
 {
     [Serializable]
-    public class BaseBuildInfo
+    public class BaseBuildInfo: ICloneable
     {
         public StageObjectCategory category = StageObjectCategory.Other;
         public int id = -1;
@@ -16,6 +16,11 @@ namespace BallScripts.GameLogics
         public string infoType = "Base";
         public Vector3? position = null;
         public Quaternion? rotation = null;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 
     [Serializable]
