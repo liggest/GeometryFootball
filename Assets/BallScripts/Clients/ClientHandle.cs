@@ -89,6 +89,7 @@ namespace BallScripts.Clients
             int length = packet.UnreadLength();
             byte[] objBytes = packet.ReadBytes(length);
             BinaryFormatter formatter = new BinaryFormatter();
+            formatter.SurrogateSelector = SurrogateManager.GetSurrogateSelector();
             using (MemoryStream stream = new MemoryStream())
             {
                 stream.Write(objBytes, 0, length);
@@ -98,6 +99,17 @@ namespace BallScripts.Clients
                 return obj;
             }
         }
+
+        public static void StageObjectDespawned(Packet packet)
+        {
+            while (packet.UnreadLength() > 0)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id = packet.ReadInt();
+                GameManager.instance.DespawnStageObject(category, id);
+            }
+        }
+
         /*
         public static void PlayerSpawned(Packet packet)
         {

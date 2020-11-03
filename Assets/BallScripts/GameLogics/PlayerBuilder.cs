@@ -29,11 +29,6 @@ namespace BallScripts.GameLogics
         {
             InitPlayerRigidbody(obj.gameObject.AddComponent<Rigidbody>());
             obj.gameObject.AddComponent<InfoSender>();
-            PlayerController controller = obj.gameObject.AddComponent<PlayerController>();
-            if (info.playerType == "Demo")
-            {
-                controller.SetUltimate(new UltimateCube());
-            }
             obj.InitBars();
             int barOffset = 0;
             obj.barList.ForEach((Bar bar) =>
@@ -44,28 +39,17 @@ namespace BallScripts.GameLogics
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });
+            PlayerController controller = obj.gameObject.AddComponent<PlayerController>();
+            controller.InitPlayer();
+            controller.SetUltimate(info.playerType);
             return obj;
         }
-
-        public override Player BuildObject(PlayerBuildInfo info)
+        public override Player AfterInstantiate(GameObject obj, PlayerBuildInfo info)
         {
-            //Debug.Log(info.playerType);
-            //if (ResourcesManager.playerPrefabs.TryGetValue(prefabName, out GameObject playerPrefab))
-            GameObject playerPrefab = ResourcesManager.Get<GameObject>(info.prefabName);
-            if (playerPrefab)
-            {
-                GameObject player = Object.Instantiate(playerPrefab);
-                Player pl = player.GetComponent<Player>();
-                pl.Init(info.category, info.id);
-                return pl;
-            }
-            else
-            {
-                Debug.Log($"没有找到名为{info.prefabName}的Prefab");
-            }
-            return null;
+            Player player = base.AfterInstantiate(obj, info);
+            player.playerType = info.playerType;
+            return player;
         }
-
         public override bool CheckInfo(BaseBuildInfo info)
         {
             return info is PlayerBuildInfo;
@@ -79,6 +63,15 @@ namespace BallScripts.GameLogics
             return rig;
         }
 
+        public override PlayerBuildInfo GenerateInfo(Player obj)
+        {
+            PlayerBuildInfo info = new PlayerBuildInfo
+            {
+                firstBar = obj.barList[0].id,
+                playerType = obj.playerType
+            };
+            return SetBaseInfo(info, obj);
+        }
     }
 }
 

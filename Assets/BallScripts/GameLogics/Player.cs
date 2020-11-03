@@ -7,6 +7,7 @@ namespace BallScripts.GameLogics
 {
     public class Player : BaseStageObject
     {
+        [HideInInspector]
         public PlayerController controller;
         public float maxPower = 100;
         private float power = 0;
@@ -15,6 +16,8 @@ namespace BallScripts.GameLogics
         public List<Bar> barList = new List<Bar>();
 
         bool barInited = false;
+
+        public string playerType = string.Empty;
 
         protected new void Start()
         {

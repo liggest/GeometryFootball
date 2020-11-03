@@ -10,10 +10,19 @@ namespace BallScripts.Utils
         private static readonly List<Action> executeOnMainThread = new List<Action>();
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
         private static bool actionToExecuteOnMainThread = false;
+        public static bool isExist = false;
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);   
+            if (isExist)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+                isExist = true;
+            }
         }
 
         private void FixedUpdate()

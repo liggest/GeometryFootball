@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BallScripts.Servers;
+using BallScripts.Utils;
 
 namespace BallScripts.GameLogics
 {
@@ -19,29 +20,31 @@ namespace BallScripts.GameLogics
             rig.mass = info.mass;
             rig.angularDrag = info.angularDrag;
             obj.gameObject.AddComponent<InfoSender>();
+            if (info.initForce != null) 
+            {
+                ThreadManager.ExecuteOnMainThread(() =>
+                {
+                    rig.AddForce(info.initForce.Value, info.initForceMode);
+                });
+            }
             return obj;
-        }
-
-        public override BaseStageObject BuildObject(RigidBuildInfo info)
-        {
-            GameObject RigidPrefab = ResourcesManager.Get<GameObject>(info.prefabName);
-            if (RigidPrefab)
-            {
-                GameObject rigider = Object.Instantiate(RigidPrefab);
-                BaseStageObject rg = rigider.GetComponent<BaseStageObject>();
-                rg.Init(info.category, info.id);
-                return rg;
-            }
-            else
-            {
-                Debug.Log($"没有找到名为{info.prefabName}的Prefab");
-            }
-            return null;
         }
 
         public override bool CheckInfo(BaseBuildInfo info)
         {
             return info is RigidBuildInfo;
+        }
+
+        public override RigidBuildInfo GenerateInfo(BaseStageObject obj)
+        {
+            Rigidbody rig = obj.GetComponent<Rigidbody>();
+            RigidBuildInfo info = new RigidBuildInfo
+            {
+                mass = rig.mass,
+                angularDrag = rig.angularDrag,
+                collisionMode = rig.collisionDetectionMode
+            };
+            return SetBaseInfo(info, obj);
         }
     }
 }

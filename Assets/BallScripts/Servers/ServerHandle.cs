@@ -50,6 +50,16 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void StageSituation(int clientID,Packet packet)
+        {
+            List<StageObjectPair> clientObjs = new List<StageObjectPair>();
+            while (packet.UnreadLength() > 0)
+            {
+                clientObjs.Add(new StageObjectPair { category = (StageObjectCategory)packet.ReadInt(), id = packet.ReadInt() });
+            }
+            ServerLogic.StageSynchronize(clientID, clientObjs);
+        }
+
         /*
         public static void PlayerMovement(int clientID, Packet packet)
         {

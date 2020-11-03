@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BallScripts.Utils;
@@ -43,6 +44,20 @@ namespace BallScripts.Clients
                     }
                 }
                 SendUDPData(packet);
+            }
+        }
+
+        public static void StageSituation(List<StageObjectPair> objs)
+        {
+            using (Packet packet = new Packet((int)ClientPackets.StageSituation))
+            {
+                for (int i = 0; i < objs.Count; i++)
+                {
+                    StageObjectPair pair = objs[i];
+                    packet.Write((int)pair.category);
+                    packet.Write(pair.id);
+                }
+                SendTCPData(packet);
             }
         }
 

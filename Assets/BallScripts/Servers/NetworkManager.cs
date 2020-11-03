@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using BallScripts.Utils;
+using BallScripts.GameLogics;
 
 namespace BallScripts.Servers
 {
@@ -29,18 +30,38 @@ namespace BallScripts.Servers
                 if (Server.state == ServerState.Started && Server.PlayerCount == 1 && cid > 0) 
                 {
                     Debug.Log($"服务端尝试加载DemoStage...");
-                    GameLogics.GameManager.instance.BeginLoadScene("DemoStage",(string name)=> 
+                    StageManager.Refresh();
+                    GameManager.instance.BeginLoadScene("DemoStage",(string name)=> 
                     {
                         Debug.Log($"DemoStage加载完成！");
                         ThreadManager.ExecuteOnMainThread(()=> {
-                            ServerLogic.AttachRigidbodyToAll(GameLogics.StageObjectCategory.Ball);
+                            ServerLogic.AttachRigidbodyToAll(StageObjectCategory.Ball);
                         });
                         ThreadManager.ExecuteOnMainThread(ServerLogic.AttachInfoSendersToAll);
                     });
                     //暂且先载入DemoStage
                     Server.state = ServerState.InStage;
+                    Actions.PlayerCountUpatedAction = NoPlayer;
                     //Actions.ClientTCPConnectedAction -= LoadDemo;
                 }
+            }
+
+            void NoPlayer(int playerNum)
+            {
+                if (Server.PlayerCount == 0)
+                {
+                    GameManager.instance.BeginLoadScene("TestScene", (string name) =>
+                    {
+                        Debug.Log($"TestStage加载完成！");
+                    });
+                    Server.state = ServerState.Started;
+                }
+            }
+
+            void PlayerDisconnected(int id)
+            {
+                GameManager.instance.DespawnStageObject(StageObjectCategory.Player, id);
+                ServerSend.StageObjectDespawned(StageObjectCategory.Player, id);
             }
 
             Actions.ClientTCPConnectedAction += LoadDemo;
@@ -48,6 +69,7 @@ namespace BallScripts.Servers
             {
                 ServerSend.SceneLoadingStarted(cid, "DemoStage");
             };
+            Actions.ClientDisconnectedAction += PlayerDisconnected;
         }
 
         private void OnApplicationQuit()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BallScripts.GameLogics;
+using BallScripts.Utils;
 using System;
 
 namespace BallScripts.Clients {
@@ -14,8 +15,14 @@ namespace BallScripts.Clients {
                 if (s == sceneName)
                 {
                     ClientSend.SceneLoaded(s);
+                    ThreadManager.ExecuteOnMainThread(SendStageSituation);
                 }
             });
+        }
+
+        public static void SendStageSituation()
+        {
+            ClientSend.StageSituation(StageManager.instance.GetStageObjectPairs());
         }
 
         /*

@@ -22,27 +22,14 @@ namespace BallScripts.GameLogics
             return obj;
         }
 
-        public override BaseStageObject BuildObject(BaseBuildInfo info)
-        {
-            GameObject prefab = ResourcesManager.Get<GameObject>(info.prefabName);
-            if (prefab)
-            {
-                GameObject obj = Object.Instantiate(prefab);
-                BaseStageObject stageObject = obj.GetComponent<BaseStageObject>();
-                stageObject.category = info.category;
-                stageObject.id = info.id;
-                return stageObject;
-            }
-            else
-            {
-                Debug.Log($"没有找到名为{info.prefabName}的Prefab");
-            }
-            return null;
-        }
-
         public override bool CheckInfo(BaseBuildInfo info)
         {
             return info.GetType() == typeof(BaseBuildInfo);
+        }
+
+        public override BaseBuildInfo GenerateInfo(BaseStageObject obj)
+        {
+            return SetBaseInfo(new BaseBuildInfo(), obj);
         }
     }
 }

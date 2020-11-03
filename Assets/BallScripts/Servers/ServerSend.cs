@@ -4,6 +4,7 @@ using UnityEngine;
 using BallScripts.Utils;
 using BallScripts.GameLogics;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using System.IO;
 
 namespace BallScripts.Servers
@@ -37,13 +38,17 @@ namespace BallScripts.Servers
         {
             SendPositions(ServerPackets.StageObjectPositions, posList);
         }
+        public static void StageObjectPositions(int clientID, List<Vector3Holder> posList)
+        {
+            SendPositions(ServerPackets.StageObjectPositions, posList, clientID);
+        }
 
         public static void StageObjectLocalPositions(List<Vector3Holder> localPosList)
         {
             SendPositions(ServerPackets.StageObjectLocalPositions, localPosList);
         }
 
-        static void SendPositions(ServerPackets packetID, List<Vector3Holder> posList)
+        static void SendPositions(ServerPackets packetID, List<Vector3Holder> posList, int clientID = -1)//如果 clientID>0 则只向该id发送
         {
             using (Packet packet = new Packet((int)packetID))
             {
@@ -53,7 +58,14 @@ namespace BallScripts.Servers
                     packet.Write(holder.id);
                     packet.Write(holder.vect);
                 }
-                SendUDPDataToAll(packet);
+                if (clientID > 0) 
+                {
+                    SendUDPData(clientID, packet);
+                }
+                else
+                {
+                    SendUDPDataToAll(packet);
+                }
             }
         }
 
@@ -61,13 +73,16 @@ namespace BallScripts.Servers
         {
             SendRotations(ServerPackets.StageObjectRotations, rotList);
         }
-
+        public static void StageObjectRotations(int clientID, List<QuaternionHolder> rotList)
+        {
+            SendRotations(ServerPackets.StageObjectRotations, rotList, clientID);
+        }
         public static void StageObjectLocalRotations(List<QuaternionHolder> localRotList)
         {
             SendRotations(ServerPackets.StageObjectLocalRotations, localRotList);
         }
 
-        static void SendRotations(ServerPackets packetID, List<QuaternionHolder> rotList)
+        static void SendRotations(ServerPackets packetID, List<QuaternionHolder> rotList, int clientID = -1)//如果 clientID>0 则只向该id发送
         {
             using (Packet packet = new Packet((int)packetID))
             {
@@ -77,7 +92,14 @@ namespace BallScripts.Servers
                     packet.Write(holder.id);
                     packet.Write(holder.quat);
                 }
-                SendUDPDataToAll(packet);
+                if (clientID > 0)
+                {
+                    SendUDPData(clientID, packet);
+                }
+                else
+                {
+                    SendUDPDataToAll(packet);
+                }
             }
         }
 
@@ -102,6 +124,7 @@ namespace BallScripts.Servers
         static void Serialize<T>(T obj, Packet packet)
         {
             BinaryFormatter formatter = new BinaryFormatter();
+            formatter.SurrogateSelector = SurrogateManager.GetSurrogateSelector();
             using (MemoryStream stream = new MemoryStream())
             {
                 formatter.Serialize(stream, obj);
@@ -109,6 +132,47 @@ namespace BallScripts.Servers
                 packet.Write(stream.GetBuffer());
             }
         }
+
+        public static void StageObjectDespawned(StageObjectCategory category, int id)
+        {
+            StageObjectDespawned(new List<StageObjectPair> {
+                new StageObjectPair { category = category, id = id }
+            });
+        }
+
+        public static void StageObjectDespawned(int clientID, StageObjectCategory category, int id)
+        {
+            StageObjectDespawned(clientID, new List<StageObjectPair> {
+                new StageObjectPair { category = category, id = id }
+            });
+        }
+
+        public static void StageObjectDespawned(List<StageObjectPair> objs)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectDespawned))
+            {
+                foreach (StageObjectPair pair in objs)
+                {
+                    packet.Write((int)pair.category);
+                    packet.Write(pair.id);
+                }
+                SendTCPDataToAll(packet);
+            }
+        }
+
+        public static void StageObjectDespawned(int clientID, List<StageObjectPair> objs)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectDespawned))
+            {
+                foreach (StageObjectPair pair in objs)
+                {
+                    packet.Write((int)pair.category);
+                    packet.Write(pair.id);
+                }
+                SendTCPData(clientID, packet);
+            }
+        }
+
 
         /*
         public static void PlayerSpawned(int clientID, string prefabName)

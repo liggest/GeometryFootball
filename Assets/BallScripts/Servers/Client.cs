@@ -236,18 +236,18 @@ namespace BallScripts.Servers
         private void Disconnect()
         {
             Debug.Log($"{tcp.socket.Client.RemoteEndPoint} 断开了连接");
-            ThreadManager.ExecuteOnMainThread(() =>
-            {
-                //UnityEngine.Object.Destroy(player.gameObject);
-                //player = null;
-            });
+            //ThreadManager.ExecuteOnMainThread(() =>
+            //{
+            //    UnityEngine.Object.Destroy(player.gameObject);
+            //    player = null;
+            //});
             tcp.Disconnect();
             udp.Disconnect();
             Server.UpdatePlayerCount(-1);
 
             ThreadManager.ExecuteOnMainThread(() => Actions.ClientDisconnectedAction?.Invoke(id));
 
-            ServerSend.PlayerDisconnected(id);
+            //ServerSend.PlayerDisconnected(id);
         }
     }
 

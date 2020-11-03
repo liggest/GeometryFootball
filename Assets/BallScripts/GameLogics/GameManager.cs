@@ -72,6 +72,12 @@ namespace BallScripts.GameLogics
             return rootBuilder.GetCorrectBuilder(info).Build(info, type);
         }
 
+        public void DespawnStageObject(StageObjectCategory category, int id)
+        {
+            Destroy(StageManager.instance.RemoveStageObject(category, id).gameObject);
+            Debug.Log($"销毁了 {category} - {id}");
+        }
+
     }
 
 }

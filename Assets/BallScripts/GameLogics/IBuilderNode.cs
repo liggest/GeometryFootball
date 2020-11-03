@@ -12,6 +12,8 @@ namespace BallScripts.GameLogics
         IBuilderNode GetCorrectBuilder(BaseBuildInfo info);
 
         BaseStageObject Build(BaseBuildInfo info, BuildType type = BuildType.Client);
+
+        BaseBuildInfo GenerateBuildInfo(BaseStageObject obj);
     }
 }
 

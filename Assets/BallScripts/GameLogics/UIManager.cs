@@ -24,8 +24,17 @@ namespace BallScripts.GameLogics
 
         private void Start()
         {
-            InitUI();
-            GameManager.instance.ToString();
+            if (Servers.Server.state == Servers.ServerState.Offline)
+            {
+                InitUI();
+                GameManager.instance.ToString();
+            }
+            else
+            {
+                ToServerMenu();
+                ToServerInfo();
+            }
+
         }
 
         public void InitUI()
@@ -53,17 +62,22 @@ namespace BallScripts.GameLogics
             clientMenu.SetActive(true);
         }
 
+        public void ToServerInfo()
+        {
+            serverMenu.SetActive(false);
+            serverInfo.SetActive(true);
+        }
+
         public void BeServer()
         {
             int port = 6960;
             if (serverPortField.text == "" || IsIntBetween(serverPortField.text, 0, 65535, out port)) 
             {
-                serverMenu.SetActive(false);
                 serverPortField.interactable = false;
                 Servers.Actions.PlayerCountUpatedAction += SetClientCount;
                 GameManager.instance.BeServer(port);
                 ipPortInfo.text = $"{IPAddress.Any}:{port}";
-                serverInfo.SetActive(true);
+                ToServerInfo();
             }
             else
             {

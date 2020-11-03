@@ -30,8 +30,7 @@ namespace BallScripts.Servers
             rotateSpeedFactor = rotateSpeed * Time.fixedDeltaTime;
             barSpeedFactor = barSpeed * Time.fixedDeltaTime;
 
-            player = GetComponent<Player>();
-            player.controller = this;
+            InitPlayer();
             rd = GetComponent<Rigidbody>();
 
             foreach (InputType key in Enum.GetValues(iptType))
@@ -42,19 +41,39 @@ namespace BallScripts.Servers
 
         public void SetBuffer(InputType key,float value)
         {
+            //Debug.Log($"{player.id} {key}");
             buffer[key] = value;
         }
 
         public void RefreshBuffer()
         {
+            //Debug.Log($"{player.id} Refresh");
             //buffer[InputType.barRotate] = 0;
             buffer[InputType.ultimate] = 0;
+        }
+
+        public void InitPlayer()
+        {
+            if (player != null)
+            {
+                return;
+            }
+            player = GetComponent<Player>();
+            player.controller = this;
+        }
+
+        public void SetUltimate(string playerType)
+        {
+            if (playerType == "Demo")
+            {
+                SetUltimate(new UltimateCube());
+            }
         }
 
         public void SetUltimate(BaseUltimate _ultimate)
         {
             ultimate = _ultimate;
-            ultimate.Init();
+            ultimate.Init(player);
         }
 
         private void FixedUpdate()

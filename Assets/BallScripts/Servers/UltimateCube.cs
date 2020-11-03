@@ -7,7 +7,7 @@ namespace BallScripts.Servers
 {
     public class UltimateCube : BaseUltimate
     {
-        public override void Init()
+        public override void Init(Player player)
         {
             return;
         }
