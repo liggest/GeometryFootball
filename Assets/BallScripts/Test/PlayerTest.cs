@@ -8,13 +8,18 @@ namespace BallScripts.Test
 {
     public class PlayerTest : MonoBehaviour
     {
+        public string playerType = "Demo";
+
         PlayerController controller;
         float lastMoveValue = 0;
         float lastRotateValue = 0;
         // Start is called before the first frame update
         void Start()
         {
+            GameManager.instance.ToString();
             controller = GetComponent<PlayerController>();
+            controller.InitPlayer();
+            controller.SetUltimate(playerType);
         }
 
         // Update is called once per frame
