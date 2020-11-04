@@ -37,10 +37,10 @@ namespace BallScripts.Servers
                 }
             }
 
-            if (collision.collider.CompareTag("Ball"))
-            {
+            //if (collision.collider.CompareTag("Ball"))
+            //{
 
-            }
+            //}
         }
 
         void Bounce(Transform target, float bounceFactor)

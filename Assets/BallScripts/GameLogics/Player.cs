@@ -19,6 +19,8 @@ namespace BallScripts.GameLogics
 
         public string playerType = string.Empty;
 
+        public Team team;
+
         protected new void Start()
         {
             base.Start(); //BaseStageObject初始化（如果有的话）
