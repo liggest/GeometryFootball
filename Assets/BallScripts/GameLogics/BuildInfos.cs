@@ -30,7 +30,6 @@ namespace BallScripts.GameLogics
         {
             category= StageObjectCategory.Dynamic;
             infoType= "Rigid";
-            new Rigidbody();
         }
         public float mass = 1;
         public float drag = 0;
@@ -38,6 +37,7 @@ namespace BallScripts.GameLogics
         public bool useGravity = true;
         public bool isKinematic = false;
         public CollisionDetectionMode collisionMode = CollisionDetectionMode.Discrete;
+        public RigidbodyConstraints constraints = RigidbodyConstraints.None;
         public Vector3? initForce = null;
         public ForceMode initForceMode = ForceMode.Force;
     }

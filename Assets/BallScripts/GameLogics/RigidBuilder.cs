@@ -22,11 +22,13 @@ namespace BallScripts.GameLogics
             rig.useGravity = info.useGravity;
             rig.isKinematic = info.isKinematic;
             rig.collisionDetectionMode = info.collisionMode;
+            rig.constraints = info.constraints;
             obj.gameObject.AddComponent<InfoSender>();
             if (info.initForce != null) 
             {
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
+                    //Debug.Log($"加了{info.initForce.Value}力，mode={info.initForceMode}");
                     rig.AddForce(info.initForce.Value, info.initForceMode);
                 });
             }
@@ -48,7 +50,8 @@ namespace BallScripts.GameLogics
                 angularDrag = rig.angularDrag,
                 useGravity = rig.useGravity,
                 isKinematic = rig.isKinematic,
-                collisionMode = rig.collisionDetectionMode
+                collisionMode = rig.collisionDetectionMode,
+                constraints = rig.constraints
             };
             return SetBaseInfo(info, obj);
         }

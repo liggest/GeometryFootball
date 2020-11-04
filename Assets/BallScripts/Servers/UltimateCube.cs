@@ -8,6 +8,8 @@ namespace BallScripts.Servers
     public class UltimateCube : BaseUltimate
     {
         Player cubePlayer;
+        public float blockSpeed = 5f;
+        float blockSpeedFactor = 0;
         //Vector3 playerPos;
         //private float timeUse = 0;
         //List<BaseStageObject> objList = new List<BaseStageObject>();
@@ -23,19 +25,20 @@ namespace BallScripts.Servers
         };
 
         List<Vector3> endPosList = new List<Vector3> {
-            new Vector3(15, 0, 15),
-            new Vector3(-15, 0, 15),
-            new Vector3(15, 0, -15),
-            new Vector3(-15, 0, -15),
-            new Vector3(0, 0, 15),
-            new Vector3(0, 0, -15),
-            new Vector3(15, 0, 0),
-            new Vector3(-15, 0, 0),
+            new Vector3(20, 0, 20),
+            new Vector3(-20, 0, 20),
+            new Vector3(20, 0, -20),
+            new Vector3(-20, 0, -20),
+            new Vector3(0, 0, 20),
+            new Vector3(0, 0, -20),
+            new Vector3(20, 0, 0),
+            new Vector3(-20, 0, 0),
         };
 
         public override void Init(Player player)
         {
             cubePlayer = player;
+            blockSpeedFactor = blockSpeed * Time.fixedDeltaTime;
             return;
         }
 
@@ -80,8 +83,10 @@ namespace BallScripts.Servers
                 id = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1,
                 mass = 50,
                 useGravity = false,
-                angularDrag = 0.7f,
+                drag = 0f,
+                angularDrag = 0f,
                 prefabName = "RoadBlock",
+                constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ,
                 //position = InitPos,
                 //rotation = Quaternion.identity,
                 //initForce = Vector3.zero,
@@ -94,8 +99,12 @@ namespace BallScripts.Servers
             {
                 RigidBuildInfo newInfo = (RigidBuildInfo)info.Clone();
                 newInfo.position = playerPos + initPosList[i];
+                newInfo.initForce = initPosList[i] * 5;
+                newInfo.initForceMode = ForceMode.VelocityChange;
                 newInfo.id += i;
-                objList.Add(GameManager.instance.SpawnStageObject(newInfo, BuildType.Server));
+                BaseStageObject obj = GameManager.instance.SpawnStageObject(newInfo, BuildType.Server);
+                //obj.transform.forward = initPosList[i].normalized;
+                objList.Add(obj);
                 ServerSend.StageObjectSpawned(newInfo);
             }
             //Rigidbody rig = obj.GetComponent<Rigidbody>();
@@ -130,11 +139,15 @@ namespace BallScripts.Servers
 
             while (timeUse < 4)
             {
+                /*
                 for (int i = 0; i < 8; i++)
                 {
-                    objList[i].transform.position = Vector3.MoveTowards(objList[i].transform.position, playerPos + endPosList[i], 10 * Time.fixedDeltaTime);
+                    //objList[i].transform.position = Vector3.MoveTowards(objList[i].transform.position, playerPos + endPosList[i], 10 * Time.fixedDeltaTime);
+                    objList[i].transform.position += objList[i].transform.forward * blockSpeedFactor;
+                    //objList[i].transform.Translate(objList[i].transform.forward * blockSpeedFactor);
                     //Debug.Log("大招位置：" + objList[0].transform.position + "判定位置：" + playerPos + endPosList[0] + "距离：" + Vector3.Distance(objList[0].transform.position, playerPos + endPosList[0]));
                 }
+                */
                 timeUse += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
