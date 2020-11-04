@@ -34,9 +34,10 @@ namespace BallScripts.GameLogics
             int barOffset = 0;
             obj.barList.ForEach((Bar bar) =>
             {
+                InitBarRigidbody(bar.gameObject.AddComponent<Rigidbody>());
                 bar.gameObject.AddComponent<BarCollision>();
                 InfoSender sender = bar.gameObject.AddComponent<InfoSender>();
-                sender.sendLocal = true;
+                sender.sendLocal = true; //Bar发送local信息
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });
@@ -61,6 +62,15 @@ namespace BallScripts.GameLogics
             rig.mass = 5;
             rig.angularDrag = 0.1f;
             rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            return rig;
+        }
+
+        public static Rigidbody InitBarRigidbody(Rigidbody rig)
+        {
+            //rig.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            rig.angularDrag = 0;
+            rig.useGravity = false;
+            rig.constraints = RigidbodyConstraints.FreezeAll;
             return rig;
         }
 

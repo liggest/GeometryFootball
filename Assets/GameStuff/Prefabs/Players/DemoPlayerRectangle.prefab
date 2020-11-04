@@ -61,9 +61,11 @@ MonoBehaviour:
   category: 1
   id: -1
   idSelfIncrease: 0
+  prefabName: 
   controller: {fileID: 0}
   maxPower: 100
   barList: []
+  playerType: 
 --- !u!1 &4674068914266612126
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Geometry-Rectangle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a5025f4d68b1e14498c648a324b243d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5025f4d68b1e14498c648a324b243d9, type: 3}

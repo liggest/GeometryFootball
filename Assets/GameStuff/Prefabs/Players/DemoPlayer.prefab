@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4674068913602209597}
   - component: {fileID: 4674068913602209598}
   - component: {fileID: 4674068913602209599}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,9 +159,11 @@ MonoBehaviour:
   category: 1
   id: -1
   idSelfIncrease: 0
+  prefabName: 
   controller: {fileID: 0}
   maxPower: 100
   barList: []
+  playerType: 
 --- !u!1 &4674068914266612126
 GameObject:
   m_ObjectHideFlags: 0

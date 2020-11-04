@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BarCollision : MonoBehaviour
 {
-    public float shootForce = 100;
+    public float shootForce = 10;
     Transform center;
 
     private void Start()
