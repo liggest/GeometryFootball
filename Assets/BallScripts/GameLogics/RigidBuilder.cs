@@ -16,9 +16,12 @@ namespace BallScripts.GameLogics
         public override BaseStageObject BuildInServer(BaseStageObject obj, RigidBuildInfo info)
         {
             Rigidbody rig = obj.gameObject.AddComponent<Rigidbody>();
-            rig.collisionDetectionMode = info.collisionMode;
             rig.mass = info.mass;
+            rig.drag = info.drag;
             rig.angularDrag = info.angularDrag;
+            rig.useGravity = info.useGravity;
+            rig.isKinematic = info.isKinematic;
+            rig.collisionDetectionMode = info.collisionMode;
             obj.gameObject.AddComponent<InfoSender>();
             if (info.initForce != null) 
             {
@@ -41,7 +44,10 @@ namespace BallScripts.GameLogics
             RigidBuildInfo info = new RigidBuildInfo
             {
                 mass = rig.mass,
+                drag = rig.drag,
                 angularDrag = rig.angularDrag,
+                useGravity = rig.useGravity,
+                isKinematic = rig.isKinematic,
                 collisionMode = rig.collisionDetectionMode
             };
             return SetBaseInfo(info, obj);
