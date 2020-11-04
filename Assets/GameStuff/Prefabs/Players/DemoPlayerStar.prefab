@@ -56,10 +56,10 @@ BoxCollider:
   m_GameObject: {fileID: 4674068913897570303}
   m_Material: {fileID: 13400000, guid: af3eb002a3d4d314794e8b93350ad073, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.1, z: 1}
+  m_Center: {x: 0, y: -0.35, z: 0}
 --- !u!114 &4674068913897570243
 MonoBehaviour:
   m_ObjectHideFlags: 0
