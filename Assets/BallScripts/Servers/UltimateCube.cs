@@ -99,10 +99,14 @@ namespace BallScripts.Servers
         public override void Exit()
         {
             base.Exit();
+
+            List <StageObjectPair> deSpawnObjList = new List<StageObjectPair>();
             for (int i = 0; i < 8; i++)
             {
                 GameManager.instance.DespawnStageObject(objList[i].category, objList[i].id);
+                deSpawnObjList.Add(new StageObjectPair {category = objList[i].category, id = objList[i].id });
             }
+            ServerSend.StageObjectDespawned(deSpawnObjList);
             timeUse = 0;
             objList.Clear();
         }
