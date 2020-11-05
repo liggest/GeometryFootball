@@ -8,11 +8,15 @@ namespace BallScripts.GameLogics {
     {
         public int id = -1;
         HashSet<int> playerIDs = new HashSet<int>();
-
+        public string name = string.Empty;
+        public Color teamColor = Color.black;
         public Team(int teamID)
         {
             id = teamID;
+            name = "队伍" + id.ToString();
         }
+
+        public int Count { get => playerIDs.Count; }
 
         public void Add(int playerID)
         {

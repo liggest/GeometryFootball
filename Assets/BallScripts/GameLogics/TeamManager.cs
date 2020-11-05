@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using BallScripts.Utils;
 
@@ -47,6 +48,29 @@ namespace BallScripts.GameLogics{
                 result = team.IsInTeam(pid1) && team.IsInTeam(pid2);
             }
             return result;
+        }
+
+        public int DistributeToTeam(Player player)
+        {
+            int minNum = int.MaxValue;
+            int minTeamID = -1;
+            foreach (Team team in teams.Values)
+            {
+                if (team.Count < minNum)
+                {
+                    minNum = team.Count;
+                    minTeamID = team.id;
+                }
+            }
+            if (minTeamID == -1)
+            {
+                AddToTeam(player, teams.Keys.Max() + 1);
+            }
+            else
+            {
+                AddToTeam(player, minTeamID);
+            }
+            return minTeamID;
         }
 
     }

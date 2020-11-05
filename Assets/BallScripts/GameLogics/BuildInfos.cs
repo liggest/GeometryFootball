@@ -52,6 +52,7 @@ namespace BallScripts.GameLogics
         }
         public string playerType = "Demo";
         public int firstBar = -1;
+        public int teamID = -1;
     }
 
 
