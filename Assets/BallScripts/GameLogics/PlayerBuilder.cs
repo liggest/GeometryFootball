@@ -15,6 +15,7 @@ namespace BallScripts.GameLogics
             {
                 obj.gameObject.AddComponent<InputSender>();
                 Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;
+                GameObject.Find("MyPlayerName").AddComponent<MyNameTextTrack>().trackPlayer = obj.transform;
             }
             obj.InitBars();
             int barOffset = 0;
