@@ -5,9 +5,19 @@ using UnityEngine;
 using BallScripts.Utils;
 
 namespace BallScripts.GameLogics{
+
+    [System.Serializable]
+    public struct TeamDescribe
+    {
+        public Color color;
+        public string name;
+    }
+
     public class TeamManager : Singleton<TeamManager>
     {
         public Dictionary<int, Team> teams = new Dictionary<int, Team>();
+
+        public List<TeamDescribe> describes = new List<TeamDescribe>();
 
         public void AddToTeam(Player player,int teamID)
         {
