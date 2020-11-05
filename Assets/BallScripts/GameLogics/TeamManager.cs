@@ -30,6 +30,9 @@ namespace BallScripts.GameLogics{
             {
                 Team playerTeam = new Team(teamID);
                 teams.Add(teamID, playerTeam);
+                TeamDescribe desc = GetTeamDescribe(playerTeam.id);
+                playerTeam.name = desc.name;
+                playerTeam.teamColor = desc.color;
                 playerTeam.Add(player);
                 player.team = playerTeam;
             }
@@ -81,6 +84,27 @@ namespace BallScripts.GameLogics{
                 AddToTeam(player, minTeamID);
             }
             return minTeamID;
+        }
+
+        public TeamDescribe GetTeamDescribe(int teamID)
+        {
+            if(teamID>0 && teamID < describes.Count)
+            {
+                return describes[teamID];
+            }
+            else
+            {
+                List<string> centerList = new List<string> { "上", "如", "加", "传" };
+                string center = centerList[Random.Range(0, centerList.Count - 1)];
+                int dcount = describes.Count - 1;
+                TeamDescribe d1 = describes[Random.Range(0, dcount)];
+                TeamDescribe d2 = describes[Random.Range(0, dcount)];
+                return new TeamDescribe
+                {
+                    color = Color.Lerp(d1.color, d2.color, Random.Range(0.3f, 0.7f)),
+                    name = d1.name + center + d2.name,
+                };
+            }
         }
 
     }
