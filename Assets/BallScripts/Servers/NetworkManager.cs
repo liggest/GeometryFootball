@@ -30,7 +30,7 @@ namespace BallScripts.Servers
                 if (Server.state == ServerState.Started && Server.PlayerCount == 1 && cid > 0) 
                 {
                     Debug.Log($"服务端尝试加载DemoStage...");
-                    StageManager.Refresh();
+                    GameManager.instance.RefreshSingletons();
                     GameManager.instance.BeginLoadScene("DemoStage",(string name)=> 
                     {
                         Debug.Log($"DemoStage加载完成！");

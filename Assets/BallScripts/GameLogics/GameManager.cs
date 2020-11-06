@@ -33,6 +33,12 @@ namespace BallScripts.GameLogics
             SceneLoadedAction?.Invoke(sceneName);
         }
 
+        public void RefreshSingletons()
+        {
+            StageManager.Refresh();
+            TeamManager.Refresh();
+        }
+
         public void BeServer(int port)
         {
             Servers.NetworkManager.instance.StartServer(port);
@@ -77,7 +83,6 @@ namespace BallScripts.GameLogics
             Destroy(StageManager.instance.RemoveStageObject(category, id).gameObject);
             Debug.Log($"销毁了 {category} - {id}");
         }
-
     }
 
 }
