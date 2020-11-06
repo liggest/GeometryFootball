@@ -24,6 +24,8 @@ namespace BallScripts.GameLogics
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });
+            TeamManager.instance.TryAddTeamByDescribe(info.teamDescribe);
+            TeamManager.instance.AddToTeam(obj, info.teamDescribe.id);
             return obj;
         }
 
@@ -45,6 +47,9 @@ namespace BallScripts.GameLogics
             PlayerController controller = obj.gameObject.AddComponent<PlayerController>();
             controller.InitPlayer();
             controller.SetUltimate(info.playerType);
+            int teamID = TeamManager.instance.DistributeOneTeam();
+            TeamManager.instance.AddToTeam(obj, teamID);
+            info.teamDescribe = obj.team.GetDescribe();
             return obj;
         }
         public override Player AfterInstantiate(GameObject obj, PlayerBuildInfo info)

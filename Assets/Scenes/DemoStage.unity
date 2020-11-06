@@ -759,15 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f84a20e867c2b641a092b26ef1ca349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  describes:
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    name: 
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    name: 
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    name: 
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    name: 
+  describes: []
 --- !u!4 &1924392005
 Transform:
   m_ObjectHideFlags: 0

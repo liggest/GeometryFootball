@@ -39,7 +39,7 @@ namespace BallScripts.Servers
                 id = clientID,
                 prefabName = prefabName,
                 playerType = "Demo",
-                firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1,
+                firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1
             };
             //Debug.Log($"info.category={info.category}");
             //Debug.Log($"info.infoType={info.infoType}");

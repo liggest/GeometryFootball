@@ -13,7 +13,6 @@ namespace BallScripts.GameLogics {
         public Team(int teamID)
         {
             id = teamID;
-            name = "队伍" + id.ToString();
         }
 
         public int Count { get => playerIDs.Count; }
@@ -72,6 +71,20 @@ namespace BallScripts.GameLogics {
         {
             return playerIDs.ToList();
 ;       }
+
+        public TeamDescribe GetDescribe()
+        {
+            return new TeamDescribe
+            {
+                id = id,
+                color = teamColor,
+                name = name
+            };
+        }
+        public override string ToString()
+        {
+            return $"队伍{id}-{name}队";
+        }
     }
 }
 
