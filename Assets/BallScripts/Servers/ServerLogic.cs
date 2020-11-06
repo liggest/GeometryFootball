@@ -34,17 +34,18 @@ namespace BallScripts.Servers
 
         public static void InitClientPlayer(int clientID,string prefabName)
         {
+            int teamID = TeamManager.instance.DistributeOneTeam();
+            TeamDescribe desc = TeamManager.instance.teams[teamID].GetDescribe();
+
             PlayerBuildInfo info = new PlayerBuildInfo
             {
                 id = clientID,
                 prefabName = prefabName,
                 playerType = "Demo",
                 playerName = Server.clients[clientID].username,
-                firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1
+                firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1,
+                teamDescribe= desc
             };
-            //Debug.Log($"info.category={info.category}");
-            //Debug.Log($"info.infoType={info.infoType}");
-            //Debug.Log($"info.firstBar={info.firstBar}");
             GameManager.instance.SpawnStageObject(info, BuildType.Server);
             ServerSend.StageObjectSpawned(info);
         }
