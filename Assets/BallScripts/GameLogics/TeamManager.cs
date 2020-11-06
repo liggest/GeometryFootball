@@ -38,6 +38,17 @@ namespace BallScripts.GameLogics{
             Debug.Log($"Player - {player.id} 现在是 {team.ToString()}");
         }
 
+        public void RemoveFromTeam(Player player)
+        {
+            Team team = player.team;
+            player.team = null;
+            team.Remove(player.id);
+            if (team.Count == 0)
+            {
+                teams.Remove(team.id);
+            }
+        }
+
         public bool IsSameTeam(Player p1,Player p2)
         {
             if (p1.team == null) 
