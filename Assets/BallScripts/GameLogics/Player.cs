@@ -21,6 +21,8 @@ namespace BallScripts.GameLogics
 
         public Team team;
 
+        public TextMesh myName;
+
         protected new void Start()
         {
             base.Start(); //BaseStageObject初始化（如果有的话）
@@ -29,6 +31,7 @@ namespace BallScripts.GameLogics
             {
                 InitBars();
             }
+
         }
         
         public void InitBars()
@@ -47,6 +50,11 @@ namespace BallScripts.GameLogics
             }
             lastBar.Next = barList[0];
             barList[0].Previous = lastBar;
+        }
+
+        public void InitText()
+        {
+            myName = transform.Find("Cube/MyName").GetComponent<TextMesh>();
         }
 
 

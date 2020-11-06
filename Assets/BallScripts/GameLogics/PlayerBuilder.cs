@@ -15,7 +15,6 @@ namespace BallScripts.GameLogics
             {
                 obj.gameObject.AddComponent<InputSender>();
                 Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;
-                GameObject.Find("MyPlayerName").AddComponent<MyNameTextTrack>().trackPlayer = obj.transform;
             }
             obj.InitBars();
             int barOffset = 0;
@@ -38,7 +37,7 @@ namespace BallScripts.GameLogics
             obj.barList.ForEach((Bar bar) =>
             {
                 InitBarRigidbody(bar.gameObject.AddComponent<Rigidbody>());
-                bar.gameObject.AddComponent<BarCollision>();
+                bar.gameObject.AddComponent<BarCollision>().InitCenter();
                 InfoSender sender = bar.gameObject.AddComponent<InfoSender>();
                 sender.sendLocal = true; //Bar发送local信息
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
@@ -56,6 +55,8 @@ namespace BallScripts.GameLogics
         {
             Player player = base.AfterInstantiate(obj, info);
             player.playerType = info.playerType;
+            player.InitText();
+            player.myName.text = info.playerName;
             return player;
         }
         public override bool CheckInfo(BaseBuildInfo info)
@@ -85,7 +86,8 @@ namespace BallScripts.GameLogics
             PlayerBuildInfo info = new PlayerBuildInfo
             {
                 firstBar = obj.barList[0].id,
-                playerType = obj.playerType
+                playerType = obj.playerType,
+                playerName = obj.myName.text,
             };
             return SetBaseInfo(info, obj);
         }

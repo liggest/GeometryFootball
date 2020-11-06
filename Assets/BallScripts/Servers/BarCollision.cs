@@ -12,8 +12,14 @@ namespace BallScripts.Servers
 
         private void Start()
         {
+            //InitCenter();
+        }
+
+        public void InitCenter()
+        {
             center = transform.parent;
         }
+
         private void OnCollisionEnter(Collision collision)
         {
             if(collision.gameObject.TryGetComponent(out BaseStageObject obj))

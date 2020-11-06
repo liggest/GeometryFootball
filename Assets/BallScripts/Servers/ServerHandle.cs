@@ -19,6 +19,10 @@ namespace BallScripts.Servers
             {
                 Debug.Log($"玩家ID检查出错！玩家{clientID}-{username}拥有了错误的客户端ID：{idcheck}");
             }
+            else
+            {
+                Server.clients[clientID].username = username;
+            }
             //Server.clients[clientID].SendIntoGame(username);
         }
 

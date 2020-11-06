@@ -13,6 +13,7 @@ namespace BallScripts.Servers
         public static int BufferSize = 4096;
 
         public int id;
+        public string username;
 
         //public Player player;
 

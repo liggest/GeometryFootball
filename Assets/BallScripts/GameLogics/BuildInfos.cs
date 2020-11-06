@@ -51,6 +51,7 @@ namespace BallScripts.GameLogics
             infoType = "Player";
         }
         public string playerType = "Demo";
+        public string playerName = "Anonymous";
         public int firstBar = -1;
         public TeamDescribe teamDescribe = new TeamDescribe { id = -1 };
     }
