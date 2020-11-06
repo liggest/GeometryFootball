@@ -75,6 +75,11 @@ namespace BallScripts.GameLogics
         {
             transform.localRotation = rot;
         }
+
+        public virtual void LastWord()
+        {
+            Debug.Log($"{category} - {id} 在说遗言");
+        }
     }
 
 }

@@ -41,11 +41,13 @@ namespace BallScripts.GameLogics{
         public void RemoveFromTeam(Player player)
         {
             Team team = player.team;
+            Debug.Log($"Player{player.id} 退出了 {team.ToString()}");
             player.team = null;
             team.Remove(player.id);
             if (team.Count == 0)
             {
                 teams.Remove(team.id);
+                Debug.Log($"{team.ToString()} 里面已经完全没有玩家了，销毁之");
             }
         }
 

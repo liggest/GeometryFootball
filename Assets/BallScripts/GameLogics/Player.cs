@@ -57,7 +57,15 @@ namespace BallScripts.GameLogics
             myName = transform.Find("Cube/MyName").GetComponent<TextMesh>();
         }
 
-
+        public override void LastWord()
+        {
+            base.LastWord();
+            barList.ForEach((Bar bar) =>
+            {
+                StageManager.instance.RemoveStageObject(bar.category, bar.id);
+            });
+            TeamManager.instance.RemoveFromTeam(this);
+        }
     }
 }
 

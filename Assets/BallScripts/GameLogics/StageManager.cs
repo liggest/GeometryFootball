@@ -58,6 +58,7 @@ namespace BallScripts.GameLogics {
             BaseStageObject obj = GetStageObject(category, id);
             if (obj)
             {
+                obj.LastWord(); //遗言
                 stageObjects[category].Remove(id);
                 if (maxIDs[category] == id)
                 {
