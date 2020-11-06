@@ -39,7 +39,7 @@ namespace BallScripts.GameLogics
                 resources[obj.name] = obj;
                 onLoad?.Invoke(obj);
             }
-            Debug.Log($"[ResourcesManager]加载了所有{label}");
+            Debug.Log($"[ResourcesManager]加载了所有{label}，共{resultList.Count}个。目前共有{resources.Count}个资源");
         }
 
         public static async void Load<T>(string name, Action<T> onLoad = null)

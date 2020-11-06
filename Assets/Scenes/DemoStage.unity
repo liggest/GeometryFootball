@@ -287,10 +287,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   describes:
   - id: 1
-    color: {r: 0.972549, g: 0.08627451, b: 0.20784314, a: 0}
+    color: {r: 0.972549, g: 0.08627451, b: 0.20784314, a: 1}
     name: "\u8D64"
   - id: 2
-    color: {r: 0.12941177, g: 0.654902, b: 0.16470589, a: 0}
+    color: {r: 0.12941177, g: 0.654902, b: 0.16470589, a: 1}
     name: "\u7EFF"
 --- !u!4 &708117191
 Transform:
@@ -2180,6 +2180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096567222703290855, guid: 3443f32dc353c324b93fac4443747c1f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3443f32dc353c324b93fac4443747c1f, type: 3}

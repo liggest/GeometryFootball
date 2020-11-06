@@ -108,7 +108,7 @@ namespace BallScripts.Servers
                 ServerSend.StageObjectSpawned(newInfo);
             }
             //Rigidbody rig = obj.GetComponent<Rigidbody>();
-            GameManager.instance.StartCoroutine(BlockMove(playerPos, objList)); //不这么写的话关掉游戏携程跑不完，那些块块就不会销毁，所以得挂在一个场景中不会被销毁的东西上（所以挂在UIManager上也行其实）
+            GameManager.instance.StartCoroutine(BlockMove(playerPos, objList)); //不这么写的话关掉游戏携程跑不完，那些块块就不会销毁，所以得挂在一个场景中不会被销毁的东西上
             Exit();
         }
 

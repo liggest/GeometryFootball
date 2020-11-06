@@ -55,6 +55,7 @@ namespace BallScripts.GameLogics
             player.playerType = info.playerType;
             player.InitText();
             player.myName.text = info.playerName;
+            player.myName.color = info.teamDescribe.color;
             return player;
         }
         public override bool CheckInfo(BaseBuildInfo info)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2089551144231724513}
   - component: {fileID: 2096567222703290852}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: DemoBall
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,4 +109,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: 2
   id: 0
-  idSelfIncrease: 1
+  idSelfIncrease: 0
+  prefabName: 

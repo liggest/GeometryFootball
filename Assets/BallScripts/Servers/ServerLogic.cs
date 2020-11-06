@@ -50,6 +50,20 @@ namespace BallScripts.Servers
             ServerSend.StageObjectSpawned(info);
         }
 
+        public static void InitBall(string prefabName)
+        {
+            RigidBuildInfo info = new RigidBuildInfo
+            {
+                category = StageObjectCategory.Ball,
+                id = StageManager.instance.GetMaxID(StageObjectCategory.Ball) + 1,
+                prefabName = prefabName,
+                collisionMode = CollisionDetectionMode.Continuous,
+                //position 需要初始位置
+            };
+            GameManager.instance.SpawnStageObject(info, BuildType.Server);
+            //ServerSend.StageObjectSpawned(info);
+        }
+
 
         public static void AttachRigidbodyToAll(StageObjectCategory category)
         {
