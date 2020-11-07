@@ -3,9 +3,18 @@ using UnityEngine.UI;
 using System.Net;
 using System;
 using BallScripts.Utils;
+using System.Collections.Generic;
 
 namespace BallScripts.GameLogics
 {
+    [System.Serializable]
+    public struct UIElement
+    {
+        public int id;
+        public Color color;
+        public string name;
+    }
+
     public class UIManager : Singleton<UIManager>
     {
         public GameObject serverClient;
@@ -22,8 +31,12 @@ namespace BallScripts.GameLogics
         public Text ipPortInfo;
         public Text clientCount;
 
+        public GameObject m_CanvasRoot;
+        public Dictionary<string, GameObject> m_PanelList = new Dictionary<string, GameObject>();
+
         private void Start()
         {
+
             if (Servers.Server.state == Servers.ServerState.Offline)
             {
                 InitUI();
@@ -37,6 +50,104 @@ namespace BallScripts.GameLogics
 
         }
 
+        #region UIManager 基础函数
+        private bool CheckCanvasRootIsNull() //判断canvas是不是null
+        {
+            if (m_CanvasRoot == null)
+            {
+                Debug.Log("m_CanvasRoot是空的，请给你的Canvas增加UIRootHandler.cs");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool IsPanelLive(string name) //判断界面是否开启
+        {
+            return m_PanelList.ContainsKey(name); //通过这个界面是否在dictionary里来判断
+        }
+
+        public void ShowPanel(string name)
+        { //开启界面
+            if (CheckCanvasRootIsNull())
+            {
+                return;
+            }
+
+            if (IsPanelLive(name))
+            {
+                Debug.LogErrorFormat("[{0}]已经开启，如果你想显示，请先关闭", name);
+                return;
+            }
+
+            ResourcesManager.LoadAndInstantiate(name, m_CanvasRoot.transform, (panel) =>
+            {
+                panel.name = name;
+                m_PanelList.Add(name, panel);
+            });
+        }
+
+        public void TogglePanel(string name, bool isOn)//显示或隐藏界面
+        {
+            if (IsPanelLive(name))
+            {
+                if (m_PanelList[name] != null)
+                {
+                    m_PanelList[name].SetActive(isOn); //isOn决定现实还是隐藏
+                }
+                else
+                {
+                    Debug.LogErrorFormat("" +
+                        "TogglePanel[{0}] 找不到", name);
+                }
+            }
+        }
+
+        public void ClosePanel(string name) //关闭界面
+        {
+            if (IsPanelLive(name))
+            {
+                if (m_PanelList[name] != null)
+                {
+                    Destroy(m_PanelList[name]);
+                    m_PanelList.Remove(name);
+                }
+                else
+                {
+                    Debug.LogErrorFormat("" +
+                        "ClosePanel[{0}] 找不到", name);
+                }
+            }
+        }
+
+        public void CloseAllPanel() //关闭所有界面
+        {
+            foreach (KeyValuePair<string, GameObject> item in m_PanelList)
+            {
+                if (item.Value != null)
+                {
+                    Destroy(item.Value);
+                }
+            }
+            m_PanelList.Clear();
+        }
+
+        public Vector2 GetCanvasSize() //获得Canvas大小
+        {
+            if (CheckCanvasRootIsNull())
+            {
+                return Vector2.one * -1;
+            }
+
+            RectTransform trans = m_CanvasRoot.transform as RectTransform;
+
+            return trans.sizeDelta;
+        }
+        #endregion
+
+
         public void InitUI()
         {
             serverClient.SetActive(true);
@@ -48,6 +159,7 @@ namespace BallScripts.GameLogics
             clientPortField.interactable = true;
             ipField.interactable = true;
             usernameField.interactable = true;
+
         }
 
         public void ToServerMenu()
@@ -159,6 +271,11 @@ namespace BallScripts.GameLogics
                 }
             }
             return true;
+        }
+
+        public void SetIpPortInfo(string text)
+        {
+            ipPortInfo.text = text;
         }
     }
 

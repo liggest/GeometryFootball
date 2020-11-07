@@ -65,13 +65,13 @@ namespace BallScripts.GameLogics
         {
             GameObject obj = await Addressables.InstantiateAsync(name, parent).Task;
             onLoad?.Invoke(obj);
-            Debug.Log($"[ResourcesManager]生成了了{name}");
+            Debug.Log($"[ResourcesManager]生成了{name}");
         }
         public static async void LoadAndInstantiate(string name, Vector3 position, Quaternion rotation, Transform parent = null, Action<GameObject> onLoad = null)
         {
             GameObject obj = await Addressables.InstantiateAsync(name, position, rotation, parent).Task;
             onLoad?.Invoke(obj);
-            Debug.Log($"[ResourcesManager]生成了了{name}");
+            Debug.Log($"[ResourcesManager]生成了{name}");
         }
 
         public static T Get<T>(string name)
