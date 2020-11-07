@@ -60,11 +60,11 @@ namespace BallScripts.GameLogics
         public override void LastWord()
         {
             base.LastWord();
-            barList.ForEach((Bar bar) =>
-            {
-                StageManager.instance.RemoveStageObject(bar.category, bar.id);
-            });
-            TeamManager.instance.RemoveFromTeam(this);
+            //barList.ForEach((Bar bar) =>
+            //{
+            //    StageManager.instance.RemoveStageObject(bar.category, bar.id);
+            //});
+            //TeamManager.instance.RemoveFromTeam(this);
         }
     }
 }

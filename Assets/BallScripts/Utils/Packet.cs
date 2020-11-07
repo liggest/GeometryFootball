@@ -12,11 +12,14 @@ namespace BallScripts.Utils
         SceneLoadingStarted,
         StageObjectSpawned,
         StageObjectDespawned,
-        StageObjectRespawned,
+        StageObjectRemoved,
+        //StageObjectRespawned,
         StageObjectPositions,
         StageObjectLocalPositions,
         StageObjectRotations,
         StageObjectLocalRotations,
+        TeamLeft,
+
 
         PlayerSpawned,
         PlayerPosition,

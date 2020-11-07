@@ -50,6 +50,26 @@ namespace BallScripts.Servers
             ServerSend.StageObjectSpawned(info);
         }
 
+        public static void PlayerDisconnected(int playerID)
+        {
+            BaseStageObject obj = StageManager.instance.GetStageObject(StageObjectCategory.Player, playerID);
+            if (obj)
+            {
+                Player player = (Player)obj;
+                TeamManager.instance.RemoveFromTeam(player);
+                ServerSend.TeamLeft(playerID);
+                List<StageObjectPair> bars = new List<StageObjectPair>();
+                player.barList.ForEach((Bar bar) =>
+                {
+                    bars.Add(new StageObjectPair { category = bar.category, id = bar.id });
+                    StageManager.instance.RemoveStageObject(bar.category, bar.id);
+                });
+                ServerSend.StageObjectRemoved(bars);
+                GameManager.instance.DespawnStageObject(StageObjectCategory.Player, playerID);
+                ServerSend.StageObjectDespawned(StageObjectCategory.Player, playerID);
+            }
+        }
+
         public static void InitBall(string prefabName)
         {
             RigidBuildInfo info = new RigidBuildInfo

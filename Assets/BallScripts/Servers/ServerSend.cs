@@ -151,11 +151,7 @@ namespace BallScripts.Servers
         {
             using (Packet packet = new Packet((int)ServerPackets.StageObjectDespawned))
             {
-                foreach (StageObjectPair pair in objs)
-                {
-                    packet.Write((int)pair.category);
-                    packet.Write(pair.id);
-                }
+                Pairs2Packet(objs, packet);
                 SendTCPDataToAll(packet);
             }
         }
@@ -164,12 +160,44 @@ namespace BallScripts.Servers
         {
             using (Packet packet = new Packet((int)ServerPackets.StageObjectDespawned))
             {
-                foreach (StageObjectPair pair in objs)
-                {
-                    packet.Write((int)pair.category);
-                    packet.Write(pair.id);
-                }
+                Pairs2Packet(objs, packet);
                 SendTCPData(clientID, packet);
+            }
+        }
+        public static void StageObjectRemoved(List<StageObjectPair> objs) 
+        {
+            //和上面的Despawned不同，这里只调用StageManager.instance.RemoveStageObject
+            //而不是GameManager.instance.DespawnStageObject
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectRemoved))
+            {
+                Pairs2Packet(objs, packet);
+                SendTCPDataToAll(packet);
+            }
+        }
+        public static void StageObjectRemoved(int clientID, List<StageObjectPair> objs)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectRemoved))
+            {
+                Pairs2Packet(objs, packet);
+                SendTCPData(clientID, packet);
+            }
+        }
+
+        static void Pairs2Packet(List<StageObjectPair> pairs,Packet packet)
+        {
+            foreach (StageObjectPair pair in pairs)
+            {
+                packet.Write((int)pair.category);
+                packet.Write(pair.id);
+            }
+        }
+
+        public static void TeamLeft(int playerID)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.TeamLeft))
+            {
+                packet.Write(playerID);
+                SendTCPDataToAll(packet);
             }
         }
 

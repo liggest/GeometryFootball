@@ -80,6 +80,11 @@ namespace BallScripts.GameLogics
         {
             Debug.Log($"{category} - {id} 在说遗言");
         }
+
+        public static implicit operator bool(BaseStageObject obj)
+        {
+            return obj != null; //条件语句时可以直接if(obj)，不用if(obj!=null)
+        }
     }
 
 }

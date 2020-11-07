@@ -244,6 +244,7 @@ namespace BallScripts.Servers
             //});
             tcp.Disconnect();
             udp.Disconnect();
+            username = string.Empty;
             Server.UpdatePlayerCount(-1);
 
             ThreadManager.ExecuteOnMainThread(() => Actions.ClientDisconnectedAction?.Invoke(id));

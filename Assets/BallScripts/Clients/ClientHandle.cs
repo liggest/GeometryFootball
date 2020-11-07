@@ -109,6 +109,20 @@ namespace BallScripts.Clients
                 GameManager.instance.DespawnStageObject(category, id);
             }
         }
+        public static void StageObjectRemoved(Packet packet)
+        {
+            while (packet.UnreadLength() > 0)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id = packet.ReadInt();
+                StageManager.instance.RemoveStageObject(category, id);
+            }
+        }
+        public static void TeamLeft(Packet packet)
+        {
+            int playerID = packet.ReadInt();
+            TeamManager.instance.RemoveFromTeam(playerID);
+        }
 
         /*
         public static void PlayerSpawned(Packet packet)

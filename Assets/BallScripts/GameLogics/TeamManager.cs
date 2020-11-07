@@ -51,6 +51,16 @@ namespace BallScripts.GameLogics{
             }
         }
 
+        public void RemoveFromTeam(int playerID)
+        {
+            BaseStageObject obj = StageManager.instance.GetStageObject(StageObjectCategory.Player, playerID);
+            if (obj) 
+            {
+                Player player = (Player)obj;
+                RemoveFromTeam(player);
+            }
+        }
+
         public bool IsSameTeam(Player p1,Player p2)
         {
             if (p1.team == null) 

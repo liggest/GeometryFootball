@@ -62,18 +62,12 @@ namespace BallScripts.Servers
                 }
             }
 
-            void PlayerDisconnected(int id)
-            {
-                GameManager.instance.DespawnStageObject(StageObjectCategory.Player, id);
-                ServerSend.StageObjectDespawned(StageObjectCategory.Player, id);
-            }
-
             Actions.ClientTCPConnectedAction += LoadDemo;
             Actions.ClientUDPConnectedAction += (int cid) =>
             {
                 ServerSend.SceneLoadingStarted(cid, "DemoStage");
             };
-            Actions.ClientDisconnectedAction += PlayerDisconnected;
+            Actions.ClientDisconnectedAction += ServerLogic.PlayerDisconnected;
         }
 
         private void OnApplicationQuit()
