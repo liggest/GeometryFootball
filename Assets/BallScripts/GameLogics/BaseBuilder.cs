@@ -105,7 +105,7 @@ namespace BallScripts.GameLogics
         {
             if (CheckInfo(info))
             {
-                Debug.Log($"由 {GetType().Name} 构建对象");
+                //Debug.Log($"由 {GetType().Name} 构建对象");
                 return this;
             }
             if (Next != null)

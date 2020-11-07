@@ -36,7 +36,7 @@ namespace BallScripts.Utils
         {
             if (_action == null)
             {
-                Debug.Log("No action to execute on main thread!");
+                Debug.Log("[ThreadManager]接收到了空输入");
                 return;
             }
 

@@ -18,6 +18,7 @@ namespace BallScripts.Servers
         public static int PlayerCount { get; private set; }
 
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
+        public static Dictionary<string, int> onlineClients = new Dictionary<string, int>();
         public delegate void PacketHandler(int clientID, Packet packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
 

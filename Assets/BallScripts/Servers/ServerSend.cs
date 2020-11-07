@@ -24,6 +24,16 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void ClientConnectionRefused(int clientID,string msg)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.ClientConnectionRefused))
+            {
+                packet.Write(msg);
+                SendUDPData(clientID, packet);
+                //SendTCPData(clientID, packet);
+            }
+        }
+
         public static void SceneLoadingStarted(int clientID,string sceneName)
         {
             using (Packet packet = new Packet((int)ServerPackets.SceneLoadingStarted))
@@ -416,22 +426,33 @@ namespace BallScripts.Servers
         private static void SendTCPDataToAll(Packet packet)
         {
             packet.WriteLength();
-            for (int i = 1; i <= Server.MaxPlayers; i++)
+            foreach (int cid in Server.onlineClients.Values)
             {
-                Server.clients[i].tcp.SendData(packet);
+                Server.clients[cid].tcp.SendData(packet);
             }
+            //for (int i = 1; i <= Server.MaxPlayers; i++)
+            //{
+            //    Server.clients[i].tcp.SendData(packet);
+            //}
         }
 
         private static void SendTCPDataToAll(int expectClientID, Packet packet)
         {
             packet.WriteLength();
-            for (int i = 1; i <= Server.MaxPlayers; i++)
+            foreach (int cid in Server.onlineClients.Values)
             {
-                if (i != expectClientID)
+                if (cid != expectClientID)
                 {
-                    Server.clients[i].tcp.SendData(packet);
+                    Server.clients[cid].tcp.SendData(packet);
                 }
             }
+            //for (int i = 1; i <= Server.MaxPlayers; i++)
+            //{
+            //    if (i != expectClientID)
+            //    {
+            //        Server.clients[i].tcp.SendData(packet);
+            //    }
+            //}
         }
 
         private static void SendUDPData(int clientID, Packet packet)
@@ -443,22 +464,33 @@ namespace BallScripts.Servers
         private static void SendUDPDataToAll(Packet packet)
         {
             packet.WriteLength();
-            for (int i = 1; i <= Server.MaxPlayers; i++)
+            foreach (int cid in Server.onlineClients.Values)
             {
-                Server.clients[i].udp.SendData(packet);
+                Server.clients[cid].udp.SendData(packet);
             }
+            //for (int i = 1; i <= Server.MaxPlayers; i++)
+            //{
+            //    Server.clients[i].udp.SendData(packet);
+            //}
         }
 
         private static void SendUDPDataToAll(int expectClientID, Packet packet)
         {
             packet.WriteLength();
-            for (int i = 1; i <= Server.MaxPlayers; i++)
+            foreach (int cid in Server.onlineClients.Values)
             {
-                if (i != expectClientID)
+                if (cid != expectClientID)
                 {
-                    Server.clients[i].udp.SendData(packet);
+                    Server.clients[cid].udp.SendData(packet);
                 }
             }
+            //for (int i = 1; i <= Server.MaxPlayers; i++)
+            //{
+            //    if (i != expectClientID)
+            //    {
+            //        Server.clients[i].udp.SendData(packet);
+            //    }
+            //}
         }
         #endregion
     }

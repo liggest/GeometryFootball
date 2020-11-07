@@ -13,7 +13,7 @@ namespace BallScripts.Servers
         public static int BufferSize = 4096;
 
         public int id;
-        public string username;
+        public string username = string.Empty;
 
         //public Player player;
 
@@ -234,7 +234,23 @@ namespace BallScripts.Servers
         }
         */
 
-        private void Disconnect()
+        public void InitUser(string name)
+        {
+            username = name;
+            Server.onlineClients[username] = id;
+        }
+
+        public void RemoveUser()
+        {
+            Debug.Log("RemoveRemove");
+            if (!string.IsNullOrEmpty(username) && Server.onlineClients[username] == id) 
+            {
+                Server.onlineClients.Remove(username);
+            }
+            username = string.Empty;
+        }
+
+        public void Disconnect()
         {
             Debug.Log($"{tcp.socket.Client.RemoteEndPoint} 断开了连接");
             //ThreadManager.ExecuteOnMainThread(() =>
@@ -244,7 +260,7 @@ namespace BallScripts.Servers
             //});
             tcp.Disconnect();
             udp.Disconnect();
-            username = string.Empty;
+            RemoveUser();
             Server.UpdatePlayerCount(-1);
 
             ThreadManager.ExecuteOnMainThread(() => Actions.ClientDisconnectedAction?.Invoke(id));

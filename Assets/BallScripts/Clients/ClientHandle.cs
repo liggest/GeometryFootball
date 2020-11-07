@@ -24,6 +24,13 @@ namespace BallScripts.Clients
             Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
         }
 
+        public static void ClientConnectionRefused(Packet packet)
+        {
+            string msg = packet.ReadString();
+            Debug.Log(msg);
+            ClientLogic.BeginSceneLoading("TestScene"); //暂时先回主场景
+        }
+
         public static void SceneLoadingStarted(Packet packet)
         {
             string sceneName = packet.ReadString();

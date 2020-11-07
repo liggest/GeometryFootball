@@ -9,6 +9,7 @@ namespace BallScripts.Utils
     public enum ServerPackets
     {
         Welcome = 1,
+        ClientConnectionRefused,
         SceneLoadingStarted,
         StageObjectSpawned,
         StageObjectDespawned,

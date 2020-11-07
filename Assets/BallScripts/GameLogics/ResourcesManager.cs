@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -57,6 +58,20 @@ namespace BallScripts.GameLogics
             resources[name] = obj;
             onLoad?.Invoke(obj);
             Debug.Log($"[ResourcesManager]加载了{label}下的{name}");
+        }
+
+        //Transform parent = null, Vector3? position = null, Quaternion? rotation = null
+        public static async void LoadAndInstantiate(string name, Transform parent = null, Action<GameObject> onLoad = null)
+        {
+            GameObject obj = await Addressables.InstantiateAsync(name, parent).Task;
+            onLoad?.Invoke(obj);
+            Debug.Log($"[ResourcesManager]生成了了{name}");
+        }
+        public static async void LoadAndInstantiate(string name, Vector3 position, Quaternion rotation, Transform parent = null, Action<GameObject> onLoad = null)
+        {
+            GameObject obj = await Addressables.InstantiateAsync(name, position, rotation, parent).Task;
+            onLoad?.Invoke(obj);
+            Debug.Log($"[ResourcesManager]生成了了{name}");
         }
 
         public static T Get<T>(string name)
