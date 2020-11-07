@@ -4,19 +4,23 @@ using System.Net;
 using System;
 using BallScripts.Utils;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace BallScripts.GameLogics
 {
     [System.Serializable]
     public struct UIElement
     {
-        public int id;
-        public Color color;
         public string name;
+        public UIBehaviour UIObject;
     }
 
     public class UIManager : Singleton<UIManager>
     {
+        [Tooltip("本场地的所有UI")]
+        public List<UIElement> uiElements = new List<UIElement>();
+
+
         public GameObject serverClient;
         public GameObject clientMenu;
         public GameObject serverMenu;
