@@ -8,7 +8,7 @@ namespace BallScripts.GameLogics
     {
         void Awake()
         {
-            UIManager.instance.m_CanvasRoot = gameObject;
+            //UIManager.instance.m_CanvasRoot = gameObject;
         }
 
     }

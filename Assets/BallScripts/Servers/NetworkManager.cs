@@ -65,7 +65,10 @@ namespace BallScripts.Servers
             Actions.ClientTCPConnectedAction += LoadDemo;
             Actions.ClientUDPConnectedAction += (int cid) =>
             {
-                ServerSend.SceneLoadingStarted(cid, "DemoStage");
+                if (!string.IsNullOrEmpty(Server.clients[cid].username))
+                {
+                    ServerSend.SceneLoadingStarted(cid, "DemoStage");
+                }
             };
             Actions.ClientDisconnectedAction += ServerLogic.PlayerDisconnected;
         }

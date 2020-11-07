@@ -28,7 +28,8 @@ namespace BallScripts.Clients
         {
             string msg = packet.ReadString();
             Debug.Log(msg);
-            ClientLogic.BeginSceneLoading("TestScene"); //暂时先回主场景
+            Client.instance.Disconnect();
+            GameManager.instance.BeginLoadScene("TestScene"); //暂时先回主场景
         }
 
         public static void SceneLoadingStarted(Packet packet)

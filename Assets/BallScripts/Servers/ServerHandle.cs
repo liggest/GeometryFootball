@@ -25,7 +25,7 @@ namespace BallScripts.Servers
                 {
                     Debug.Log($"新加入的 玩家{clientID} 与 玩家{Server.onlineClients[username]} 昵称相同：{username}，已拒绝新加入的玩家进入游戏");
                     ServerSend.ClientConnectionRefused(clientID, "李重名");
-                    Server.clients[clientID].Disconnect();
+                    //Server.clients[clientID].Disconnect();
                     return;
                 }
                 Server.clients[clientID].InitUser(username);

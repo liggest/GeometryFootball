@@ -93,6 +93,14 @@ namespace BallScripts.GameLogics
             }
         }
 
+        public static void Release(GameObject obj)
+        {
+            if (obj)
+            {
+                Addressables.Release(obj);
+            }
+        }
+
         /*
         public static void LoadPlayers()
         {

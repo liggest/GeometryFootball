@@ -29,8 +29,8 @@ namespace BallScripts.Servers
             using (Packet packet = new Packet((int)ServerPackets.ClientConnectionRefused))
             {
                 packet.Write(msg);
-                SendUDPData(clientID, packet);
-                //SendTCPData(clientID, packet);
+                //SendUDPData(clientID, packet);
+                SendTCPData(clientID, packet);
             }
         }
 

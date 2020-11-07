@@ -89,7 +89,7 @@ namespace BallScripts.Clients {
             Disconnect();
         }
 
-        private void Disconnect()
+        public void Disconnect()
         {
             if (isConnecting || isConnected)
             {
