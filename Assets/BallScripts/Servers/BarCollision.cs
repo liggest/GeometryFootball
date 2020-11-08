@@ -14,7 +14,7 @@ namespace BallScripts.Servers
         {
             if (!center)
             {
-                InitCenter();
+                InitCenter();//注释这句的话本地测试场景就跑不起来了
             }
         }
 

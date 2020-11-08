@@ -78,6 +78,7 @@ namespace BallScripts.Servers
                 id = StageManager.instance.GetMaxID(StageObjectCategory.Ball) + 1,
                 prefabName = prefabName,
                 collisionMode = CollisionDetectionMode.Continuous,
+                drag = 0.5f, //空气阻力，用起来很赞
                 //position 需要初始位置
             };
             GameManager.instance.SpawnStageObject(info, BuildType.Server);

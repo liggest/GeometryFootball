@@ -37,26 +37,34 @@ namespace BallScripts.Test
                 controller.SetBuffer(InputType.rotate, rotateValue);
                 lastRotateValue = rotateValue;
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.J) || Input.GetMouseButtonDown(0))
             {
                 controller.SetBuffer(InputType.barRotate, 1);
             }
-            else if (Input.GetKeyUp(KeyCode.J))
+            else if (Input.GetKeyUp(KeyCode.J) || Input.GetMouseButtonUp(0))
             {
                 controller.SetBuffer(InputType.barRotate, 0);
             }
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.K) || Input.GetMouseButtonDown(2))
             {
                 controller.SetBuffer(InputType.charge, 1);
             }
-            if (Input.GetKeyUp(KeyCode.K))
+            if (Input.GetKeyUp(KeyCode.K) || Input.GetMouseButtonUp(2))
             {
                 controller.SetBuffer(InputType.charge, -1);
             }
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetMouseButtonDown(1))
             {
                 controller.SetBuffer(InputType.ultimate, 1);
             }
+
+            //鼠标部分
+            Vector3 v3 = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = v3.z;
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            controller.SetBuffer(InputType.mouseX, (worldPos.x - transform.localPosition.x) * 0.1f);
+            controller.SetBuffer(InputType.mouseY, (worldPos.z - transform.localPosition.z) * 0.1f);
         }
     }
 }

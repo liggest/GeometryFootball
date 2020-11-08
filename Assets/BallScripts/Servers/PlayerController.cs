@@ -89,6 +89,15 @@ namespace BallScripts.Servers
 
             transform.Rotate(0, h * rotateSpeedFactor, 0, Space.Self);
 
+            //鼠标
+            Vector3 rDir = new Vector3(buffer[InputType.mouseX], 0, buffer[InputType.mouseY]);
+            if(rDir != Vector3.zero)
+            {
+                Vector3 nDir = rDir.normalized;
+                transform.forward = nDir;
+            }
+
+
             //转bar
             if (!isBarRotate && buffer[InputType.barRotate] > 0)
             {
