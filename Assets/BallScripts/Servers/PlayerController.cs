@@ -36,6 +36,7 @@ namespace BallScripts.Servers
             foreach (InputType key in Enum.GetValues(iptType))
             {
                 buffer[key] = 0;
+                //Debug.Log(key);
             }
         }
 
@@ -43,6 +44,10 @@ namespace BallScripts.Servers
         {
             //Debug.Log($"{player.id} {key}");
             buffer[key] = value;
+            //if (key == InputType.move)
+            //{
+            //    Debug.Log($"InputType.move:{buffer[InputType.move]}");
+            //}
         }
 
         public void RefreshBuffer()
@@ -81,6 +86,7 @@ namespace BallScripts.Servers
             //移动
             float h = buffer[InputType.rotate];
             float accelerator = buffer[InputType.move];
+            //Debug.Log(buffer[InputType.move]);
             rd.AddForce(accelerator * transform.forward * force);
             if (rd.velocity.magnitude >= maxSpeed)
             {
@@ -164,7 +170,11 @@ namespace BallScripts.Servers
             lastPlayer.controller.SetBuffer(key, value);
         }
 
-
+        public static void ResetLast()//每次换场景一定要重置，不然lastPlayer可能引用之前场景的内容，造成输入不响应的bug
+        {
+            lastID = -1;
+            lastPlayer = null;
+        }
     }
 
 }

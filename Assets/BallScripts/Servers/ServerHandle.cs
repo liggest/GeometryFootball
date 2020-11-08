@@ -45,10 +45,18 @@ namespace BallScripts.Servers
 
         public static void InputPacket(int clientID,Packet packet)
         {
+            InputType key;
+            float value;
+            /*
+            void SetClientBuffer()
+            {
+                PlayerController.SetClientBuffer(clientID, key, value);
+            }
+            */
             while (packet.UnreadLength() > 0)
             {
-                InputType key = (InputType)packet.ReadInt();
-                float value = 0;
+                key = (InputType)packet.ReadInt();
+                value = 0;
                 if (key != InputType.ultimate)
                 {
                     value = packet.ReadFloat();
@@ -57,6 +65,7 @@ namespace BallScripts.Servers
                 {
                     value = 1;
                 }
+                //ThreadManager.ExecuteOnMainThread(SetClientBuffer);
                 PlayerController.SetClientBuffer(clientID, key, value);
             }
         }

@@ -33,10 +33,11 @@ namespace BallScripts.GameLogics
             SceneLoadedAction?.Invoke(sceneName);
         }
 
-        public void RefreshSingletons()
+        public void RefreshBeforeLoad()
         {
             StageManager.Refresh();
             TeamManager.Refresh();
+            Servers.PlayerController.ResetLast();
         }
 
         public void BeServer(int port)
