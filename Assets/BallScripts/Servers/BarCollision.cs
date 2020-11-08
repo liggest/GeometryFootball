@@ -40,8 +40,7 @@ namespace BallScripts.Servers
                     Bounce(thisPlayer, GetDirection(otherPlayer, thisPlayer), 0.7f);
                     break;
                 case "Player":
-                    otherPlayer = collision.transform.parent.parent;
-                    Bounce(otherPlayer, 0.7f);
+                    Bounce(collision.transform, 0.7f);
                     break;
                 default:
                     dealed = false;
