@@ -46,6 +46,7 @@ namespace BallScripts.GameLogics{
             team.Remove(player.id);
             if (team.Count == 0)
             {
+                team.RemoveAllGoals();
                 teams.Remove(team.id);
                 Debug.Log($"{team.ToString()} 里面已经完全没有玩家了，销毁之");
             }
@@ -56,7 +57,7 @@ namespace BallScripts.GameLogics{
             BaseStageObject obj = StageManager.instance.GetStageObject(StageObjectCategory.Player, playerID);
             if (obj) 
             {
-                Player player = (Player)obj;
+                Player player = obj as Player;
                 RemoveFromTeam(player);
             }
         }
@@ -130,10 +131,15 @@ namespace BallScripts.GameLogics{
 
         public void AddTeamByDescribe(TeamDescribe describe)
         {
-            Team team = new Team(describe.id);
+            Team team = new Team(describe);
             teams.Add(team.id, team);
-            team.name = describe.name;
-            team.teamColor = describe.color;
+            Goal teamGoal = DistributeOneGoal();
+            if (!teamGoal)
+            {
+                Debug.Log($"队伍{team.id}没能得到对应的球门");
+                return;
+            }
+            team.AddGoal(teamGoal);
         }
 
         public void TryAddTeamByDescribe(TeamDescribe describe)
@@ -165,6 +171,18 @@ namespace BallScripts.GameLogics{
                 result = GenerateDescribe(teamID);//真的要生成一个新队伍了
             }
             return result.Value;
+        }
+
+        public Goal DistributeOneGoal()
+        {
+            List<BaseStageObject> noTeamGoals = StageManager.instance.stageObjects[StageObjectCategory.Goal].Values.Where((obj)=> !(obj as Goal).HasTeam).ToList();
+            //得到所有没有和队伍绑定的球门
+            if (noTeamGoals.Count > 0)
+            {
+                return noTeamGoals[Random.Range(0, noTeamGoals.Count - 1)] as Goal; //随机一个
+            }
+            return null;
+
         }
 
         //目前的逻辑中，万不得已不用的生成队伍
