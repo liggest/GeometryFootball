@@ -11,6 +11,8 @@ namespace BallScripts.GameLogics
         barRotate,
         charge,
         ultimate,
+        mouseX,
+        mouseY,
     }
 }
 

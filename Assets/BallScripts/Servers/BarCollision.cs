@@ -12,7 +12,7 @@ namespace BallScripts.Servers
 
         private void Start()
         {
-            //InitCenter();
+            InitCenter(); //注释这句的话本地测试场景就跑不起来了
         }
 
         public void InitCenter()
