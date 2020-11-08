@@ -20,6 +20,9 @@ namespace BallScripts.GameLogics
             int barOffset = 0;
             obj.barList.ForEach((Bar bar) =>
             {
+                InitBarRigidbody(bar.gameObject.AddComponent<Rigidbody>());
+                Animator ani = InitBarAnimator(bar.gameObject.AddComponent<Animator>());
+                bar.gameObject.AddComponent<Clients.BarCollision>().InitAnimator(ani);
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });
@@ -37,7 +40,7 @@ namespace BallScripts.GameLogics
             obj.barList.ForEach((Bar bar) =>
             {
                 InitBarRigidbody(bar.gameObject.AddComponent<Rigidbody>());
-                bar.gameObject.AddComponent<BarCollision>().InitCenter();
+                bar.gameObject.AddComponent<Servers.BarCollision>().InitCenter();
                 InfoSender sender = bar.gameObject.AddComponent<InfoSender>();
                 sender.sendLocal = true; //Bar发送local信息
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
@@ -78,6 +81,16 @@ namespace BallScripts.GameLogics
             rig.useGravity = false;
             rig.constraints = RigidbodyConstraints.FreezeAll;
             return rig;
+        }
+
+        public static Animator InitBarAnimator(Animator ani)
+        {
+            void SetController(RuntimeAnimatorController controller)
+            {
+                ani.runtimeAnimatorController = controller;
+            }
+            ResourcesManager.GetOrLoad<RuntimeAnimatorController>("BarController", SetController);
+            return ani;
         }
 
         public override PlayerBuildInfo GenerateInfo(Player obj)

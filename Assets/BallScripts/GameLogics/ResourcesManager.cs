@@ -74,6 +74,19 @@ namespace BallScripts.GameLogics
             Debug.Log($"[ResourcesManager]生成了{name}");
         }
 
+        public static void GetOrLoad<T>(string name, Action<T> onLoad = null)
+        {
+            T obj = Get<T>(name);
+            if (obj != default)
+            {
+                onLoad?.Invoke(obj);
+            }
+            else
+            {
+                Load(name, onLoad);
+            }
+        }
+
         public static T Get<T>(string name)
         {
             if (resources.ContainsKey(name))

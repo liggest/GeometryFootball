@@ -71,6 +71,7 @@ MonoBehaviour:
     - Balls
     - Dynamic
     - UI
+    - Animation
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: c7b20ff402b52da43929d6b4bc450e7f, type: 2}
