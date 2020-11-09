@@ -26,6 +26,9 @@ namespace BallScripts.GameLogics
         public IBuilderNode builder;
         bool isInited = false;
 
+        Vector3 initPos;
+        Quaternion initRot;
+
         protected void Start()
         {
             if (idSelfIncrease)
@@ -37,6 +40,8 @@ namespace BallScripts.GameLogics
             {
                 Init();
             }
+            initPos = transform.position;
+            initRot = transform.rotation;
         }
 
         public void Init()
@@ -74,6 +79,20 @@ namespace BallScripts.GameLogics
         public void SetLocalRotation(Quaternion rot)
         {
             transform.localRotation = rot;
+        }
+        public void SetLocalScale(Vector3 scale)
+        {
+            transform.localScale = scale;
+        }
+
+        public void ResetLocationInfo()
+        {
+            if (TryGetComponent(out Rigidbody rig))
+            {
+                rig.velocity = Vector3.zero;
+            }
+            SetPosition(initPos);
+            SetRotation(initRot);
         }
 
         public virtual void LastWord()

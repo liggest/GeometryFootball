@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BallScripts.Servers;
 
 namespace BallScripts.GameLogics
 {
@@ -25,6 +26,7 @@ namespace BallScripts.GameLogics
             {
                 team.AddGoal(obj);
             }
+            obj.gameObject.AddComponent<GoalCollision>().InitGoal(obj);
             return obj;
         }
 

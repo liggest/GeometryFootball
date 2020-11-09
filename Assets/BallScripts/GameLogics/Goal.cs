@@ -42,12 +42,14 @@ namespace BallScripts.GameLogics
             unbindGoals.Add(name, this);
         }
 
-        public void Score(int value)
+        public bool TryScore(int value)
         {
             if (team != null)
             {
-                team.Score += value;
+                team.AddSocre(value);
+                return true;
             }
+            return false;
         }
 
         private void OnDestroy()

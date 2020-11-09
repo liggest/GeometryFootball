@@ -23,9 +23,6 @@ namespace BallScripts.GameLogics {
 
         public int Count { get => playerIDs.Count; }
 
-        private int score = 0;
-        public int Score { get => score; set => score = value > 0 ? value : 0; }
-
         public bool HasNoGoal { get => goals.Count == 0; }
 
         List<Goal> goals = new List<Goal>();
@@ -131,6 +128,20 @@ namespace BallScripts.GameLogics {
             {
                 RemoveGoal(goals[0]);
             }
+        }
+
+        private int score = 0;
+        public int Score { get => score; set => score = value > 0 ? value : 0; }
+
+        public void AddSocre(int value)
+        {
+            Score += value;
+            Actions.TeamScoredAction?.Invoke(this, value);
+        }
+
+        public void ResetScore()
+        {
+            Score = 0;
         }
     }
 }
