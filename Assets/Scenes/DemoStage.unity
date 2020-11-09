@@ -992,6 +992,7 @@ GameObject:
   - component: {fileID: 23472376244272446}
   - component: {fileID: 65419776998826502}
   - component: {fileID: 1613540131011389}
+  - component: {fileID: 1613540131011390}
   m_Layer: 0
   m_Name: GoalBlue
   m_TagString: Goal
@@ -1012,6 +1013,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 200, y: 50, z: 850.0001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1613540131011390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613540131011388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447979aa0521b4f459d4dbcb5a973938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 3
+  id: -1
+  idSelfIncrease: 0
+  prefabName: 
 --- !u!1 &1698854999358602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1137,7 @@ GameObject:
   - component: {fileID: 23941815309229746}
   - component: {fileID: 65779051214880578}
   - component: {fileID: 1993627373171975}
+  - component: {fileID: 1993627373171976}
   m_Layer: 0
   m_Name: GoalPurple
   m_TagString: Goal
@@ -1140,6 +1158,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 200, y: 50, z: 850.0001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1993627373171976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993627373171974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447979aa0521b4f459d4dbcb5a973938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 3
+  id: -1
+  idSelfIncrease: 0
+  prefabName: 
 --- !u!4 &4109867291415030
 Transform:
   m_ObjectHideFlags: 0

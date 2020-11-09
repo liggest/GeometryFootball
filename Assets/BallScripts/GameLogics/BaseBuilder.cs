@@ -84,6 +84,10 @@ namespace BallScripts.GameLogics
         public T Build(Tinfo info, BuildType type = BuildType.Client)
         {
             T obj = BuildObject(info);
+            if (obj == null)
+            {
+                return null;
+            }
             T result;
             if (type == BuildType.Server)
             {
@@ -149,11 +153,13 @@ namespace BallScripts.GameLogics
         /// <returns></returns>
         public BaseBuildInfo GenerateBuildInfo(BaseStageObject obj)
         {
-            if (obj.prefabName == string.Empty)
+            /*
+            if (obj.prefabName == string.Empty && obj.builder == null) 
             {
                 Debug.Log("StageObject的Prefab信息缺失，无法生成info");
                 return null;
             }
+            */
             return GenerateInfo((T)obj);
         }
         /// <summary>

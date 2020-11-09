@@ -77,7 +77,7 @@ namespace BallScripts.GameLogics
         public static void GetOrLoad<T>(string name, Action<T> onLoad = null)
         {
             T obj = Get<T>(name);
-            if (obj != default)
+            if (obj != null) 
             {
                 onLoad?.Invoke(obj);
             }

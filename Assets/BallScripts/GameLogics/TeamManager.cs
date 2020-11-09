@@ -129,25 +129,20 @@ namespace BallScripts.GameLogics{
             return minTeamID;
         }
 
-        public void AddTeamByDescribe(TeamDescribe describe)
+        public Team AddTeamByDescribe(TeamDescribe describe)
         {
             Team team = new Team(describe);
             teams.Add(team.id, team);
-            Goal teamGoal = DistributeOneGoal();
-            if (!teamGoal)
-            {
-                Debug.Log($"队伍{team.id}没能得到对应的球门");
-                return;
-            }
-            team.AddGoal(teamGoal);
+            return team;
         }
 
-        public void TryAddTeamByDescribe(TeamDescribe describe)
+        public Team TryAddTeamByDescribe(TeamDescribe describe)
         {
             if (!teams.ContainsKey(describe.id))
             {
-                AddTeamByDescribe(describe);
+                return AddTeamByDescribe(describe);
             }
+            return null;
         }
 
         /// <summary>
@@ -173,16 +168,47 @@ namespace BallScripts.GameLogics{
             return result.Value;
         }
 
+        public Dictionary<int, List<Goal>> goalCache;
+
         public Goal DistributeOneGoal()
         {
-            List<BaseStageObject> noTeamGoals = StageManager.instance.stageObjects[StageObjectCategory.Goal].Values.Where((obj)=> !(obj as Goal).HasTeam).ToList();
-            //得到所有没有和队伍绑定的球门
-            if (noTeamGoals.Count > 0)
+            if (Goal.unbindGoals.Count > 0)
             {
-                return noTeamGoals[Random.Range(0, noTeamGoals.Count - 1)] as Goal; //随机一个
+                List<Goal> noTeamGoals = Goal.unbindGoals.Values.ToList(); //得到所有没有和队伍绑定的球门
+                return noTeamGoals[Random.Range(0, noTeamGoals.Count - 1)]; //随机一个
             }
             return null;
 
+        }
+
+        public void CacheGoal(int teamID,Goal goal)
+        {
+            if (goalCache == null)
+            {
+                goalCache = new Dictionary<int, List<Goal>>();
+            }
+            if(goalCache.TryGetValue(teamID,out List<Goal> goalList))
+            {
+                goalList.Add(goal);
+            }
+            else
+            {
+                goalList = new List<Goal>();
+                goalList.Add(goal);
+                goalCache[teamID] = goalList;
+            }
+        }
+
+        public void TryGetGoalFromCache(Team team)
+        {
+            if (goalCache!=null && goalCache.TryGetValue(team.id, out List<Goal> goalList))
+            {
+                for (int i = 0; i < goalList.Count; i++)
+                {
+                    team.AddGoal(goalList[i]);
+                }
+                goalCache.Remove(team.id);
+            }
         }
 
         //目前的逻辑中，万不得已不用的生成队伍

@@ -56,6 +56,16 @@ namespace BallScripts.GameLogics
         public TeamDescribe teamDescribe = new TeamDescribe { id = -1 };
     }
 
-
+    [Serializable]
+    public class GoalBuildInfo : BaseBuildInfo
+    {
+        public GoalBuildInfo()
+        {
+            category = StageObjectCategory.Goal;
+            infoType = "Goal";
+        }
+        public string goalName = string.Empty;
+        public int teamID = -1;
+    }
 }
 

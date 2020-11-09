@@ -26,6 +26,8 @@ namespace BallScripts.GameLogics {
         private int score = 0;
         public int Score { get => score; set => score = value > 0 ? value : 0; }
 
+        public bool HasNoGoal { get => goals.Count == 0; }
+
         List<Goal> goals = new List<Goal>();
 
         public void Add(int playerID)

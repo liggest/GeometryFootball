@@ -19,6 +19,7 @@ namespace BallScripts.Utils
         StageObjectLocalPositions,
         StageObjectRotations,
         StageObjectLocalRotations,
+        //TeamGoal,
         TeamLeft,
 
 
@@ -47,6 +48,7 @@ namespace BallScripts.Utils
         SceneLoaded,
         InputPacket,
         StageSituation,
+        //TeamAdded,
 
         PlayerMovement,
         PlayerShoot,

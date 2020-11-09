@@ -35,7 +35,20 @@ namespace BallScripts.Servers
         public static void InitClientPlayer(int clientID,string prefabName)
         {
             int teamID = TeamManager.instance.DistributeOneTeam();
-            TeamDescribe desc = TeamManager.instance.teams[teamID].GetDescribe();
+            Team team = TeamManager.instance.teams[teamID];
+            TeamDescribe desc = team.GetDescribe();
+            if (team.HasNoGoal)
+            {
+                Goal goal = TeamManager.instance.DistributeOneGoal();
+                GoalBuildInfo goalInfo = new GoalBuildInfo
+                {
+                    id = StageManager.instance.GetMaxID(StageObjectCategory.Goal) + 1,
+                    teamID = team.id,
+                    goalName = goal.name
+                };
+                GameManager.instance.SpawnStageObject(goalInfo, BuildType.Server);
+                ServerSend.StageObjectSpawned(goalInfo);
+            }
 
             PlayerBuildInfo info = new PlayerBuildInfo
             {

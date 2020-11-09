@@ -26,7 +26,11 @@ namespace BallScripts.GameLogics
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });
-            TeamManager.instance.TryAddTeamByDescribe(info.teamDescribe);
+            Team team = TeamManager.instance.TryAddTeamByDescribe(info.teamDescribe);
+            if (team != null)  //如果客户端新加了队伍，尝试寻找球门
+            {
+                TeamManager.instance.TryGetGoalFromCache(team);
+            }
             TeamManager.instance.AddToTeam(obj, info.teamDescribe.id);
             return obj;
         }
@@ -100,7 +104,7 @@ namespace BallScripts.GameLogics
                 firstBar = obj.barList[0].id,
                 playerType = obj.playerType,
                 playerName = obj.myName.text,
-                teamDescribe=obj.team.GetDescribe()
+                teamDescribe = obj.team.GetDescribe()
             };
             return SetBaseInfo(info, obj);
         }
