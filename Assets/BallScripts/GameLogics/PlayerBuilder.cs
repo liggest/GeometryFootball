@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BallScripts.Servers;
@@ -14,7 +15,7 @@ namespace BallScripts.GameLogics
             if (info.id == Clients.Client.instance.myID)
             {
                 obj.gameObject.AddComponent<InputSender>();
-                Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;
+                Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;  
             }
             obj.InitBars();
             int barOffset = 0;
@@ -22,7 +23,14 @@ namespace BallScripts.GameLogics
             {
                 InitBarRigidbody(bar.gameObject.AddComponent<Rigidbody>());
                 Animator ani = InitBarAnimator(bar.gameObject.AddComponent<Animator>());
-                bar.gameObject.AddComponent<Clients.BarCollision>().InitAnimator(ani);
+                if(info.id == Clients.Client.instance.myID)
+                {
+                    bar.gameObject.AddComponent<Clients.HeroBarCollision>().InitAnimator(ani);
+                }
+                else
+                {
+                    bar.gameObject.AddComponent<Clients.BarCollision>().InitAnimator(ani);
+                }
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });

@@ -7,6 +7,7 @@ namespace BallScripts.Clients
     public class BarCollision : MonoBehaviour
     {
         Animator ani;
+
         private void Start()
         {
             if (ani == null)
@@ -21,7 +22,7 @@ namespace BallScripts.Clients
             ani = animator;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected void OnCollisionEnter(Collision collision)
         {
             ani?.Play("Collision");
         }
