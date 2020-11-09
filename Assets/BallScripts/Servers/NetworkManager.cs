@@ -38,10 +38,11 @@ namespace BallScripts.Servers
                         //    ServerLogic.AttachRigidbodyToAll(StageObjectCategory.Ball);
                         //});
                         ThreadManager.ExecuteOnMainThread(ServerLogic.AttachInfoSendersToAll);
-                        ThreadManager.ExecuteOnMainThread(() =>
-                        {
-                            ServerLogic.InitBall("DemoBall");
-                        });
+                        //ThreadManager.ExecuteOnMainThread(() =>
+                        //{
+                        //});
+                        ServerLogic.InitBall("DemoBall");
+
                     });
                     //暂且先载入DemoStage
                     Server.state = ServerState.InStage;
