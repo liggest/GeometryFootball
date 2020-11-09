@@ -96,12 +96,16 @@ namespace BallScripts.Servers
             transform.Rotate(0, h * rotateSpeedFactor, 0, Space.Self);
 
             //鼠标
-            Vector3 rDir = new Vector3(buffer[InputType.mouseX], 0, buffer[InputType.mouseY]);
-            if(rDir != Vector3.zero)
-            {
-                Vector3 nDir = rDir.normalized;
-                transform.forward = nDir;
-            }
+            //旧
+            //Vector3 rDir = new Vector3(buffer[InputType.mouseX], 0, buffer[InputType.mouseY]);
+            //if(rDir != Vector3.zero)
+            //{
+            //    Vector3 nDir = rDir.normalized;
+            //    transform.forward = nDir;
+            //}
+
+            //新（平滑旋转）
+            Rotate(transform, buffer[InputType.mouseX], buffer[InputType.mouseY], 0.2f);
 
 
             //转bar
@@ -175,6 +179,18 @@ namespace BallScripts.Servers
             lastID = -1;
             lastPlayer = null;
         }
+
+
+        public void Rotate(Transform transform, float horizontal, float vertical, float fRotateSpeed)
+        {
+            Vector3 targetDir = new Vector3(horizontal, 0, vertical);
+            if (targetDir != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, fRotateSpeed);
+            }
+        }
+
     }
 
 }
