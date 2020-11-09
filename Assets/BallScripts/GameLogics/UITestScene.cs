@@ -12,7 +12,6 @@ namespace BallScripts.GameLogics
     public class UITestScene : MonoBehaviour
     {
 
-        public GameObject serverClient;
         public GameObject clientMenu;
         public GameObject serverMenu;
         public GameObject serverInfo;
@@ -47,8 +46,7 @@ namespace BallScripts.GameLogics
 
         public void InitUI()
         {
-            serverClient.SetActive(true);
-            clientMenu.SetActive(false);
+            clientMenu.SetActive(true);
             serverMenu.SetActive(false);
             serverInfo.SetActive(false);
 
@@ -61,13 +59,12 @@ namespace BallScripts.GameLogics
 
         public void ToServerMenu()
         {
-            serverClient.SetActive(false);
+            clientMenu.SetActive(false);
             serverMenu.SetActive(true);
         }
 
         public void ToClientMenu()
         {
-            serverClient.SetActive(false);
             clientMenu.SetActive(true);
         }
 
