@@ -20,6 +20,9 @@ namespace BallScripts.GameLogics
         [Tooltip("本场地的所有UI")]
         public List<UIElement> uiElements = new List<UIElement>();
 
+        //从所有 Panel 那里汇总到的所有 UI
+        protected Dictionary<string, Dictionary<string, List<UIBehaviour>>> allUI = new Dictionary<string, Dictionary<string, List<UIBehaviour>>>();
+
 
         public GameObject serverClient;
         public GameObject clientMenu;
@@ -50,6 +53,24 @@ namespace BallScripts.GameLogics
             {
                 ToServerMenu();
                 ToServerInfo();
+            }
+
+           
+
+         InputField usernameField;
+        InputField ipField;
+         InputField clientPortField;
+
+         InputField serverPortField;
+
+        Text ipPortInfo;
+        Text clientCount;
+
+
+            //Debug.Log(GetOneUIComponent<Button>("ServerClient", "Server").name);
+            foreach (string key in allUI.Keys)
+            {
+                Debug.LogFormat("key: {0} value{1}", key, allUI[key]);
             }
 
         }
@@ -280,6 +301,33 @@ namespace BallScripts.GameLogics
         public void SetIpPortInfo(string text)
         {
             ipPortInfo.text = text;
+        }
+
+        /// <summary>
+        /// 获取指定的UI组件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public T GetOneUIComponent<T>(string panelName, string uiName) where T : UIBehaviour
+        {
+            Dictionary<string, List<UIBehaviour>> dic = allUI[panelName];
+            if (dic.ContainsKey(uiName))
+            {
+                for (int i = 0; i < dic[uiName].Count; i++)
+                {
+                    if (dic[uiName][i] is T)
+                    {
+                        return (dic[uiName][i] as T);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public void AddToMainDic(string panelName, Dictionary<string, List<UIBehaviour>> panelDic)
+        {
+            allUI.Add(panelName, panelDic);
         }
     }
 
