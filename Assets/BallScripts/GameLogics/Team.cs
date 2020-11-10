@@ -27,6 +27,8 @@ namespace BallScripts.GameLogics {
 
         List<Goal> goals = new List<Goal>();
 
+        public List<Goal> Goals { get => goals; }
+
         public void Add(int playerID)
         {
             if (IsInTeam(playerID))
