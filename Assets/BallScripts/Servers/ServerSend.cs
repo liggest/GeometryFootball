@@ -202,6 +202,17 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void GoalScored(Goal goal, int value)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.GoalScored))
+            {
+                packet.Write(goal.id);
+                packet.Write(goal.Score);
+                packet.Write(value);
+                SendTCPDataToAll(packet);
+            }
+        }
+
         public static void TeamLeft(int playerID)
         {
             using (Packet packet = new Packet((int)ServerPackets.TeamLeft))

@@ -66,6 +66,7 @@ namespace BallScripts.GameLogics
         }
         public string goalName = string.Empty;
         public int teamID = -1;
+        public int score = 0;
     }
 }
 

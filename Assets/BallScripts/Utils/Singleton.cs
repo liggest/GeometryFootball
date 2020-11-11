@@ -12,6 +12,8 @@ namespace BallScripts.Utils {
         private static object m_Lock = new object();
         private static T m_Instance;
 
+        public static bool HasNoInstance { get => m_Instance == null; }
+
         /// <summary>
         /// 手动创建实例。最好不要用这个方法，直接.instance。
         /// </summary>

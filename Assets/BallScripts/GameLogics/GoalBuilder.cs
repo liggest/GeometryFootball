@@ -38,6 +38,7 @@ namespace BallScripts.GameLogics
                 {
                     goal.Init(info.category, info.id);
                     goal.builder = this;
+                    goal.Score = info.score;
                     return goal;
                 }
             }
@@ -58,7 +59,8 @@ namespace BallScripts.GameLogics
             GoalBuildInfo info = new GoalBuildInfo
             {
                 teamID = obj.TeamID,
-                goalName = obj.name
+                goalName = obj.name,
+                score = obj.Score
             };
             return SetBaseInfo(info, obj);
         }

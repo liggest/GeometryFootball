@@ -27,8 +27,9 @@ namespace BallScripts.Servers
             if (other.CompareTag("Ball"))
             {
                 if (goal.TryScore(shootScore)) 
-                {
+                {   
                     other.GetComponent<BaseStageObject>().ResetLocationInfo();
+                    ServerSend.GoalScored(goal, shootScore);
                 }
             }
         }

@@ -144,6 +144,10 @@ namespace BallScripts.GameLogics {
         public void ResetScore()
         {
             Score = 0;
+            for (int i = 0; i < goals.Count; i++)
+            {
+                goals[i].Score = 0;
+            }
         }
     }
 }

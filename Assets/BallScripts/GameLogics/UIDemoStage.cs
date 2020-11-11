@@ -11,23 +11,25 @@ namespace BallScripts.GameLogics
         public Text leftScoreText;
         public Text rightScoreText;
 
-        int leftScore = 0;
-        int rightScore = 0;
-
-        private int leftTeamID = -1;
-        private int rightTeamID = -1;
+        Team leftTeam;
+        Team rightTeam;
 
         private void Start()
         {
-            leftScoreText.text = leftScore.ToString();
-            rightScoreText.text = rightScore.ToString();
-
+            if (leftTeam != null)
+            {
+                leftScoreText.text = leftTeam.Score.ToString();
+            }
+            if (rightTeam != null)
+            {
+                rightScoreText.text = rightTeam.Score.ToString();
+            }
             Actions.TeamScoredAction += AddScore;
         }
 
         private void AddScore(Team team, int score)
         {
-            if( leftTeamID == -1 || rightTeamID == -1)
+            if( leftTeam == null || rightTeam == null)
             {
                 if (!team.HasNoGoal)
                 {
@@ -35,24 +37,24 @@ namespace BallScripts.GameLogics
 
                     if(teamGoal.transform.position.x < 0)
                     {
-                        leftTeamID = team.id;
+                        leftTeam = team;
                     }
                     else if(teamGoal.transform.position.x > 0)
                     {
-                        rightTeamID = team.id;
+                        rightTeam = team;
                     }
                 }
-     
+
             }
-            if(team.id == leftTeamID)
+            if (leftTeam != null && team.id == leftTeam.id)
             {
-                leftScore += score;
-                leftScoreText.text = leftScore.ToString();
+                //leftScore += score;
+                leftScoreText.text = leftTeam.Score.ToString();
             }
-            else if(team.id == rightTeamID)
+            else if (rightTeam != null && team.id == rightTeam.id)
             {
-                rightScore += score;
-                rightScoreText.text = rightScore.ToString();
+                //rightScore += score;
+                rightScoreText.text = rightTeam.Score.ToString();
             }
         }
 

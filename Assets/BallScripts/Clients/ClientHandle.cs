@@ -126,6 +126,15 @@ namespace BallScripts.Clients
                 StageManager.instance.RemoveStageObject(category, id);
             }
         }
+
+        public static void GoalScored(Packet packet)
+        {
+            int goalID = packet.ReadInt();
+            int goalScore = packet.ReadInt();
+            int value = packet.ReadInt();
+            ClientLogic.GoalScored(goalID, goalScore, value);
+        }
+
         public static void TeamLeft(Packet packet)
         {
             int playerID = packet.ReadInt();

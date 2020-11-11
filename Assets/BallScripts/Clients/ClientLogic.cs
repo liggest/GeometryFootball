@@ -25,6 +25,22 @@ namespace BallScripts.Clients {
             ClientSend.StageSituation(StageManager.instance.GetStageObjectPairs());
         }
 
+        public static void GoalScored(int goalID, int goalScore, int value)
+        {
+            Goal goal = StageManager.instance.GetStageObject(StageObjectCategory.Goal, goalID) as Goal;
+            if (goal)
+            {
+                //与服务器进球前的球门分数同步
+                int temp = goalScore - value;
+                if (goal.HasTeam)
+                {
+                    TeamManager.instance.teams[goal.TeamID].Score += temp - goal.Score;
+                }
+                goal.Score = temp;
+                goal.TryScore(value);//进球得分
+            }
+        }
+
         /*
         public static void InitPlayer(int clientID, string prefabName)
         {

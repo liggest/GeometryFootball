@@ -44,7 +44,8 @@ namespace BallScripts.Servers
                 {
                     id = StageManager.instance.GetMaxID(StageObjectCategory.Goal) + 1,
                     teamID = team.id,
-                    goalName = goal.name
+                    goalName = goal.name,
+                    score = 0
                 };
                 GameManager.instance.SpawnStageObject(goalInfo, BuildType.Server);
                 ServerSend.StageObjectSpawned(goalInfo);
