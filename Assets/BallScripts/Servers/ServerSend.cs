@@ -202,6 +202,18 @@ namespace BallScripts.Servers
             }
         }
 
+        public static void StageObjectInfo(StageObjectPair pair, string route,int value)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectInfo))
+            {
+                packet.Write((int)pair.category);
+                packet.Write(pair.id);
+                packet.Write(route);
+                packet.Write(value);
+                SendTCPDataToAll(packet);
+            }
+        }
+
         public static void GoalScored(Goal goal, int value)
         {
             using (Packet packet = new Packet((int)ServerPackets.GoalScored))

@@ -114,6 +114,11 @@ namespace BallScripts.Servers
             
         }
 
+        public static void RefreshBeforeLoad()
+        {
+            PlayerController.ResetLast();
+        }
+
         public static void StageSynchronize(int clientID, List<StageObjectPair> clientObjs)
         {
             Debug.Log($"收到了 客户端{clientID} 发来的场景同步请求");

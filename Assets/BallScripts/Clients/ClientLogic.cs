@@ -10,6 +10,7 @@ namespace BallScripts.Clients {
     {
         public static void BeginSceneLoading(string sceneName)
         {
+            GameManager.instance.RefreshBeforeLoad();
             GameManager.instance.BeginLoadScene(sceneName,(string s)=>
             {
                 if (s == sceneName)
@@ -39,6 +40,12 @@ namespace BallScripts.Clients {
                 goal.Score = temp;
                 goal.TryScore(value);//进球得分
             }
+        }
+
+        public static void ClientDisconnection()
+        {
+            ThreadManager.ExecuteOnMainThread(() => { GameManager.instance.BeginLoadScene("TestScene"); });//暂时先回主场景
+            Actions.DisconnectedAction -= ClientDisconnection;
         }
 
         /*

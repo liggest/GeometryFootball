@@ -13,6 +13,8 @@ namespace BallScripts.GameLogics
         {
             ResourcesManager.LoadAll();
             InitBuilderChain();
+
+            NetworkMarkerManager.FindNetworkTypes(typeof(BaseStageObject));
         }
 
         public string CurrentStageName { get => SceneManager.GetActiveScene().name; }
@@ -37,7 +39,6 @@ namespace BallScripts.GameLogics
         {
             StageManager.Refresh();
             TeamManager.Refresh();
-            Servers.PlayerController.ResetLast();
         }
 
         public void BeServer(int port)

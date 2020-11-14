@@ -36,6 +36,7 @@ namespace BallScripts.Clients
         {
             string sceneName = packet.ReadString();
             Actions.DisconnectedAction = null;
+            Actions.DisconnectedAction += ClientLogic.ClientDisconnection;
             ClientLogic.BeginSceneLoading(sceneName);
         }
 
@@ -124,6 +125,19 @@ namespace BallScripts.Clients
                 StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
                 int id = packet.ReadInt();
                 StageManager.instance.RemoveStageObject(category, id);
+            }
+        }
+
+        public static void StageObjectInfo(Packet packet)
+        {
+            StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+            int id = packet.ReadInt();
+            string route = packet.ReadString();
+            int value = packet.ReadInt();
+            BaseStageObject obj = StageManager.instance.GetStageObject(category, id);
+            if (obj)
+            {
+                NetworkMarkerManager.SetInfo(obj, route, value);
             }
         }
 

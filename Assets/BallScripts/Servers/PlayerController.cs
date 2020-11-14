@@ -159,6 +159,14 @@ namespace BallScripts.Servers
             {
                 ultimate.Update();
             }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                player.barList[2].TestValue = UnityEngine.Random.Range(0, 100);
+                Debug.Log(player.barList[2].TestValue);
+                ServerSend.StageObjectInfo(new StageObjectPair { category = player.category, id = player.id },
+                    NetworkMarkerManager.GetRoute(nameof(player.barList), "[2]", "TestValue"), player.barList[2].TestValue);
+            }
         }
 
         static int lastID = -1;

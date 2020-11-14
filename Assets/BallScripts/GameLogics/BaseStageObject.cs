@@ -13,6 +13,7 @@ namespace BallScripts.GameLogics
         Other
     }
 
+    [NetworkClass]
     public class BaseStageObject : MonoBehaviour
     {
         public StageObjectCategory category = StageObjectCategory.Other;
@@ -28,6 +29,9 @@ namespace BallScripts.GameLogics
 
         Vector3 initPos;
         Quaternion initRot;
+
+        [NetworkMarker(nameof(TestValue))]
+        public int TestValue;
 
         protected void Start()
         {
