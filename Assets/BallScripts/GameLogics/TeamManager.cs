@@ -99,7 +99,7 @@ namespace BallScripts.GameLogics{
             {
                 //如果Team数量少于场地上限
                 List<TeamDescribe> unuseDescs= describes.Where((TeamDescribe desc) => !teams.ContainsKey(desc.id)).ToList();//在describes中却没在teams中的队伍
-                TeamDescribe randomOne = unuseDescs[Random.Range(0, unuseDescs.Count - 1)];//随机一个
+                TeamDescribe randomOne = unuseDescs[Random.Range(0, unuseDescs.Count)];//随机一个
                 AddTeamByDescribe(randomOne);
                 return randomOne.id;
             }
@@ -175,7 +175,7 @@ namespace BallScripts.GameLogics{
             if (Goal.unbindGoals.Count > 0)
             {
                 List<Goal> noTeamGoals = Goal.unbindGoals.Values.ToList(); //得到所有没有和队伍绑定的球门
-                return noTeamGoals[Random.Range(0, noTeamGoals.Count - 1)]; //随机一个
+                return noTeamGoals[Random.Range(0, noTeamGoals.Count)]; //随机一个
             }
             return null;
 
@@ -225,9 +225,9 @@ namespace BallScripts.GameLogics{
             }
             else
             {
-                int dcount = describes.Count - 1;
-                TeamDescribe d1 = describes[Random.Range(0, dcount)];
-                TeamDescribe d2 = describes[Random.Range(0, dcount)];
+                //int dcount = describes.Count - 1;
+                TeamDescribe d1 = describes[Random.Range(0, describes.Count)];
+                TeamDescribe d2 = describes[Random.Range(0, describes.Count)];
                 return new TeamDescribe
                 {
                     id = teamID,
@@ -240,7 +240,7 @@ namespace BallScripts.GameLogics{
         List<string> stuffingList = new List<string> { "上", "如", "加", "传", "入", "转" };
         public string GetStuffing()
         {
-            return stuffingList[Random.Range(0, stuffingList.Count - 1)];
+            return stuffingList[Random.Range(0, stuffingList.Count)];
         }
 
     }

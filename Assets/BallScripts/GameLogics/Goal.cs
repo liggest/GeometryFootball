@@ -36,7 +36,7 @@ namespace BallScripts.GameLogics
             meshRenderer.material.color = team.teamColor;
             unbindGoals.Remove(name);
             team.AddSocre(Score);
-            Debug.Log($"球门{id} 绑定了 队伍{team.id} 球门的 {Score}分 进入了队伍");
+            Debug.Log($"球门{id} 绑定了 队伍{team.id}   球门的 {Score}分 进入了队伍");
         }
 
         public void UnbindFromTeam()

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BallScripts.GameLogics;
+using NMM = BallScripts.GameLogics.NetworkMarkerManager;
+using Pair = BallScripts.GameLogics.StageObjectPair;
 
 namespace BallScripts.Servers
 {
@@ -164,8 +166,13 @@ namespace BallScripts.Servers
             {
                 player.barList[2].TestValue = UnityEngine.Random.Range(0, 100);
                 Debug.Log(player.barList[2].TestValue);
-                ServerSend.StageObjectInfo(new StageObjectPair { category = player.category, id = player.id },
-                    NetworkMarkerManager.GetRoute(nameof(player.barList), "[2]", "TestValue"), player.barList[2].TestValue);
+                ServerSend.StageObjectInfo(new Pair { category = player.category, id = player.id }, NMM.GetRoute(nameof(player.barList), "[2]", "TestValue"), player.barList[2].TestValue);
+                BaseStageObject ball = StageManager.instance.GetStageObject(StageObjectCategory.Ball, 1);
+                ball.TestProp += UnityEngine.Random.Range(0, 100).ToString();
+                Debug.Log(ball.TestProp);
+                ServerSend.StageObjectInfo(new Pair { category = ball.category, id = ball.id }, NMM.GetRoute(nameof(ball.TestProp)), ball.TestProp);
+                BaseStageObject goal = StageManager.instance.GetStageObject(StageObjectCategory.Goal, 1);
+                ServerSend.StageObjectMethod(new Pair { category = goal.category, id = goal.id }, NMM.GetRoute(nameof(goal.TestMethod)), 3, "55", new object[] { "16", "28", 99, 3.0f });
             }
         }
 

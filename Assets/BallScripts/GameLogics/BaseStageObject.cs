@@ -32,6 +32,13 @@ namespace BallScripts.GameLogics
 
         [NetworkMarker(nameof(TestValue))]
         public int TestValue;
+        [NetworkMarker(nameof(TestProp))]
+        public string TestProp { get; set; } = "3.14";
+        [NetworkMarker(nameof(TestMethod))]
+        public void TestMethod(int a,string b,params object[] ccc)
+        {
+            Debug.Log($"{a}  {b}  {string.Join(",", ccc)}");
+        }
 
         protected void Start()
         {

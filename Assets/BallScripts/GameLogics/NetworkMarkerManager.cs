@@ -11,13 +11,15 @@ namespace BallScripts.GameLogics
     {
         public static Dictionary<string, MemberInfo> networkMembers = new Dictionary<string, MemberInfo>();
         public static HashSet<Type> networkTypes = new HashSet<Type>();
+        public static Dictionary<ValueTuple<StageObjectCategory, int, string>, object> objCache = new Dictionary<(StageObjectCategory, int, string), object>();
 
         public static void FindNetworkTypes(Type typeOfAssembly)
         {
+            Type attrType = typeof(NetworkClassAttribute);
             Assembly assembly = typeOfAssembly.Assembly;
             foreach (Type type in assembly.GetExportedTypes())
             {
-                if (type.GetCustomAttribute<NetworkClassAttribute>() != null)
+                if (type.IsDefined(attrType))
                 {
                     networkTypes.Add(type);
                     Debug.Log($"[NetworkMarkerManager]找到了类 {type.Name}");
@@ -34,7 +36,7 @@ namespace BallScripts.GameLogics
                 if (attr != null)
                 {
                     networkMembers.Add(attr.Marker, info);
-                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker}");
+                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} 字段 {info.Name}");
                 }
             }
             foreach (PropertyInfo info in networkType.GetProperties()) 
@@ -43,7 +45,16 @@ namespace BallScripts.GameLogics
                 if (attr != null)
                 {
                     networkMembers.Add(attr.Marker, info);
-                    Debug.Log($"[NetworkMarkerManager]找到了属性 {info.Name}");
+                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} 属性 {info.Name}");
+                }
+            }
+            foreach (MethodInfo info in networkType.GetMethods()) 
+            {
+                NetworkMarkerAttribute attr = info.GetCustomAttribute<NetworkMarkerAttribute>(true);
+                if (attr != null)
+                {
+                    networkMembers.Add(attr.Marker, info);
+                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} 方法 {info.Name}");
                 }
             }
         }
@@ -60,6 +71,18 @@ namespace BallScripts.GameLogics
                 {
                     PropertyInfo info = minfo as PropertyInfo;
                     info.SetValue(obj, value);
+                }
+            }
+        }
+
+        public static void InvokeMethod(string marker, object obj, params object[] parameters)
+        {
+            if (networkMembers.TryGetValue(marker, out MemberInfo minfo))
+            {
+                if (minfo.MemberType == MemberTypes.Method)
+                {
+                    MethodInfo info = minfo as MethodInfo;
+                    info.Invoke(obj, parameters);
                 }
             }
         }
@@ -130,6 +153,56 @@ namespace BallScripts.GameLogics
             string marker = routes[routes.Length - 1];
             object obj = GetObj(root, routes);
             SetValue(marker, obj, value);
+        }
+
+        public static void SetStageObjectInfo(StageObjectCategory category, int id, string route, object value, bool useCache = true)
+        {
+            string[] routes = route.Split(new char[] { '.', '/' });
+            string marker = routes[routes.Length - 1];
+            ValueTuple<StageObjectCategory, int, string> pair = (category, id, route);
+            if (useCache && objCache.TryGetValue(pair, out object obj))
+            {
+                SetValue(marker, obj, value);
+            }
+            else
+            {
+                BaseStageObject root = StageManager.instance.GetStageObject(category, id);
+                if (root)
+                {
+                    obj = GetObj(root, routes);
+                    objCache[pair] = obj;
+                    SetValue(marker, obj, value);
+                }
+            }
+        }
+
+        public static void CallMethod(object root, string route, params object[] parameters)
+        {
+            string[] routes = route.Split(new char[] { '.', '/' });
+            string marker = routes[routes.Length - 1];
+            object obj = GetObj(root, routes);
+            InvokeMethod(marker, obj, parameters);
+        }
+
+        public static void CallStageObjectMethod(StageObjectCategory category, int id, string route, bool useCache = true, params object[] parameters)
+        {
+            string[] routes = route.Split(new char[] { '.', '/' });
+            string marker = routes[routes.Length - 1];
+            ValueTuple<StageObjectCategory, int, string> pair = (category, id, route);
+            if (useCache && objCache.TryGetValue(pair, out object obj))
+            {
+                InvokeMethod(marker, obj, parameters);
+            }
+            else
+            {
+                BaseStageObject root = StageManager.instance.GetStageObject(category, id);
+                if (root)
+                {
+                    obj = GetObj(root, routes);
+                    objCache[pair] = obj;
+                    InvokeMethod(marker, obj, parameters);
+                }
+            }
         }
 
         public static string GetRoute(params string[] objs)

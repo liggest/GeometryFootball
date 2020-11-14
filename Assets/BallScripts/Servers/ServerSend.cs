@@ -202,7 +202,7 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void StageObjectInfo(StageObjectPair pair, string route,int value)
+        public static void StageObjectInfo(StageObjectPair pair, string route,object value)
         {
             using (Packet packet = new Packet((int)ServerPackets.StageObjectInfo))
             {
@@ -210,6 +210,20 @@ namespace BallScripts.Servers
                 packet.Write(pair.id);
                 packet.Write(route);
                 packet.Write(value);
+                SendTCPDataToAll(packet);
+            }
+        }
+        public static void StageObjectMethod(StageObjectPair pair, string route, params object[] parameters)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.StageObjectMethod))
+            {
+                packet.Write((int)pair.category);
+                packet.Write(pair.id);
+                packet.Write(route);
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    packet.Write(parameters[i]);
+                }
                 SendTCPDataToAll(packet);
             }
         }

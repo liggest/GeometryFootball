@@ -39,6 +39,7 @@ namespace BallScripts.GameLogics
         {
             StageManager.Refresh();
             TeamManager.Refresh();
+            Goal.unbindGoals.Clear();
         }
 
         public void BeServer(int port)
@@ -71,6 +72,7 @@ namespace BallScripts.GameLogics
 
         public BaseStageObject SpawnStageObject(BaseBuildInfo info,BuildType type)
         {
+            /*
             if (type == BuildType.Client)
             {
                 Debug.Log($"客户端{Clients.Client.instance.myID} 生成了 {info.prefabName}");
@@ -78,7 +80,7 @@ namespace BallScripts.GameLogics
             else
             {
                 Debug.Log($"服务器 生成了 {info.prefabName}");
-            }
+            }*/
             return rootBuilder.GetCorrectBuilder(info).Build(info, type);
         }
 

@@ -58,6 +58,16 @@ namespace BallScripts.GameLogics
             }
         }
 
+        private void OnDestroy()
+        {
+            Actions.TeamScoredAction -= AddScore;
+        }
+
+        private void OnApplicationQuit()
+        {
+            OnDestroy();
+        }
+
     }
 }
 

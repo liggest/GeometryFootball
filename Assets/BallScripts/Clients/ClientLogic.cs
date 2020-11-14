@@ -10,6 +10,7 @@ namespace BallScripts.Clients {
     {
         public static void BeginSceneLoading(string sceneName)
         {
+            RefreshBeforeLoad();
             GameManager.instance.RefreshBeforeLoad();
             GameManager.instance.BeginLoadScene(sceneName,(string s)=>
             {
@@ -19,6 +20,11 @@ namespace BallScripts.Clients {
                     ThreadManager.ExecuteOnMainThread(SendStageSituation);
                 }
             });
+        }
+
+        public static void RefreshBeforeLoad()
+        {
+            NetworkMarkerManager.objCache.Clear();
         }
 
         public static void SendStageSituation()

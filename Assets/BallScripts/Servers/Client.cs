@@ -242,7 +242,7 @@ namespace BallScripts.Servers
 
         public void RemoveUser()
         {
-            Debug.Log("RemoveRemove");
+            //Debug.Log("RemoveRemove");
             if (!string.IsNullOrEmpty(username) && Server.onlineClients[username] == id) 
             {
                 Server.onlineClients.Remove(username);

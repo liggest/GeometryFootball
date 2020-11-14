@@ -133,12 +133,21 @@ namespace BallScripts.Clients
             StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
             int id = packet.ReadInt();
             string route = packet.ReadString();
-            int value = packet.ReadInt();
-            BaseStageObject obj = StageManager.instance.GetStageObject(category, id);
-            if (obj)
+            object value = packet.ReadObject();
+            NetworkMarkerManager.SetStageObjectInfo(category, id, route, value);
+        }
+
+        public static void StageObjectMethod(Packet packet)
+        {
+            StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+            int id = packet.ReadInt();
+            string route = packet.ReadString();
+            ArrayList parameters = new ArrayList();
+            while(packet.UnreadLength() > 0)
             {
-                NetworkMarkerManager.SetInfo(obj, route, value);
+                parameters.Add(packet.ReadObject());
             }
+            NetworkMarkerManager.CallStageObjectMethod(category, id, route, true, parameters.ToArray());
         }
 
         public static void GoalScored(Packet packet)

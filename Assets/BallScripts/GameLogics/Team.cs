@@ -71,7 +71,7 @@ namespace BallScripts.GameLogics {
         public int GetRandom()
         {
             int[] players = GetArray();
-            return players[Random.Range(0, players.Length - 1)];
+            return players[Random.Range(0, players.Length)];
         }
 
         public int[] GetArray()
