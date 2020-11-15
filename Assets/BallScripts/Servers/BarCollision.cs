@@ -10,6 +10,10 @@ namespace BallScripts.Servers
         public float shootForce = 10;
         Transform center;
 
+        Player player;
+        float hitBallPower = 0.8f;
+        float hitBarPower = 1.6f;
+
         private void Start()
         {
             if (!center)
@@ -21,6 +25,9 @@ namespace BallScripts.Servers
         public void InitCenter()
         {
             center = transform.parent;
+            player = center.GetComponent<Player>();
+            hitBallPower *= player.powerPerSecond;
+            hitBarPower *= player.powerPerSecond;
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -31,9 +38,13 @@ namespace BallScripts.Servers
             switch (collision.collider.tag)
             {
                 case "Ball":
+                    player.AddPower(hitBallPower);
+                    ServerSend.StageObjectInfo(new StageObjectPair { category = player.category, id = player.id }, nameof(player.Power), player.Power);
                     Bounce(collision.transform, 1.0f);
                     break;
                 case "Bar":
+                    player.AddPower(hitBarPower);
+                    ServerSend.StageObjectInfo(new StageObjectPair { category = player.category, id = player.id }, nameof(player.Power), player.Power);
                     otherPlayer = collision.transform.parent.parent;
                     thisPlayer = center.parent;
                     Bounce(otherPlayer, 5.0f);
