@@ -1320,6 +1320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1530226178}
   - component: {fileID: 1530226177}
+  - component: {fileID: 1530226176}
   m_Layer: 0
   m_Name: MiniMapCamera
   m_TagString: Untagged
@@ -1327,6 +1328,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1530226176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530226175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534633f46e57b2347bb010c603064d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  edgeDetectShader: {fileID: 4800000, guid: c79eed8af2c9ec946830552ef0cdd218, type: 3}
+  edgesOnly: 1
+  edgeColor: {r: 0.38431373, g: 0.76862746, b: 1.8117647, a: 1}
+  edgeColor2: {r: 1.8117646, g: 0.38891283, b: 0.46308574, a: 1}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  sampleDistance: 1
+  sensitivityDepth: 3.4
+  sensitivityNormals: 1
 --- !u!20 &1530226177
 Camera:
   m_ObjectHideFlags: 0
@@ -1496,6 +1517,7 @@ GameObject:
   - component: {fileID: 1978367265}
   - component: {fileID: 1978367268}
   - component: {fileID: 1978367269}
+  - component: {fileID: 1978367270}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1641,6 +1663,26 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1978367270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978367264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534633f46e57b2347bb010c603064d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  edgeDetectShader: {fileID: 4800000, guid: c79eed8af2c9ec946830552ef0cdd218, type: 3}
+  edgesOnly: 1
+  edgeColor: {r: 0.38431373, g: 0.76862746, b: 1.8117647, a: 1}
+  edgeColor2: {r: 1.8117646, g: 0.38891283, b: 0.46308574, a: 1}
+  backgroundColor: {r: 0.14117648, g: 0.14117648, b: 0.14117648, a: 1}
+  sampleDistance: 1
+  sensitivityDepth: 3.4
+  sensitivityNormals: 1
 --- !u!1001 &2001153527
 PrefabInstance:
   m_ObjectHideFlags: 0
