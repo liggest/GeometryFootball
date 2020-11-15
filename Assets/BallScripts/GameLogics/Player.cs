@@ -5,13 +5,19 @@ using BallScripts.Servers;
 
 namespace BallScripts.GameLogics
 {
+    [NetworkClass]
     public class Player : BaseStageObject
     {
         [HideInInspector]
         public PlayerController controller;
         public float maxPower = 100;
+        public float powerPerSecond = 5;
         private float power = 0;
+
+        [NetworkMarker(nameof(Power))]
         public float Power { get => power; set => power = Mathf.Clamp(value, 0, maxPower); }
+        public bool IsMaxPower { get => power == maxPower; }
+
 
         public List<Bar> barList = new List<Bar>();
 
@@ -55,6 +61,16 @@ namespace BallScripts.GameLogics
         public void InitText()
         {
             myName = transform.Find("Cube/MyName").GetComponent<TextMesh>();
+        }
+
+        public void AddPower(float value)
+        {
+            Power += value;
+        }
+        [NetworkMarker(nameof(ResetPower))]
+        public void ResetPower()
+        {
+            Power = 0;
         }
 
         public override void LastWord()

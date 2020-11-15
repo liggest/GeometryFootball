@@ -48,7 +48,7 @@ namespace BallScripts.Clients
             }
             else if (Input.GetKeyUp(KeyCode.K) || Input.GetMouseButtonUp(2))
             {
-                inputBuffer.Add(new InputHolder { key = InputType.charge, value = -1 }); //得传状态，按下为1，抬起为-1
+                inputBuffer.Add(new InputHolder { key = InputType.charge, value = 0 }); //得传状态，按下为1，抬起为-1
             }
             if (Input.GetKeyDown(KeyCode.L) || Input.GetMouseButtonDown(1))
             {

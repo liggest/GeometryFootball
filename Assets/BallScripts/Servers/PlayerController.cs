@@ -16,7 +16,9 @@ namespace BallScripts.Servers
         Type iptType = typeof(InputType);
 
         public float force = 250f;
-        float maxSpeed = 12f;
+        float originMaxSpeed = 12f;
+        float chargeMaxSpeed = 3f;
+        float currentMaxSpeed = 12f;
         public float rotateSpeed = 160;
         float rotateSpeedFactor = 0;
 
@@ -90,9 +92,9 @@ namespace BallScripts.Servers
             float accelerator = buffer[InputType.move];
             //Debug.Log(buffer[InputType.move]);
             rd.AddForce(accelerator * transform.forward * force);
-            if (rd.velocity.magnitude >= maxSpeed)
+            if (rd.velocity.magnitude >= currentMaxSpeed)
             {
-                rd.velocity = rd.velocity.normalized * maxSpeed;
+                rd.velocity = rd.velocity.normalized * currentMaxSpeed;
             }
 
             transform.Rotate(0, h * rotateSpeedFactor, 0, Space.Self);
@@ -138,13 +140,33 @@ namespace BallScripts.Servers
                 }
             }
 
+            if (buffer[InputType.charge] > 0)
+            {
+                player.AddPower(player.powerPerSecond * Time.fixedDeltaTime);
+                ServerSend.StageObjectInfo(new Pair { category = player.category, id = player.id }, nameof(player.Power), player.Power);
+                if (player.IsMaxPower)
+                {
+                    Debug.Log($"玩家{player.id} 洪荒之力已满 大招充能完毕");
+                }
+                currentMaxSpeed = chargeMaxSpeed;
+            }
+            else
+            {
+                if (currentMaxSpeed != originMaxSpeed)
+                {
+                    currentMaxSpeed = originMaxSpeed;
+                }
+            }
+
             //大招
-            if (buffer[InputType.ultimate] > 0)
+            if (player.IsMaxPower && buffer[InputType.ultimate] > 0)
             {
                 if (ultimate != null && !ultimate.IsOn)
                 {
                     ultimate.Enter();
                 }
+                player.ResetPower();
+                ServerSend.StageObjectMethod(new Pair { category = player.category, id = player.id }, nameof(player.ResetPower));
             }
 
             if (ultimate!=null && ultimate.IsOn)
@@ -161,7 +183,7 @@ namespace BallScripts.Servers
             {
                 ultimate.Update();
             }
-
+            /*
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 player.barList[2].TestValue = UnityEngine.Random.Range(0, 100);
@@ -174,6 +196,7 @@ namespace BallScripts.Servers
                 BaseStageObject goal = StageManager.instance.GetStageObject(StageObjectCategory.Goal, 1);
                 ServerSend.StageObjectMethod(new Pair { category = goal.category, id = goal.id }, NMM.GetRoute(nameof(goal.TestMethod)), 3, "55", new object[] { "16", "28", 99, 3.0f });
             }
+            */
         }
 
         static int lastID = -1;

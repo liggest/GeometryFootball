@@ -12,6 +12,8 @@ namespace BallScripts.GameLogics
         public static Dictionary<string, MemberInfo> networkMembers = new Dictionary<string, MemberInfo>();
         public static HashSet<Type> networkTypes = new HashSet<Type>();
         public static Dictionary<ValueTuple<StageObjectCategory, int, string>, object> objCache = new Dictionary<(StageObjectCategory, int, string), object>();
+        public static BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+
 
         public static void FindNetworkTypes(Type typeOfAssembly)
         {
@@ -30,31 +32,31 @@ namespace BallScripts.GameLogics
 
         public static void FindNetworkMembers(Type networkType)
         {
-            foreach (FieldInfo info in networkType.GetFields())
+            foreach (FieldInfo info in networkType.GetFields(bindingFlags))
             {
                 NetworkMarkerAttribute attr = info.GetCustomAttribute<NetworkMarkerAttribute>(true);
                 if (attr != null)
                 {
                     networkMembers.Add(attr.Marker, info);
-                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} 字段 {info.Name}");
+                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} - 字段 {info.Name}");
                 }
             }
-            foreach (PropertyInfo info in networkType.GetProperties()) 
+            foreach (PropertyInfo info in networkType.GetProperties(bindingFlags)) 
             {
                 NetworkMarkerAttribute attr = info.GetCustomAttribute<NetworkMarkerAttribute>(true);
                 if (attr != null)
                 {
                     networkMembers.Add(attr.Marker, info);
-                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} 属性 {info.Name}");
+                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} - 属性 {info.Name}");
                 }
             }
-            foreach (MethodInfo info in networkType.GetMethods()) 
+            foreach (MethodInfo info in networkType.GetMethods(bindingFlags)) 
             {
                 NetworkMarkerAttribute attr = info.GetCustomAttribute<NetworkMarkerAttribute>(true);
                 if (attr != null)
                 {
                     networkMembers.Add(attr.Marker, info);
-                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} 方法 {info.Name}");
+                    Debug.Log($"[NetworkMarkerManager]找到了标记 {attr.Marker} - 方法 {info.Name}");
                 }
             }
         }
