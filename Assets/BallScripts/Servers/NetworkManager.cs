@@ -56,6 +56,7 @@ namespace BallScripts.Servers
             {
                 if (Server.PlayerCount == 0)
                 {
+                    GameManager.instance.StopAllCoroutines();
                     GameManager.instance.BeginLoadScene("TestScene", (string name) =>
                     {
                         Debug.Log($"TestStage加载完成！");
