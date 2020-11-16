@@ -35,6 +35,7 @@ namespace BallScripts.GameLogics{
             Team team = teams[teamID];
             team.Add(player.id);
             player.team = team;
+            team.AddSocre(player.Score);
             Debug.Log($"Player - {player.id} 现在是 {team.ToString()}");
         }
 

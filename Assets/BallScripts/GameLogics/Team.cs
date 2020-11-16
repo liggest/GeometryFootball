@@ -29,6 +29,9 @@ namespace BallScripts.GameLogics {
 
         public List<Goal> Goals { get => goals; }
 
+        private int score = 0;
+        public int Score { get => score; set => score = value > 0 ? value : 0; }
+
         public void Add(int playerID)
         {
             if (IsInTeam(playerID))
@@ -132,9 +135,6 @@ namespace BallScripts.GameLogics {
             }
         }
 
-        private int score = 0;
-        public int Score { get => score; set => score = value > 0 ? value : 0; }
-
         public void AddSocre(int value)
         {
             Score += value;
@@ -143,6 +143,10 @@ namespace BallScripts.GameLogics {
 
         public void ResetScore()
         {
+            foreach (int playerID in playerIDs)
+            {
+                (StageManager.instance.GetStageObject(StageObjectCategory.Player, playerID) as Player)?.ResetScore();
+            }
             Score = 0;
             for (int i = 0; i < goals.Count; i++)
             {

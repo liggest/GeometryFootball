@@ -54,6 +54,7 @@ namespace BallScripts.GameLogics
         public string playerName = "Anonymous";
         public int firstBar = -1;
         public TeamDescribe teamDescribe = new TeamDescribe { id = -1 };
+        public int score = 0;
     }
 
     [Serializable]

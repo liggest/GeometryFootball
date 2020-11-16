@@ -19,6 +19,9 @@ namespace BallScripts.GameLogics
         public bool IsMaxPower { get => power == maxPower; }
 
 
+        private int score = 0;
+        public int Score { get => score; set => score = value > 0 ? value : 0; }
+
         public List<Bar> barList = new List<Bar>();
 
         bool barInited = false;
@@ -71,6 +74,18 @@ namespace BallScripts.GameLogics
         public void ResetPower()
         {
             Power = 0;
+        }
+
+        public void AddSocre(int value)
+        {
+            Score += value;
+            team?.AddSocre(value);
+        }
+
+        public void ResetScore()
+        {
+            team?.AddSocre(-Score);
+            Score = 0;
         }
 
         public override void LastWord()

@@ -27,7 +27,10 @@ namespace BallScripts.Servers
                 }
                 foreach(BaseStageObject obj in StageManager.instance.stageObjects[category].Values)
                 {
-                    obj.gameObject.AddComponent<InfoSender>();
+                    if(!obj.TryGetComponent(out InfoSender sender))
+                    {
+                        obj.gameObject.AddComponent<InfoSender>();
+                    }
                 }
             }
         }
@@ -58,7 +61,8 @@ namespace BallScripts.Servers
                 playerType = "Demo",
                 playerName = Server.clients[clientID].username,
                 firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1,
-                teamDescribe= desc
+                teamDescribe = desc,
+                score = 0
             };
             GameManager.instance.SpawnStageObject(info, BuildType.Server);
             ServerSend.StageObjectSpawned(info);

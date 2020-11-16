@@ -32,19 +32,23 @@ namespace BallScripts.Clients {
             ClientSend.StageSituation(StageManager.instance.GetStageObjectPairs());
         }
 
-        public static void GoalScored(int goalID, int goalScore, int value)
+        public static void PlayerScored(int playerID, int playerScore, int goalID, int goalScore, int value)
         {
+            Player player = StageManager.instance.GetStageObject(StageObjectCategory.Player, playerID) as Player;
+            if (player)
+            {
+                //与服务器那边，进球前的玩家分数同步
+                int temp = playerScore - value;
+                player.team.Score += temp - player.Score;
+                player.Score = temp;
+                player.AddSocre(value);//进球得分
+            }
             Goal goal = StageManager.instance.GetStageObject(StageObjectCategory.Goal, goalID) as Goal;
             if (goal)
             {
-                //与服务器进球前的球门分数同步
                 int temp = goalScore - value;
-                if (goal.HasTeam)
-                {
-                    TeamManager.instance.teams[goal.TeamID].Score += temp - goal.Score;
-                }
                 goal.Score = temp;
-                goal.TryScore(value);//进球得分
+                goal.AddSocre(value);//进球得分
             }
         }
 

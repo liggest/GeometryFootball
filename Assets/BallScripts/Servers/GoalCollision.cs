@@ -26,11 +26,19 @@ namespace BallScripts.Servers
         {
             if (other.CompareTag("Ball"))
             {
-                if (goal.TryScore(shootScore)) 
-                {   
-                    other.GetComponent<BaseStageObject>().ResetLocationInfo();
-                    ServerSend.GoalScored(goal, shootScore);
+                Ball ball = other.GetComponent<Ball>();
+                if (ball.lastPlayer)
+                {
+                    int score = shootScore;
+                    if (ball.lastPlayer.team.id == goal.TeamID)
+                    {
+                        score = -score;
+                    }
+                    ball.lastPlayer.AddSocre(score);
+                    goal.AddSocre(score);
+                    ServerSend.PlayerScored(ball.lastPlayer, goal, score);
                 }
+                ball.ResetLocationInfo();
             }
         }
     }

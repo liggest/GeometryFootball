@@ -150,12 +150,14 @@ namespace BallScripts.Clients
             NetworkMarkerManager.CallStageObjectMethod(category, id, route, true, parameters.ToArray());
         }
 
-        public static void GoalScored(Packet packet)
+        public static void PlayerScored(Packet packet)
         {
+            int playerID = packet.ReadInt();
+            int playerScore = packet.ReadInt();
             int goalID = packet.ReadInt();
             int goalScore = packet.ReadInt();
             int value = packet.ReadInt();
-            ClientLogic.GoalScored(goalID, goalScore, value);
+            ClientLogic.PlayerScored(playerID, playerScore, goalID, goalScore, value);
         }
 
         public static void TeamLeft(Packet packet)

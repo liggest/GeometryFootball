@@ -11,7 +11,8 @@ namespace BallScripts.GameLogics
         MeshRenderer meshRenderer;
         Color initColor = Color.white;
 
-        public int Score { get; set; } = 0;
+        private int score = 0;
+        public int Score { get => score; set => score = value > 0 ? value : 0; }
 
         private void Awake()
         {
@@ -35,7 +36,7 @@ namespace BallScripts.GameLogics
             team = goalTeam;
             meshRenderer.material.color = team.teamColor;
             unbindGoals.Remove(name);
-            team.AddSocre(Score);
+            //team.AddSocre(Score);
             Debug.Log($"球门{id} 绑定了 队伍{team.id}   球门的 {Score}分 进入了队伍");
         }
 
@@ -47,15 +48,27 @@ namespace BallScripts.GameLogics
             unbindGoals.Add(name, this);
         }
 
+        /*
         public bool TryScore(int value)
         {
-            Score += value;
+            AddSocre(value);
             if (team != null)
             {
-                team.AddSocre(value);
+                //team.AddSocre(value);
                 return true;
             }
             return false;
+        }
+        */
+
+        public void AddSocre(int value)
+        {
+            Score += value;
+        }
+
+        public void ResetScore()
+        {
+            Score = 0;
         }
 
         private void OnDestroy()

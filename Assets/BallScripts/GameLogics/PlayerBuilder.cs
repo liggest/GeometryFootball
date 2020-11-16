@@ -71,6 +71,7 @@ namespace BallScripts.GameLogics
             player.InitText();
             player.myName.text = info.playerName;
             player.myName.color = info.teamDescribe.color;
+            player.Score = info.score;
             return player;
         }
         public override bool CheckInfo(BaseBuildInfo info)
@@ -112,7 +113,8 @@ namespace BallScripts.GameLogics
                 firstBar = obj.barList[0].id,
                 playerType = obj.playerType,
                 playerName = obj.myName.text,
-                teamDescribe = obj.team.GetDescribe()
+                teamDescribe = obj.team.GetDescribe(),
+                score = obj.Score
             };
             return SetBaseInfo(info, obj);
         }

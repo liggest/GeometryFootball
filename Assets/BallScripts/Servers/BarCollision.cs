@@ -25,7 +25,7 @@ namespace BallScripts.Servers
         public void InitCenter()
         {
             center = transform.parent;
-            player = center.GetComponent<Player>();
+            player = center.parent.GetComponent<Player>();
             hitBallPower *= player.powerPerSecond;
             hitBarPower *= player.powerPerSecond;
         }

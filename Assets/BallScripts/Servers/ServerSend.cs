@@ -228,10 +228,12 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void GoalScored(Goal goal, int value)
+        public static void PlayerScored(Player player, Goal goal, int value)
         {
-            using (Packet packet = new Packet((int)ServerPackets.GoalScored))
+            using (Packet packet = new Packet((int)ServerPackets.PlayerScored))
             {
+                packet.Write(player.id);
+                packet.Write(player.Score);
                 packet.Write(goal.id);
                 packet.Write(goal.Score);
                 packet.Write(value);
