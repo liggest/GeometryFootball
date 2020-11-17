@@ -32,10 +32,6 @@ namespace BallScripts.GameLogics
 
         public TextMesh myName;
 
-        public ParticleSystem chargeParticle;
-
-        bool particleInited = false;
-
 
         protected new void Start()
         {
