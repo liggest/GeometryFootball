@@ -1539,6 +1539,13 @@ MonoBehaviour:
   id: -1
   idSelfIncrease: 0
   prefabName: 
+  TestValue: 0
+  spawnZone:
+    serializedVersion: 2
+    x: -12
+    y: -6
+    width: 10
+    height: 12
 --- !u!1 &1698854999358602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,6 +1691,13 @@ MonoBehaviour:
   id: -1
   idSelfIncrease: 0
   prefabName: 
+  TestValue: 0
+  spawnZone:
+    serializedVersion: 2
+    x: 2
+    y: -6
+    width: 10
+    height: 12
 --- !u!4 &4109867291415030
 Transform:
   m_ObjectHideFlags: 0

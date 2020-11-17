@@ -54,6 +54,8 @@ namespace BallScripts.Servers
                 ServerSend.StageObjectSpawned(goalInfo);
             }
 
+            Vector3 playerPos = team.GetSpawnPoint();
+            Quaternion playerRot = Quaternion.LookRotation(Vector3.zero - new Vector3(playerPos.x, 0, playerPos.z));
             PlayerBuildInfo info = new PlayerBuildInfo
             {
                 id = clientID,
@@ -62,7 +64,9 @@ namespace BallScripts.Servers
                 playerName = Server.clients[clientID].username,
                 firstBar = StageManager.instance.GetMaxID(StageObjectCategory.Dynamic) + 1,
                 teamDescribe = desc,
-                score = 0
+                score = 0,
+                position = playerPos,
+                rotation = playerRot
             };
             GameManager.instance.SpawnStageObject(info, BuildType.Server);
             ServerSend.StageObjectSpawned(info);

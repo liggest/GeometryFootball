@@ -25,7 +25,7 @@ namespace BallScripts.GameLogics
                 Animator ani = InitBarAnimator(bar.gameObject.AddComponent<Animator>());
                 if(info.id == Clients.Client.instance.myID)
                 {
-                    bar.gameObject.AddComponent<Clients.HeroBarCollision>().InitAnimator(ani);
+                    bar.gameObject.AddComponent<HeroBarCollision>().InitAnimator(ani);
                 }
                 else
                 {

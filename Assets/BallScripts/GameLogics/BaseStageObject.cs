@@ -101,6 +101,7 @@ namespace BallScripts.GameLogics
             if (TryGetComponent(out Rigidbody rig))
             {
                 rig.velocity = Vector3.zero;
+                rig.rotation = Quaternion.identity;
             }
             SetPosition(initPos);
             SetRotation(initRot);

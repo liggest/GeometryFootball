@@ -42,11 +42,11 @@ namespace BallScripts.Clients
             {
                 inputBuffer.Add(new InputHolder { key = InputType.barRotate, value = 0 });
             }
-            if (Input.GetKeyDown(KeyCode.K) || Input.GetMouseButtonDown(2))
+            if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(2))
             {
                 inputBuffer.Add(new InputHolder { key = InputType.charge, value = 1 }); //得传状态，按下为1，抬起为-1
             }
-            else if (Input.GetKeyUp(KeyCode.K) || Input.GetMouseButtonUp(2))
+            else if (Input.GetKeyUp(KeyCode.K) || Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(2))
             {
                 inputBuffer.Add(new InputHolder { key = InputType.charge, value = 0 }); //得传状态，按下为1，抬起为-1
             }

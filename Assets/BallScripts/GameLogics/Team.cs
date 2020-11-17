@@ -135,6 +135,12 @@ namespace BallScripts.GameLogics {
             }
         }
 
+        public Vector3 GetSpawnPoint()
+        {
+            Goal randomGoal = goals[Random.Range(0, goals.Count)];
+            return randomGoal.GetSpawnPoint();
+        }
+
         public void AddSocre(int value)
         {
             Score += value;
