@@ -72,20 +72,7 @@ namespace BallScripts.GameLogics
             barInited = true;
         }
 
-        public void ChangeBarColor(Color targetColor)
-        {
-            foreach (Bar bar in barList)
-            {
-                bar.mr.material.color = targetColor;
-            }
-        }
 
-        public void InitParticle(ParticleSystem particle)
-        {
-            chargeParticle = particle;
-            chargeParticle.Stop();
-            particleInited = true;
-        }
 
         public void InitText()
         {
