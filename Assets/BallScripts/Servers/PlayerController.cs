@@ -147,8 +147,10 @@ namespace BallScripts.Servers
                 if (player.IsMaxPower)
                 {
                     Debug.Log($"玩家{player.id} 洪荒之力已满 大招充能完毕");
+                    player.ChangeBarColor(new Color(0.98f, 0.8f, 0.466f));
                 }
                 currentMaxSpeed = chargeMaxSpeed;
+                player.chargeParticle.Play();
             }
             else
             {
@@ -156,6 +158,7 @@ namespace BallScripts.Servers
                 {
                     currentMaxSpeed = originMaxSpeed;
                 }
+                player.chargeParticle.Stop();
             }
 
             //大招
@@ -164,6 +167,7 @@ namespace BallScripts.Servers
                 if (ultimate != null && !ultimate.IsOn)
                 {
                     ultimate.Enter();
+                    player.ChangeBarColor(new Color(1f, 1f, 1f));
                 }
                 player.ResetPower();
                 ServerSend.StageObjectMethod(new Pair { category = player.category, id = player.id }, nameof(player.ResetPower));

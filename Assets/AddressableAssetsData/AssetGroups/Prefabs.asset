@@ -30,13 +30,20 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Animation
-    m_MainAsset: {fileID: 9100000, guid: 6b4e547a4d8a87646809bda1b4498f31, type: 2}
-    m_TargetAsset: {fileID: 9100000, guid: 6b4e547a4d8a87646809bda1b4498f31, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: bf750a0d24c1b4840917391c52d2871f
     m_Address: RoadBlock
     m_ReadOnly: 0
     m_SerializedLabels:
     - Dynamic
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d9dea473ef26d8e45aa78a33a9207a64
+    m_Address: ChargeParticle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Others
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: e13543ef6a73ebd4db857f35e4848e7f

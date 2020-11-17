@@ -10,6 +10,7 @@ namespace BallScripts.GameLogics
 
         public Bar Previous { get; set; }
         public Bar Next { get; set; }
+        public MeshRenderer mr;
 
         protected new void Start()
         {
@@ -17,6 +18,7 @@ namespace BallScripts.GameLogics
             base.Start();
 
             original = transform.localPosition;
+            mr = GetComponent<MeshRenderer>();
         }
     }
 

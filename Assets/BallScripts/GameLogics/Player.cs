@@ -32,6 +32,11 @@ namespace BallScripts.GameLogics
 
         public TextMesh myName;
 
+        public ParticleSystem chargeParticle;
+
+        bool particleInited = false;
+
+
         protected new void Start()
         {
             base.Start(); //BaseStageObject初始化（如果有的话）
@@ -39,6 +44,11 @@ namespace BallScripts.GameLogics
             if (!barInited)
             {
                 InitBars();
+            }
+
+            if (!particleInited)
+            {
+                InitParticle();
             }
 
         }
@@ -61,7 +71,28 @@ namespace BallScripts.GameLogics
             barList[0].Previous = lastBar;
         }
 
-        public void InitText()
+        public void ChangeBarColor(Color targetColor)
+        {
+            foreach (Bar bar in barList)
+            {
+                bar.mr.material.color = targetColor;
+            }
+        }
+
+        public void InitParticle()
+        {
+            //BaseBuildInfo info = new BaseBuildInfo
+            //{
+            //    category = StageObjectCategory.Other,
+            //    id = StageManager.instance.GetMaxID(StageObjectCategory.Other) + 1,
+            //    prefabName = "ChargeParticle",
+            //};
+            //GameManager.instance.SpawnStageObject(info, BuildType.Client).transform.SetParent(transform);
+            chargeParticle = transform.Find("ChargeParticle").GetComponent<ParticleSystem>();
+            chargeParticle.Stop();
+        }
+
+            public void InitText()
         {
             myName = transform.Find("Cube/MyName").GetComponent<TextMesh>();
         }
