@@ -21,7 +21,7 @@ namespace BallScripts.GameLogics
 
         public static Hashtable resources = new Hashtable();
 
-        public static List<string> labels = new List<string> { "Players", "Balls", "Dynamic", "Others" };
+        public static List<string> labels = new List<string> { "Players", "Balls", "Dynamic", "Effects" };
 
         public static void LoadAll()
         {

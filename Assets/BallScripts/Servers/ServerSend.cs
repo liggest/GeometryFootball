@@ -202,7 +202,7 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void StageObjectInfo(StageObjectPair pair, string route,object value)
+        public static void StageObjectInfo(StageObjectPair pair, string route, object value, bool useUDP = false)
         {
             using (Packet packet = new Packet((int)ServerPackets.StageObjectInfo))
             {
@@ -210,7 +210,14 @@ namespace BallScripts.Servers
                 packet.Write(pair.id);
                 packet.Write(route);
                 packet.Write(value);
-                SendTCPDataToAll(packet);
+                if (useUDP)
+                {
+                    SendUDPDataToAll(packet);
+                }
+                else
+                {
+                    SendTCPDataToAll(packet);
+                }
             }
         }
         public static void StageObjectMethod(StageObjectPair pair, string route, params object[] parameters)

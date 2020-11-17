@@ -11,7 +11,10 @@ namespace BallScripts.Clients
         private new void OnCollisionEnter(Collision collision)
         {
             base.OnCollisionEnter(collision);
-            PPController.instance.ChromaticFadeIn();
+            if (PPController.HasInstance)
+            {
+                PPController.instance.ChromaticFadeIn();
+            }
         }
     }
 }

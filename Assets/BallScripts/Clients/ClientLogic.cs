@@ -18,6 +18,7 @@ namespace BallScripts.Clients {
                 {
                     ClientSend.SceneLoaded(s);
                     ThreadManager.ExecuteOnMainThread(SendStageSituation);
+                    InitPostProcess();
                 }
             });
         }
@@ -25,11 +26,21 @@ namespace BallScripts.Clients {
         public static void RefreshBeforeLoad()
         {
             NetworkMarkerManager.objCache.Clear();
+            PPController.Refresh();
         }
 
         public static void SendStageSituation()
         {
             ClientSend.StageSituation(StageManager.instance.GetStageObjectPairs());
+        }
+
+        public static void InitPostProcess()
+        {
+            ResourcesManager.LoadAndInstantiate("PP Volume", null, (_) =>
+            {
+                Debug.Log("[PPController]已激活");
+                PPController.instance.ToString(); //激活PPController
+            });
         }
 
         public static void PlayerScored(int playerID, int playerScore, int goalID, int goalScore, int value)

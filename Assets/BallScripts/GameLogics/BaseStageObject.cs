@@ -96,7 +96,7 @@ namespace BallScripts.GameLogics
             transform.localScale = scale;
         }
 
-        public void ResetLocationInfo()
+        public virtual void ResetLocationInfo()
         {
             if (TryGetComponent(out Rigidbody rig))
             {

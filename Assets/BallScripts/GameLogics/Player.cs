@@ -87,7 +87,7 @@ namespace BallScripts.GameLogics
             particleInited = true;
         }
 
-            public void InitText()
+        public void InitText()
         {
             myName = transform.Find("Cube/MyName").GetComponent<TextMesh>();
         }
@@ -122,6 +122,24 @@ namespace BallScripts.GameLogics
             //    StageManager.instance.RemoveStageObject(bar.category, bar.id);
             //});
             //TeamManager.instance.RemoveFromTeam(this);
+        }
+
+        public static (Vector3,Quaternion) GetSpawnInfo(Team playerTeam)
+        {
+            Vector3 playerPos = playerTeam.GetSpawnPoint();
+            Quaternion playerRot = Quaternion.LookRotation(Vector3.zero - new Vector3(playerPos.x, 0, playerPos.z));
+            return (playerPos, playerRot);
+        }
+
+        public override void ResetLocationInfo()
+        {
+            base.ResetLocationInfo();
+            if (team != null)
+            {
+                (Vector3 playerPos, Quaternion playerRot) = GetSpawnInfo(team);
+                SetPosition(playerPos);
+                SetRotation(playerRot);
+            }
         }
     }
 }

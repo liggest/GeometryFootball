@@ -54,8 +54,7 @@ namespace BallScripts.Servers
                 ServerSend.StageObjectSpawned(goalInfo);
             }
 
-            Vector3 playerPos = team.GetSpawnPoint();
-            Quaternion playerRot = Quaternion.LookRotation(Vector3.zero - new Vector3(playerPos.x, 0, playerPos.z));
+            (Vector3 playerPos, Quaternion playerRot) = Player.GetSpawnInfo(team);
             PlayerBuildInfo info = new PlayerBuildInfo
             {
                 id = clientID,
