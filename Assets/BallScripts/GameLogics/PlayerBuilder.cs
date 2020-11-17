@@ -43,7 +43,7 @@ namespace BallScripts.GameLogics
 
             ResourcesManager.LoadAndInstantiate("ChargeParticle", obj.transform,(GameObject g)=>
             {
-                obj.InitParticle(g.GetComponent<ParticleSystem>());
+                obj.gameObject.AddComponent<PlayerCharge>().Init(obj, g.GetComponent<ParticleSystem>());
             });
             return obj;
         }
