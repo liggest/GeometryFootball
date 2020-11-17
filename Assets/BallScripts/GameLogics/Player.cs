@@ -46,10 +46,10 @@ namespace BallScripts.GameLogics
                 InitBars();
             }
 
-            if (!particleInited)
-            {
-                InitParticle();
-            }
+            //if (!particleInited)
+            //{
+            //    InitParticle();
+            //}
 
         }
         
@@ -69,6 +69,7 @@ namespace BallScripts.GameLogics
             }
             lastBar.Next = barList[0];
             barList[0].Previous = lastBar;
+            barInited = true;
         }
 
         public void ChangeBarColor(Color targetColor)
@@ -79,17 +80,11 @@ namespace BallScripts.GameLogics
             }
         }
 
-        public void InitParticle()
+        public void InitParticle(ParticleSystem particle)
         {
-            //BaseBuildInfo info = new BaseBuildInfo
-            //{
-            //    category = StageObjectCategory.Other,
-            //    id = StageManager.instance.GetMaxID(StageObjectCategory.Other) + 1,
-            //    prefabName = "ChargeParticle",
-            //};
-            //GameManager.instance.SpawnStageObject(info, BuildType.Client).transform.SetParent(transform);
-            chargeParticle = transform.Find("ChargeParticle").GetComponent<ParticleSystem>();
+            chargeParticle = particle;
             chargeParticle.Stop();
+            particleInited = true;
         }
 
             public void InitText()

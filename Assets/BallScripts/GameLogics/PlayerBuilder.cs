@@ -40,6 +40,11 @@ namespace BallScripts.GameLogics
                 TeamManager.instance.TryGetGoalFromCache(team);
             }
             TeamManager.instance.AddToTeam(obj, info.teamDescribe.id);
+
+            ResourcesManager.LoadAndInstantiate("ChargeParticle", obj.transform,(GameObject g)=>
+            {
+                obj.InitParticle(g.GetComponent<ParticleSystem>());
+            });
             return obj;
         }
 
