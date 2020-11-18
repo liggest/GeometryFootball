@@ -28,18 +28,22 @@ namespace BallScripts.Clients
                 {
                     chargeParticle.Play();
                     isPlay = true;
-                    foreach (Bar bar in player.barList)
-                    {
-                        bar.SetProgress(player.Power/player.maxPower);
-                    }
+                    //foreach (Bar bar in player.barList)
+                    //{
+                    //    bar.SetProgress(player.Power/player.maxPower);
+                    //}
+                    player.barList[0].SetProgress(player.Power / player.maxPower);
                 }
 
                 if (player.Power == 0)
                 {
-                    foreach (Bar bar in player.barList)
-                    {
-                        bar.SetEmission(false);
-                    }
+                    //foreach (Bar bar in player.barList)
+                    //{
+                    //    bar.SetEmission(false);
+                    //    bar.SetProgress(0f);
+                    //}
+                    player.barList[0].SetEmission(false);
+                    player.barList[0].SetProgress(0f);
                 }
 
                 lastPower = player.Power;
@@ -51,10 +55,11 @@ namespace BallScripts.Clients
 
             if (player.IsMaxPower)
             {
-                foreach (Bar bar in player.barList)
-                {
-                    bar.SetEmission(true);
-                }
+                //foreach (Bar bar in player.barList)
+                //{
+                //    bar.SetEmission(true);
+                //}
+                player.barList[0].SetEmission(true);
             }
         }
 
@@ -64,6 +69,11 @@ namespace BallScripts.Clients
             chargeParticle = particle;
             chargeParticle.Stop();
             particleInited = true;
+            Bar firtsBar = player.barList[0];
+            for (int i = 0; i < player.barList.Count; i++)
+            {
+                player.barList[i].mr.material = firtsBar.mr.material;
+            }
         }
     }
 }

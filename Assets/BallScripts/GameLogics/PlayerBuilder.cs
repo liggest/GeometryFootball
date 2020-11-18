@@ -32,6 +32,7 @@ namespace BallScripts.GameLogics
                     bar.gameObject.AddComponent<Clients.BarCollision>().InitAnimator(ani);
                 }
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
+                bar.InitMeshRenderer();
                 barOffset++;
             });
             Team team = TeamManager.instance.TryAddTeamByDescribe(info.teamDescribe);

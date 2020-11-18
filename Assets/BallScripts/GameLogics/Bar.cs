@@ -18,7 +18,15 @@ namespace BallScripts.GameLogics
             base.Start();
 
             original = transform.localPosition;
-            mr = GetComponent<MeshRenderer>();
+            InitMeshRenderer();
+        }
+
+        public void InitMeshRenderer()
+        {
+            if (!mr)
+            {
+                mr = GetComponent<MeshRenderer>();
+            }
         }
 
         public void SetProgress(float value)
@@ -31,7 +39,9 @@ namespace BallScripts.GameLogics
         {
             if (isMax)
             {
-                mr.material.SetColor("_EmissionColor", mr.material.GetColor("_Color2"));
+                Color ProgressColor = mr.material.GetColor("_Color2");
+                ProgressColor.a = 0.3f;
+                mr.material.SetColor("_EmissionColor", ProgressColor);
             }
             else
             {
