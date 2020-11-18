@@ -45,21 +45,20 @@ namespace BallScripts.Clients
                     player.barList[0].SetEmission(false);
                     player.barList[0].SetProgress(0f);
                 }
+                if (player.IsMaxPower)
+                {
+                    //foreach (Bar bar in player.barList)
+                    //{
+                    //    bar.SetEmission(true);
+                    //}
+                    player.barList[0].SetEmission(true);
+                }
 
                 lastPower = player.Power;
             }
             else
             {
                 chargeParticle.Stop();
-            }
-
-            if (player.IsMaxPower)
-            {
-                //foreach (Bar bar in player.barList)
-                //{
-                //    bar.SetEmission(true);
-                //}
-                player.barList[0].SetEmission(true);
             }
         }
 
