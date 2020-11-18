@@ -12,7 +12,7 @@ namespace BallScripts.Clients
         public ParticleSystem chargeParticle;
         public bool particleInited = false;
         public bool isPlay = false;
-        float lastPower = -1;
+        float lastPower = 0;
 
         void Update()
         {
@@ -28,7 +28,20 @@ namespace BallScripts.Clients
                 {
                     chargeParticle.Play();
                     isPlay = true;
+                    foreach (Bar bar in player.barList)
+                    {
+                        bar.SetProgress(player.Power/player.maxPower);
+                    }
                 }
+
+                if (player.Power == 0)
+                {
+                    foreach (Bar bar in player.barList)
+                    {
+                        bar.SetEmission(false);
+                    }
+                }
+
                 lastPower = player.Power;
             }
             else
@@ -38,11 +51,10 @@ namespace BallScripts.Clients
 
             if (player.IsMaxPower)
             {
-                ChangeBarColor(new Color(0.98f, 0.8f, 0.466f));
-            }
-            if(player.Power == 0)
-            {
-                ChangeBarColor(new Color(1f, 1f, 1f));
+                foreach (Bar bar in player.barList)
+                {
+                    bar.SetEmission(true);
+                }
             }
         }
 
@@ -52,14 +64,6 @@ namespace BallScripts.Clients
             chargeParticle = particle;
             chargeParticle.Stop();
             particleInited = true;
-        }
-
-        public void ChangeBarColor(Color targetColor)
-        {
-            foreach (Bar bar in player.barList)
-            {
-                bar.mr.material.color = targetColor;
-            }
         }
     }
 }

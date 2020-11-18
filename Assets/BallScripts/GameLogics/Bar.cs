@@ -20,6 +20,24 @@ namespace BallScripts.GameLogics
             original = transform.localPosition;
             mr = GetComponent<MeshRenderer>();
         }
+
+        public void SetProgress(float value)
+        {
+            value = value * 0.0138f + 0.4931f;  //范围应该在0.4931到0.5069
+            mr.material.SetFloat("_Progress", value);
+        }
+
+        public void SetEmission(bool isMax)
+        {
+            if (isMax)
+            {
+                mr.material.SetColor("_EmissionColor", mr.material.GetColor("_Color2"));
+            }
+            else
+            {
+                mr.material.SetColor("_EmissionColor", Color.black);
+            }
+        }
     }
 
 }

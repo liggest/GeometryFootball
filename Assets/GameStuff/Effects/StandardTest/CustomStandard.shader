@@ -28,7 +28,7 @@ Shader "Custom/CutsomStandard"
         _OcclusionStrength("Strength", Range(0.0, 1.0)) = 1.0
         _OcclusionMap("Occlusion", 2D) = "white" {}
 
-		[HDR]_EmissionColor("Color", Color) = (1,1,1)
+		[HDR]_EmissionColor("EColor", Color) = (1,1,1)
         _EmissionMap("Emission", 2D) = "white" {}
 
         _DetailMask("Detail Mask", 2D) = "white" {}
