@@ -45,15 +45,15 @@ namespace BallScripts.Test
             {
                 controller.SetBuffer(InputType.barRotate, 0);
             }
-            if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(2))
+            if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1))
             {
                 controller.SetBuffer(InputType.charge, 1);
             }
-            if (Input.GetKeyUp(KeyCode.K) || Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(2))
+            if (Input.GetKeyUp(KeyCode.K) || Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(1))
             {
                 controller.SetBuffer(InputType.charge, -1);
             }
-            if (Input.GetKeyDown(KeyCode.L) || Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetMouseButtonDown(2))
             {
                 controller.SetBuffer(InputType.ultimate, 1);
             }
