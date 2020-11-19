@@ -46,23 +46,23 @@ namespace BallScripts.Servers
 
         public static void StageObjectPositions(List<Vector3Holder> posList)
         {
-            SendPositions(ServerPackets.StageObjectPositions, posList);
+            SendVector3Holders(ServerPackets.StageObjectPositions, posList);
         }
         public static void StageObjectPositions(int clientID, List<Vector3Holder> posList)
         {
-            SendPositions(ServerPackets.StageObjectPositions, posList, clientID);
+            SendVector3Holders(ServerPackets.StageObjectPositions, posList, clientID);
         }
 
         public static void StageObjectLocalPositions(List<Vector3Holder> localPosList)
         {
-            SendPositions(ServerPackets.StageObjectLocalPositions, localPosList);
+            SendVector3Holders(ServerPackets.StageObjectLocalPositions, localPosList);
         }
 
-        static void SendPositions(ServerPackets packetID, List<Vector3Holder> posList, int clientID = -1)//如果 clientID>0 则只向该id发送
+        static void SendVector3Holders(ServerPackets packetID, List<Vector3Holder> holderList, int clientID = -1)//如果 clientID>0 则只向该id发送
         {
             using (Packet packet = new Packet((int)packetID))
             {
-                foreach (Vector3Holder holder in posList)
+                foreach (Vector3Holder holder in holderList)
                 {
                     packet.Write((int)holder.category);
                     packet.Write(holder.id);
@@ -81,22 +81,22 @@ namespace BallScripts.Servers
 
         public static void StageObjectRotations(List<QuaternionHolder> rotList)
         {
-            SendRotations(ServerPackets.StageObjectRotations, rotList);
+            SendQuaternionHolders(ServerPackets.StageObjectRotations, rotList);
         }
         public static void StageObjectRotations(int clientID, List<QuaternionHolder> rotList)
         {
-            SendRotations(ServerPackets.StageObjectRotations, rotList, clientID);
+            SendQuaternionHolders(ServerPackets.StageObjectRotations, rotList, clientID);
         }
         public static void StageObjectLocalRotations(List<QuaternionHolder> localRotList)
         {
-            SendRotations(ServerPackets.StageObjectLocalRotations, localRotList);
+            SendQuaternionHolders(ServerPackets.StageObjectLocalRotations, localRotList);
         }
 
-        static void SendRotations(ServerPackets packetID, List<QuaternionHolder> rotList, int clientID = -1)//如果 clientID>0 则只向该id发送
+        static void SendQuaternionHolders(ServerPackets packetID, List<QuaternionHolder> holderList, int clientID = -1)//如果 clientID>0 则只向该id发送
         {
             using (Packet packet = new Packet((int)packetID))
             {
-                foreach (QuaternionHolder holder in rotList)
+                foreach (QuaternionHolder holder in holderList)
                 {
                     packet.Write((int)holder.category);
                     packet.Write(holder.id);
@@ -111,6 +111,16 @@ namespace BallScripts.Servers
                     SendUDPDataToAll(packet);
                 }
             }
+        }
+
+        public static void StageObjectLocalScales(List<Vector3Holder> localScaleList)
+        {
+            SendVector3Holders(ServerPackets.StageObjectLocalScales, localScaleList);
+        }
+
+        public static void StageObjectLocalScales(int clientID, List<Vector3Holder> localScaleList)
+        {
+            SendVector3Holders(ServerPackets.StageObjectLocalScales, localScaleList, clientID);
         }
 
         public static void StageObjectSpawned<T>(int clientID, T info) where T : BaseBuildInfo

@@ -84,6 +84,17 @@ namespace BallScripts.Clients
             }
         }
 
+        public static void StageObjectLocalScales(Packet packet)
+        {
+            while (packet.UnreadLength() >= 4)
+            {
+                StageObjectCategory category = (StageObjectCategory)packet.ReadInt();
+                int id = packet.ReadInt();
+                Vector3 localScale = packet.ReadVector3();
+                StageManager.instance.GetStageObject(category, id)?.SetLocalScale(localScale);
+            }
+        }
+
         public static void StageObjectSpawned(Packet packet)
         {
             BaseBuildInfo info = Deserialize<BaseBuildInfo>(packet);

@@ -52,15 +52,14 @@ namespace BallScripts.GameLogics
         public override Player BuildInServer(Player obj, PlayerBuildInfo info)
         {
             InitPlayerRigidbody(obj.gameObject.AddComponent<Rigidbody>());
-            obj.gameObject.AddComponent<InfoSender>();
+            obj.gameObject.AddComponent<InfoSender>().sendFlags = info.sendFlags;
             obj.InitBars();
             int barOffset = 0;
             obj.barList.ForEach((Bar bar) =>
             {
                 InitBarRigidbody(bar.gameObject.AddComponent<Rigidbody>());
                 bar.gameObject.AddComponent<Servers.BarCollision>().InitCenter();
-                InfoSender sender = bar.gameObject.AddComponent<InfoSender>();
-                sender.sendLocal = true; //Bar发送local信息
+                bar.gameObject.AddComponent<InfoSender>().sendFlags = SendFlag.LocalPosition | SendFlag.LocalRotation; //Bar发送local信息
                 bar.Init(StageObjectCategory.Dynamic, info.firstBar + barOffset);
                 barOffset++;
             });

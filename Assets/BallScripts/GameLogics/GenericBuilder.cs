@@ -17,7 +17,7 @@ namespace BallScripts.GameLogics
         {
             if (info.category != StageObjectCategory.Static)
             {
-                obj.gameObject.AddComponent<InfoSender>();
+                obj.gameObject.AddComponent<InfoSender>().sendFlags = info.sendFlags;
             }
             return obj;
         }

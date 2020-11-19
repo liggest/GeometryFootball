@@ -23,7 +23,7 @@ namespace BallScripts.GameLogics
             rig.isKinematic = info.isKinematic;
             rig.collisionDetectionMode = info.collisionMode;
             rig.constraints = info.constraints;
-            obj.gameObject.AddComponent<InfoSender>();
+            obj.gameObject.AddComponent<InfoSender>().sendFlags = info.sendFlags;
             if (info.initForce != null) 
             {
                 ThreadManager.ExecuteOnMainThread(() =>

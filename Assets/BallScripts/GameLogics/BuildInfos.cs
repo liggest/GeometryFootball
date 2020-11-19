@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Runtime.Serialization.Formatters.Binary;
+using BallScripts.Servers;
 
 
 namespace BallScripts.GameLogics
@@ -16,6 +16,7 @@ namespace BallScripts.GameLogics
         public string infoType = "Base";
         public Vector3? position = null;
         public Quaternion? rotation = null;
+        public SendFlag sendFlags = SendFlag.Position | SendFlag.Rotation;
 
         public object Clone()
         {

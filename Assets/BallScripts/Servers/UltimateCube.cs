@@ -87,6 +87,7 @@ namespace BallScripts.Servers
                 angularDrag = 0f,
                 prefabName = "RoadBlock",
                 constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ,
+                sendFlags = SendFlag.Position | SendFlag.Rotation | SendFlag.LocalScale,
                 //position = InitPos,
                 //rotation = Quaternion.identity,
                 //initForce = Vector3.zero,
@@ -138,6 +139,7 @@ namespace BallScripts.Servers
         IEnumerator BlockMove(Vector3 playerPos,List<BaseStageObject> objList)
         {
             float timeUse = 0;
+            Vector3 originScale = objList[0].transform.localScale;
 
             while (timeUse < 4)
             {
@@ -151,6 +153,10 @@ namespace BallScripts.Servers
                 }
                 */
                 timeUse += Time.fixedDeltaTime;
+                for (int i = 0; i < 8; i++)
+                {
+                    objList[i].SetLocalScale(originScale + Vector3.one * timeUse / 2.0f);
+                }
                 yield return new WaitForFixedUpdate();
             }
             List<StageObjectPair> despawnObjList = new List<StageObjectPair>();

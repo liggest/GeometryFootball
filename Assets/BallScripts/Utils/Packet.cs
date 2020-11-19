@@ -19,6 +19,7 @@ namespace BallScripts.Utils
         StageObjectLocalPositions,
         StageObjectRotations,
         StageObjectLocalRotations,
+        StageObjectLocalScales,
         StageObjectInfo,
         StageObjectMethod,
         PlayerScored,

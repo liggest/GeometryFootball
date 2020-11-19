@@ -25,6 +25,7 @@ namespace BallScripts.Servers
         private static readonly List<Vector3Holder> localPositionBuffer = new List<Vector3Holder>();
         private static readonly List<QuaternionHolder> rotationBuffer = new List<QuaternionHolder>();
         private static readonly List<QuaternionHolder> localRotationBuffer = new List<QuaternionHolder>();
+        private static readonly List<Vector3Holder> localScaleBuffer = new List<Vector3Holder>();
 
         private void Awake()
         {
@@ -32,6 +33,7 @@ namespace BallScripts.Servers
             localPositionBuffer.Clear();
             rotationBuffer.Clear();
             localRotationBuffer.Clear();
+            localScaleBuffer.Clear();
         }
         private void FixedUpdate()
         {
@@ -47,23 +49,30 @@ namespace BallScripts.Servers
         }
         public static void Add(StageObjectCategory _category, int _id, Quaternion rot)
         {
-            lock (positionBuffer)
+            lock (rotationBuffer)
             {
                 rotationBuffer.Add(new QuaternionHolder { category = _category, id = _id, quat = rot });
             }
         }
         public static void AddLocal(StageObjectCategory _category, int _id, Vector3 localPos)
         {
-            lock (positionBuffer)
+            lock (localPositionBuffer)
             {
                 localPositionBuffer.Add(new Vector3Holder { category = _category, id = _id, vect = localPos });
             }
         }
         public static void AddLocal(StageObjectCategory _category, int _id, Quaternion localRot)
         {
-            lock (positionBuffer)
+            lock (localRotationBuffer)
             {
                 localRotationBuffer.Add(new QuaternionHolder { category = _category, id = _id, quat = localRot });
+            }
+        }
+        public static void AddLocalScale(StageObjectCategory _category, int _id, Vector3 localScale)
+        {
+            lock (localScaleBuffer)
+            {
+                localScaleBuffer.Add(new Vector3Holder { category = _category, id = _id, vect = localScale });
             }
         }
 
@@ -88,6 +97,7 @@ namespace BallScripts.Servers
             List<QuaternionHolder> rotList = ReleaseList(rotationBuffer);
             List<Vector3Holder> localPosList = ReleaseList(localPositionBuffer);
             List<QuaternionHolder> localRotList = ReleaseList(localRotationBuffer);
+            List<Vector3Holder> localScaleList = ReleaseList(localScaleBuffer);
             if (posList!=null)
             {
                 ServerSend.StageObjectPositions(posList);
@@ -103,6 +113,10 @@ namespace BallScripts.Servers
             if (localRotList != null)
             {
                 ServerSend.StageObjectLocalRotations(localRotList);
+            }
+            if (localScaleList != null)
+            {
+                ServerSend.StageObjectLocalScales(localScaleList);
             }
         }
     }
