@@ -20,6 +20,16 @@ namespace BallScripts.Servers
         public void InitGoal(Goal _goal)
         {
             goal = _goal;
+            GameLogics.Actions.GoalResetAction += ResetGoal;
+        }
+
+        public void ResetGoal(Goal g)
+        {
+            if (g == goal)
+            {
+                GameLogics.Actions.GoalResetAction -= ResetGoal;
+                Destroy(this);
+            }
         }
 
         protected void OnTriggerEnter(Collider other)

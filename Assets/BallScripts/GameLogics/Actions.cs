@@ -11,6 +11,8 @@ namespace BallScripts.GameLogics
         /// </summary>
         public static Action<Team, int> TeamScoredAction;
 
+        public static Action<Goal> GoalResetAction;
+
 #pragma warning restore 0649
     }
 }

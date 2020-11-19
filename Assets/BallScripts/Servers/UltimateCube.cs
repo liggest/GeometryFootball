@@ -103,6 +103,8 @@ namespace BallScripts.Servers
                 newInfo.initForceMode = ForceMode.VelocityChange;
                 newInfo.id += i;
                 BaseStageObject obj = GameManager.instance.SpawnStageObject(newInfo, BuildType.Server);
+                Player.AddPlayerPrefix(obj.gameObject, cubePlayer); //只有服务端名字会改掉，用于标识这是player的所有物
+                //obj.transform.parent = cubePlayer.transform; //不能设为player的子物体，不然player转的时候会一起转
                 //obj.transform.forward = initPosList[i].normalized;
                 objList.Add(obj);
                 ServerSend.StageObjectSpawned(newInfo);

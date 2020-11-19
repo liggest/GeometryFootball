@@ -45,10 +45,13 @@ namespace BallScripts.GameLogics
 
         public void UnbindFromTeam()
         {
-            team.Score -= Score;
+            ResetScore();
+            //team.Score -= Score;
             team = null;
             meshRenderer.material.color = initColor;
             unbindGoals.Add(name, this);
+            StageManager.instance.RemoveStageObject(category, id);
+            Actions.GoalResetAction?.Invoke(this);
         }
 
         /*

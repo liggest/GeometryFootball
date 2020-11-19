@@ -19,6 +19,10 @@ namespace BallScripts.GameLogics
             {
                 target = collision.transform.parent;
             }
+            else if (Player.TryGetPlayerByPrefix(collision.gameObject.name,out Player player)) //Player所属物
+            {
+                lastPlayer = player;
+            }
             else if (collision.collider.CompareTag("Bar")) //Bar
             {
                 target = collision.transform.parent.parent;

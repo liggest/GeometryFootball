@@ -45,7 +45,7 @@ namespace BallScripts.Servers
                 Goal goal = TeamManager.instance.DistributeOneGoal();
                 GoalBuildInfo goalInfo = new GoalBuildInfo
                 {
-                    id = StageManager.instance.GetMaxID(StageObjectCategory.Goal) + 1,
+                    id = goal.id > 0 ? goal.id : StageManager.instance.GetMaxID(StageObjectCategory.Goal) + 1,
                     teamID = team.id,
                     goalName = goal.name,
                     score = 0

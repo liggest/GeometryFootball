@@ -114,6 +114,31 @@ namespace BallScripts.GameLogics
             return (playerPos, playerRot);
         }
 
+        public static void AddPlayerPrefix(GameObject obj,Player player)
+        {
+            string prefix = $"[[{player.id}]]";
+            obj.name = prefix + obj.name;
+        }
+
+        public static bool TryGetPlayerByPrefix(string nameWithPrefix, out Player player)
+        {
+            if (!nameWithPrefix.StartsWith("[["))
+            {
+                player = null;
+                return false;
+            }
+            string idstr = nameWithPrefix.Substring(2, nameWithPrefix.IndexOf(']') - 2);
+            if(int.TryParse(idstr,out int id))
+            {
+                player = StageManager.instance.GetStageObject(StageObjectCategory.Player, id) as Player;
+                return player;
+            }
+            player = null;
+            return false;
+
+
+        }
+
         public override void ResetLocationInfo()
         {
             base.ResetLocationInfo();
