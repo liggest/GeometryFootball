@@ -1,0 +1,109 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{ctex}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+
+% \title{文章标题}
+
+% \author{
+% \IEEEauthorblockN{张三}
+% \and
+% \IEEEauthorblockN{李四}
+% }
+
+% \maketitle
+
+\input{title.tex}
+
+\begin{abstract}
+论文摘要是对文章内容不加诠释和评论的简单陈述。一般控制在 200 字左右，建议在论文全部完成后再动手写摘要。
+\end{abstract}
+
+
+\section{引言}
+引言小节主要负责写清楚以下问题：
+\begin{enumerate}
+\item 本文要解决什么问题
+\item 这个问题为什么需要解决
+\item 其他人是如何解决这个问题的，有何不足
+\item 简单说一下本文解决问题的思路
+\end{enumerate}
+
+\section{相关工作}
+相关工作小节主要写和本文主题密切相关的技术/知识点，方便第三节的阐述。
+
+比如本文需要做一个图像识别算法，那本节可以介绍常见的图像识别算法；或者本文主要基于方法 A 进行改进，本节可以对方法 A 进行介绍。
+
+\subsection{子小节}
+
+一般从第二节开始，会出现子小节，请按照逻辑合理组织论文。
+
+\section{论文的主要工作}
+本节的标题需要自拟。
+
+本节需要详细介绍本文提出/设计的方法。
+
+公式示例：
+\begin{equation}
+a+b=\gamma\label{eq:demo}
+\end{equation}
+式~(\ref{eq:demo})是一个演示用的公式。
+
+表格示例。
+\begin{table}[htbp]
+\caption{表格}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
+\cline{2-4} 
+\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+\hline
+copy& More table copy$^{\mathrm{a}}$& &  \\
+\hline
+\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
+\end{tabular}
+\label{tbl:test}
+\end{center}
+\end{table}
+表格的代码可以实现在 http://www.tablesgenerator.com/ 上设计好，然后复制过来。表格~\ref{tbl:test}是一个示例。
+
+图片的示例：
+\begin{figure}[htbp]
+\centerline{\includegraphics{images/fig1.png}}
+\caption{Example of a figure caption.}
+\label{fig:figure1}
+\end{figure}
+图~\ref{fig:figure1}是一个点。在表格和图中使用 label 可以指定标签，便于后续使用 ref 命令引用。
+
+参考文献\cite{IEEEexample:softonline,IEEEexample:tamethebeast,IEEEexample:standard}需要先将参考文献的信息写入一个 bib 文件，然后在最后一小节中使用 bibliography 命令指定 bib 文件\cite{IEEEexample:urlsty}，具体参见tex源文件。
+
+正文中通过使用 cite 命令引用参考文献。
+
+
+\section{实验结果}
+本节题目可以自拟。
+
+主要负责成果展示。
+
+
+\section{结论}
+对整个工作做一个总结，得出结论，并展望未来。
+
+
+\section*{References}
+
+\bibliography{IEEEexample}  
+\bibliographystyle{IEEEtran}
+
+\end{document}
