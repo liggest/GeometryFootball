@@ -24,6 +24,7 @@ public class PPController : Singleton<PPController>
 
     private void Update()
     {
+        //调试用代码
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    ChromaticFadeIn();

@@ -110,6 +110,8 @@ Post Processing是一个后期效果增强组件，可以在较少的时间内�
 
 客户端只负责记录玩家的输入信息，即玩家都按下了哪些键，玩家的鼠标位置，而不会进行处理，这些数据都会在发往服务端后由服务端统一处理，很好的杜绝了玩家在本地修改内存而进行作弊的可能性。
 
+相机追踪
+
 \subsubsection{能量棒}
 \subsubsection{蓄力}
 \subsubsection{必杀技}
@@ -209,12 +211,24 @@ copy& More table copy$^{\mathrm{a}}$& &  \\
 
 正文中通过使用 cite 命令引用参考文献。
 
-
+\newpage
 \section{实验结果(飞)}
-本节题目可以自拟。
 
-主要负责成果展示。
+\begin{figure}[htbp]
+  \centerline{\includegraphics[width=.46\textwidth]{images/result1.png}}
+  \caption{在本地开启一个服务端和四个客户端}
+  \label{fig:result1}
+\end{figure}
+  根据图~\ref{fig:result1}，每个客户端在加入游戏中都会按照规则分配给相应的队伍。
 
+  \begin{figure}[htbp]
+    \centerline{\includegraphics[width=.32\textwidth]{images/result2.png}}
+    \caption{动作展示}
+    \label{fig:result2}
+  \end{figure}
+  图~\ref{fig:result2}分别展示了：旋转能量棒、蓄力、蓄力完成、释放必杀技。
+
+  在实际测试中，即使客户端和服务端的机器在两个间隔较远的房间，也可以通过校园网分配的IP地址正常进行游戏，甚至还可以借助游侠对战平台等软件构造出的虚拟局域网来进行互联网范围的联机游戏，延迟和帧数都在可接受范围内。
 
 \section{结论}
 对整个工作做一个总结，得出结论，并展望未来。
