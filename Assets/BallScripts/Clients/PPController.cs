@@ -24,10 +24,10 @@ public class PPController : Singleton<PPController>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChromaticFadeIn();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    ChromaticFadeIn();
+        //}
 
         if (isFadingOut)
         {

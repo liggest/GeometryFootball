@@ -52,7 +52,7 @@ Unity是一个跨平台的游戏引擎，可用于创建三维、二维、VR、A
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=.22\textwidth]{images/Socket通信的基本流程.jpg}}
     \caption{Socket通信的基本流程}
-    \label{fig:figure1}
+    \label{fig:socket}
 \end{figure}
 
 
@@ -95,6 +95,7 @@ Post Processing是一个后期效果增强组件，可以在较少的时间内�
 
 \subsubsection{收发包}
 
+
 \subsection{场景物体}
 \subsubsection{资源管理}
 \subsubsection{创建}
@@ -121,7 +122,23 @@ Post Processing是一个后期效果增强组件，可以在较少的时间内�
 当前游戏中的UI并不多，而且也几乎没有需要用到统一管理的操作，所以我们没有编写全局的UI Manager，而是两个场景各有一个专门管理UI的脚本。在连接到服务器之前，玩家需要输入一个自己的用户名，这个名字会在后面的游戏场地上以TextMesh的形式作为玩家的子物体存在，跟随玩家。其中涉及到的变量名跨场景传递是由GameManager实现的。
 
 \subsubsection{小地图}
+小地图是由一个专门的小地图摄像机和材质实现的，让摄像机把拍摄到的东西渲染到材质上，再将材质赋给Raw Image，即可在Canvas上显示小地图。为了让玩家能够清晰地从小地图中获得足球位置，我们还给小地图摄像机添加了一个边缘检测的shader，做出类似描边的效果。
+
+\begin{figure}[htbp]
+  \centerline{\includegraphics[width=.38\textwidth]{images/mini-map.png}}
+  \caption{小地图}
+  \label{fig:minimap}
+\end{figure}
+
 \subsubsection{后期处理}
+我们用Unity的PostProcessing插件为游戏添加了丰富的后期处理效果，其中有增强画面美观度的暗角，增强画面表现力的辉光，增加画面真实感的动态模糊和增加用户反馈的色彩分离。色彩分离效果的强度是由代码控制的，这样我们会在能量棒发生碰撞时调用相关函数，一旦碰撞，整个画面都会出现色彩分离。
+
+\begin{figure}[htbp]
+  \centerline{\includegraphics[width=.38\textwidth]{images/pp.png}}
+  \caption{后期处理效果}
+  \label{fig:pp}
+\end{figure}
+
 \subsubsection{shader（天）}
 
 
