@@ -6,6 +6,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
+\usepackage{subfigure} %子图
 \usepackage{textcomp}
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -53,7 +54,26 @@
 \section{实践过程}
 
 \subsection{Socket通信与数据包}
+本次实践使用Socket技术完成服务端（Server）与客户端（Client）间的网络通信。因为游戏基于Unity，故底层使用了.Net框架System.Net（特别是System.Net.Socket）命名空间下的内容。与Socket通信相关的程序架构，借鉴了网络教程\cite{myCite:Tom}，并在其基础上加以改进，使之更能满足开发和游戏运行时的需求。
+
+为了方便复用代码逻辑及Unity资源，本次实践中将服务端与客户端置于同一项目，共享部分资源（例如一些游戏场景、Prefab、代码逻辑等）。最终构建出的程序可由用户手动选择充当服务端或客户端。
+
+\begin{figure}[h!]  
+	\setlength{\abovecaptionskip}{.2cm}   %调整图片标题与图距离
+	\setlength{\belowcaptionskip}{0cm}   %调整图片标题与下文距离
+    \centering  %图片对齐方式
+    \subfigure[成为客户端] {
+		\includegraphics[width=0.45\textwidth]{images/beClient.png} 
+    }
+    \subfigure[成为服务端] {
+		\includegraphics[width=0.45\textwidth]{images/beServer.png} 
+    }
+    \caption{选择成为客户端或服务端}
+    \label{fig:beCS}
+\end{figure}
+
 \subsubsection{连接}
+本项目在服务端同客户端通信的过程中，同时用到了TCP与UDP两种传输协议。服务端开启后，会监听其端口上的TCP连接请求和UDP报文；客户端向指定套接字连接的过程中，会先尝试同服务端建立TCP连接，通过TCP连接简单交换信息后再向服务端发送UPD报文
 \subsubsection{收发包}
 
 \subsection{场景物体}
@@ -160,7 +180,7 @@ copy& More table copy$^{\mathrm{a}}$& &  \\
 
 % \section*{References}
 
-\bibliography{myCite}  
+\bibliography{myCite}
 \bibliographystyle{IEEEtran}
 
 \end{document}
