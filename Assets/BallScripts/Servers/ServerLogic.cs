@@ -77,8 +77,9 @@ namespace BallScripts.Servers
             if (obj)
             {
                 Player player = (Player)obj;
+                int score = player.Score;
                 TeamManager.instance.RemoveFromTeam(player);
-                ServerSend.TeamLeft(playerID);
+                ServerSend.TeamLeft(playerID, score);
                 List<StageObjectPair> bars = new List<StageObjectPair>();
                 player.barList.ForEach((Bar bar) =>
                 {

@@ -41,6 +41,7 @@ namespace BallScripts.GameLogics{
 
         public void RemoveFromTeam(Player player)
         {
+            player.ResetScore();
             Team team = player.team;
             Debug.Log($"Player{player.id} 退出了 {team.ToString()}");
             player.team = null;
@@ -53,12 +54,16 @@ namespace BallScripts.GameLogics{
             }
         }
 
-        public void RemoveFromTeam(int playerID)
+        public void RemoveFromTeam(int playerID, int playerScore = -1)
         {
             BaseStageObject obj = StageManager.instance.GetStageObject(StageObjectCategory.Player, playerID);
             if (obj) 
             {
                 Player player = obj as Player;
+                if (playerScore > 0)
+                {
+                    player.Score = playerScore;
+                }
                 RemoveFromTeam(player);
             }
         }

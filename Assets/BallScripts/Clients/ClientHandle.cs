@@ -174,7 +174,8 @@ namespace BallScripts.Clients
         public static void TeamLeft(Packet packet)
         {
             int playerID = packet.ReadInt();
-            TeamManager.instance.RemoveFromTeam(playerID);
+            int playerScore = packet.ReadInt();
+            TeamManager.instance.RemoveFromTeam(playerID, playerScore);
         }
 
         /*

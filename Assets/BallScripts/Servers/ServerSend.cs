@@ -258,11 +258,12 @@ namespace BallScripts.Servers
             }
         }
 
-        public static void TeamLeft(int playerID)
+        public static void TeamLeft(int playerID, int playerScore)
         {
             using (Packet packet = new Packet((int)ServerPackets.TeamLeft))
             {
                 packet.Write(playerID);
+                packet.Write(playerScore);
                 SendTCPDataToAll(packet);
             }
         }
