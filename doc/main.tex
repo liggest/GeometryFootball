@@ -98,6 +98,11 @@ Post Processing是一个后期效果增强组件，可以在较少的时间内�
 
 \subsection{玩家角色}
 \subsubsection{移动}
+和大部分俯视游戏不同，游戏角色的移动并非是依据屏幕坐标的，而是为了做到灵活的 $360^\circ$旋转，由前进/后退与旋转两部分组成，键盘上的W/S键用来控制前进后退，鼠标则控制旋转，角度通过屏幕上角色坐标与鼠标坐标所成角度计算。
+
+客户端只负责记录玩家的输入信息，即玩家都按下了哪些键，玩家的鼠标位置，而不会进行处理，这些数据都会在发往服务端后由服务端统一处理，很好的杜绝了玩家在本地修改内存而进行作弊的可能性。
+
+\subsubsection{能量棒}
 \subsubsection{蓄力}
 \subsubsection{必杀技}
 \subsubsection{动画}
@@ -106,6 +111,8 @@ Post Processing是一个后期效果增强组件，可以在较少的时间内�
 
 \subsection{游戏效果}
 \subsubsection{玩家名字}
+当前游戏中的UI并不多，而且也几乎没有需要用到统一管理的操作，所以我们没有编写全局的UI Manager，而是两个场景各有一个专门管理UI的脚本。在连接到服务器之前，玩家需要输入一个自己的用户名，这个名字会在后面的游戏场地上以TextMesh的形式作为玩家的子物体存在，跟随玩家。其中涉及到的变量名跨场景传递是由GameManager实现的。
+
 \subsubsection{小地图}
 \subsubsection{后期处理}
 \subsubsection{shader（天）}
