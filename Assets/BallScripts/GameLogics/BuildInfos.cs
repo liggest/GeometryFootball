@@ -8,7 +8,7 @@ using BallScripts.Servers;
 namespace BallScripts.GameLogics
 {
     [Serializable]
-    public class BaseBuildInfo: ICloneable
+    public class BaseBuildInfo : ICloneable
     {
         public StageObjectCategory category = StageObjectCategory.Other;
         public int id = -1;
@@ -25,7 +25,7 @@ namespace BallScripts.GameLogics
     }
 
     [Serializable]
-    public class RigidBuildInfo:BaseBuildInfo
+    public class RigidBuildInfo : BaseBuildInfo
     {
         public RigidBuildInfo()
         {

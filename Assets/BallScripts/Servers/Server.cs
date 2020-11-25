@@ -178,6 +178,7 @@ namespace BallScripts.Servers
             udpListener.Close();
             udpListener = null;
             clients.Clear();
+            onlineClients.Clear();
             state = ServerState.Offline;
         }
 

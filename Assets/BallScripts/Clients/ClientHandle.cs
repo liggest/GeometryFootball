@@ -35,8 +35,7 @@ namespace BallScripts.Clients
         public static void SceneLoadingStarted(Packet packet)
         {
             string sceneName = packet.ReadString();
-            Actions.DisconnectedAction = null;
-            Actions.DisconnectedAction += ClientLogic.ClientDisconnection;
+            Actions.DisconnectedAction = ClientLogic.ClientDisconnection;
             ClientLogic.BeginSceneLoading(sceneName);
         }
 

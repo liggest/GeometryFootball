@@ -79,6 +79,10 @@ namespace BallScripts.Servers
         private void OnApplicationQuit()
         {
             Server.Stop();
+            Actions.ClientTCPConnectedAction = null;
+            Actions.ClientUDPConnectedAction = null;
+            Actions.ClientDisconnectedAction = null;
+            Actions.PlayerCountUpatedAction = null;
         }
 
 

@@ -12,6 +12,7 @@ namespace BallScripts.Clients
         public ParticleSystem chargeParticle;
         public bool particleInited = false;
         public bool isPlay = false;
+        public bool isInEmission = false;
         float lastPower = 0;
 
         void Update()
@@ -35,7 +36,7 @@ namespace BallScripts.Clients
                     player.barList[0].SetProgress(player.Power / player.maxPower);
                 }
 
-                if (player.Power == 0)
+                if (isInEmission  && !player.IsMaxPower)
                 {
                     //foreach (Bar bar in player.barList)
                     //{
@@ -43,7 +44,8 @@ namespace BallScripts.Clients
                     //    bar.SetProgress(0f);
                     //}
                     player.barList[0].SetEmission(false);
-                    player.barList[0].SetProgress(0f);
+                    isInEmission = false;
+                    //player.barList[0].SetProgress(0f);
                 }
                 if (player.IsMaxPower)
                 {
@@ -52,6 +54,7 @@ namespace BallScripts.Clients
                     //    bar.SetEmission(true);
                     //}
                     player.barList[0].SetEmission(true);
+                    isInEmission = true;
                 }
 
                 lastPower = player.Power;
