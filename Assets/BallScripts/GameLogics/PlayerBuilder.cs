@@ -15,7 +15,7 @@ namespace BallScripts.GameLogics
             if (info.id == Clients.Client.instance.myID)
             {
                 obj.gameObject.AddComponent<InputSender>();
-                Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;  
+                //Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;  //为了自由摄像机，不要跟踪了
             }
             obj.InitBars();
             int barOffset = 0;

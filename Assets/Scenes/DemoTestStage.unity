@@ -1461,12 +1461,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 2
+--- !u!114 &1613113998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4674068913897570243, guid: e13543ef6a73ebd4db857f35e4848e7f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4674068913851058083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613113994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b26c05e6cb9dd4b8fa3ef8fb34769c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1613114000 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4674068913897570302, guid: e13543ef6a73ebd4db857f35e4848e7f,
     type: 3}
   m_PrefabInstance: {fileID: 4674068913851058083}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1613114001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613113994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634e91eeb028be046822959daf8aa1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1613113998}
+  chargeParticle: {fileID: 942601324}
+  particleInited: 0
+  isPlay: 0
+  isInEmission: 0
 --- !u!1 &1937577172
 GameObject:
   m_ObjectHideFlags: 0
