@@ -45,6 +45,7 @@ namespace BallScripts.Clients
                     //}
                     player.barList[0].SetEmission(false);
                     isInEmission = false;
+                    player.barList[0].SetProgress(player.Power / player.maxPower);
                     //player.barList[0].SetProgress(0f);
                 }
                 if (player.IsMaxPower)
