@@ -55,17 +55,17 @@ namespace BallScripts.Clients
                 inputBuffer.Add(new InputHolder { key = InputType.ultimate, value = 0 }); //value不会提交，服务端那边value会设为1
             }
             
-            //鼠标部分
-            Vector3 v3 = Camera.main.WorldToScreenPoint(transform.position);
-            Vector3 mousePos = Input.mousePosition;
-            if (mousePos != lastMousePos)
-            {
-                lastMousePos = mousePos;
-                mousePos.z = v3.z;
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-                inputBuffer.Add(new InputHolder { key = InputType.mouseX, value = (worldPos.x - transform.localPosition.x) * 0.1f });
-                inputBuffer.Add(new InputHolder { key = InputType.mouseY, value = (worldPos.z - transform.localPosition.z) * 0.1f });
-            }
+            ////鼠标部分
+            //Vector3 v3 = Camera.main.WorldToScreenPoint(transform.position);
+            //Vector3 mousePos = Input.mousePosition;
+            //if (mousePos != lastMousePos)
+            //{
+            //    lastMousePos = mousePos;
+            //    mousePos.z = v3.z;
+            //    Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            //    inputBuffer.Add(new InputHolder { key = InputType.mouseX, value = (worldPos.x - transform.localPosition.x) * 0.1f });
+            //    inputBuffer.Add(new InputHolder { key = InputType.mouseY, value = (worldPos.z - transform.localPosition.z) * 0.1f });
+            //}
             
             //最后发包
             if (inputBuffer.Count > 0)
