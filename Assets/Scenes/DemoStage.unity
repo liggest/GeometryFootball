@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e190d6d02cce03c4382cd92bbc5f5581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move_speed: 50
-  mouseMoveSpeed: 5
+  move_speed: 3
+  mouseMoveSpeed: 2
   riseSpeed: 1
   isAutoRotate: 0
   centerObj: {fileID: 26180461}
