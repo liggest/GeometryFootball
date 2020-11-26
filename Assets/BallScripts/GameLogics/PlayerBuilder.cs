@@ -16,6 +16,13 @@ namespace BallScripts.GameLogics
             {
                 obj.gameObject.AddComponent<InputSender>();
                 //Camera.main.gameObject.AddComponent<CameraTrack>().trackPlayer = obj.transform;  //为了自由摄像机，不要跟踪了
+                Camera.main.fieldOfView = 50;
+                Transform cameraT = Camera.main.transform;
+                cameraT.rotation = obj.transform.rotation;
+                cameraT.forward = obj.transform.forward;
+                cameraT.parent = obj.transform;
+                cameraT.localPosition = new Vector3(0, 0, -0.04f);
+                obj.myName.gameObject.SetActive(false);
             }
             obj.InitBars();
             int barOffset = 0;
